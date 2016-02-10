@@ -33,20 +33,43 @@ Please note: In our current set-up, your shell program will sit above the curren
 **Questions (for pondering and answering)**
 
 ##### Is your problem a class or a module? What is the difference?
+
+Our problem is a module. Modules do not neet to be instantiated and are about functions while classes need to be instantiated and are about providing objects. [Reference](http://stackoverflow.com/questions/151505/difference-between-a-class-and-a-module)
   
 ##### What shell(s) are you using to provide a specification? What features do they support?
   
+We are using the C Shell to provide a specification. Some features include history and editing, aliases, directory stacks, tilde notation, cdpath, job control and path hashing.
+  
 ##### In your opinion, which features are essential (should include in your design) and which are “window dressing” (should not include in your design)?
+
+We believe that directory functions like ls and cd will be required functions for navigating and selecting files to monitor using the File Watcher. Tilde notation, aliases , history and editing are not needed for the completion of the shell.
   
 ##### Economics: Which, if any, essential features will be omitted from your design due to unmanageable effort requirements?
+
+Most likely the directory stack, job control and path hashing wil be omitted from the shell. Despite how useful they will be for a file watcher, they are not essential for its completion.
   
 ##### Error handling? What percentage of code handles functional against potential pitfalls:
-    **In the average commercial program? In your shell program?**:
-    **If they are radically different, please provide a rationale**:
+
+    **In the average commercial program? In your shell program?**: 20% of code in the average commercial program handles error handling and about 10% of our code will handle error handling.
+    
+    **If they are radically different, please provide a rationale**: Most likely our shell will not be performing a lot of error handling. Most testing will be completed on the front end to test for correct inputs using ruby's contracts.
   
 ##### Robustness? How do we make the system bullet-proof? Is Avoiding Core dumps of system shells important? Especially from a Security viewpoint, remember this dump will give access to underlying C system code and potentially Linux daemons?
+
+We can make the system robust by validating unputs and commands. We can stop core dumps by ensuring that there are correct inputs and files, and that links to the files have been closed.
   
 ##### Describe the Ruby exception hierarchy, which classes of exceptions are applicable to this problem?
+  
+[Reference](http://makandracards.com/makandra/4851-ruby-exception-class-hierarchy) Ruby's exception heirarchy is as follows: 
+
+1) NoMemoryError
+2) ScrpitError
+3) SignalException
+4) StandardError
+5) SystemExit
+6) fatal
+
+Standard error will be applicatble in order to handle IO exceptions. NoMemoryError will be needed due to the theoreticaly low amount of memory that our system will be having. SignalException will be used to ensure that interupts from the child processes are handled correctly. SystemExit will be taken into consideration in order to clean up processes if the shell is closed unexpectedly. 
   
 ##### What is Module Errno? Is it applicable to the problem? Explain your answer! Remember Ruby often wraps C code.
   
