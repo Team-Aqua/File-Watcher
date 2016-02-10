@@ -21,6 +21,15 @@ Hint: a 'rough' algorithm:
 
 Please note: In our current set-up, your shell program will sit above the current Linux shell. However, you are to assume, okay pretend, that Linux shell does not exist! That is make decisions, and deploy coding strategies appropriate for your shell being the only shell program!
 
+**Modules to Add** 
+
+  * ls
+  * cd 
+  * change permissions of a file
+  * add / edit / delete file
+  * find file in folder?
+  * call linux shell
+
 **Questions (for pondering and answering)**
 
   * Is your problem a class or a module? What is the difference?
@@ -50,17 +59,74 @@ The control of time in many real-time systems is very important. Further, many r
 Your program should wait for the specified amount of time and then print out the specified message. Meanwhile control of the shell should be returned to the user, i.e. the program must be non-blocking. Finally, your program should minimize the number of processes it creates, if any, as the memory capacity on the target system is expected to be very low.
 
 **Questions (for pondering and answering)**
+##### A class or a module?
+Likely, the implementation of this design would be completed through a series of modules, each holding the specific functions required. More specifically, the 2nd module would be housed within a module, and would be called by the main script by the child process.
 
-  * A class or a module?
-  * Error handling? Robustness? Security? Are any of these required?
-  * What components of the Ruby exception hierarchy are applicable to this problem? Illustrate your answer.
-  * Is Module Errno useful in this problem? Illustrate your answer.
-  * Describe the article at: [http://today.java.net/pub/a/today/2006/04/06/exception-handlingantipatterns.html](http://today.java.net/pub/a/today/2006/04/06/exception-handlingantipatterns.html). 
-    * Convince the marker that these Anti-patterns don’t exist in your solution. 
-    * Do they exist in your Shell solution?
-  * How can I make the timing accurate? What time resolution should I be looking at, remember real-time systems? Time formats?
-  * Does ‘C’ have better facilities for this problem than Ruby? (Big hint!)
-  * What should be user controllable? Can we trust the user?
+##### Error handling? Robustness? Security? Are any of these required?
+The inputs would be sanitised beforehand by the Ruby script before being processed. This removes the possibility of 'tarnished' inputs prior to processing. Once the system is in module 2's exclusive code, the system follows the following parameters:
+
+**Error Handling**: the system would protect against external interrupts/kill signals, which would terminate the program, as well as the child. Additionally, if the second module encounters an issue on its own (for example, if the system encounters a segmentation fault before the process is complete) the module must appropriately handle the situation.
+
+**Robustness**: the system has to be robust enough to work despite adverse conditions. This means that the program would continue to work despite a segmentation fault raised outside of the process.
+
+**Security**: the system needs to be isolated, strictly within the child process. As a result, the system can protect the child process from external control, and thus would result in a secure system.
+
+These aspects are required, especially for a command line interface application. As users expect a level of quality with the innermost processes (aspects obtained by having a secure, robust system), developers need to build applications with respect to these key qualities at all times.
+
+##### What components of the Ruby exception hierarchy are applicable to this problem? Illustrate your answer.
+Reference: 
+
+* http://blog.nicksieger.com/articles/2006/09/06/rubys-exception-hierarchy/
+* http://ruby-doc.org/core-2.1.1/Exception.html
+
+The following components are applicable to this problem:
+
+1. http://ruby-doc.org/core-2.1.1/ArgumentError.html
+  * ArgumentErrors occur if an incorrect argument is passed. We can use to clean inputs.
+2. http://ruby-doc.org/core-2.1.1/RuntimeError.html
+  * Generic class used if the system encounters a runtime error.
+3. http://ruby-doc.org/core-2.1.1/TypeError.html
+  * TypeError when the system is passed a bad input (eg. RelayMessage "Two" "Hello World", where proper input is RelayMessage 2 "Hello World")
+
+##### Is Module Errno useful in this problem? Illustrate your answer.
+Reference:
+
+* http://ruby-doc.org/core-2.1.1/Errno.html
+* http://blog.honeybadger.io/understanding-rubys-strange-errno-exceptions/ 
+
+Errno could potentially be useful to identify system errors - but more so for other modules. Important errno to take account of are:
+
+1. EACCES  Permission denied; the file permissions do not allow the attempted operation.
+  * Didn't have permission to call the function.
+2. EINVAL Invalid argument. This is used to indicate various kinds of problems with passing the wrong argument to a library function.
+  * Invalid argument passed; likely caught by ruby function before processing.
+
+##### Describe the article at: 
+[http://today.java.net/pub/a/today/2006/04/06/exception-handlingantipatterns.html](http://today.java.net/pub/a/today/2006/04/06/exception-handlingantipatterns.html). 
+Reference: 
+
+* https://community.oracle.com/docs/DOC-983543https://community.oracle.com/docs/DOC-983543
+
+Used to identify exception handling, as well as custom exceptions. More specifically, the article focuses on antipatterns, which discuss 'bad' patterns for exceptions to have.
+
+##### Convince the marker that these Anti-patterns don’t exist in your solution. 
+>> to be completed in finalised copy.
+
+##### Do they exist in your Shell solution?
+>> to be completed in finalised copy
+
+##### How can I make the timing accurate? What time resolution should I be looking at, remember real-time systems? Time formats?
+Generally, system time is considered accurate enough. For example, sleep(x) is considered accurate.
+
+Reference:
+
+* http://pubs.opengroup.org/onlinepubs/009695399/functions/sleep.html
+
+##### Does ‘C’ have better facilities for this problem than Ruby? (Big hint!)
+Yes, C has better facilities for this problem. We plan on using one of those key facilities (sleep) to accurately time our processes.
+
+##### What should be user controllable? Can we trust the user?
+The values that should be user controllable are: evoking the function, setting the message, and setting the time duration. Because we properly sanitize the input, we can trust the user with manipulating the message, as well as setting the time duration. Of course, various gates are used in order to ensure that the user cannot 'break' the system - this includes adding a limit to both message size and duration, as well as preventing any 'bad' input from going through. However, because this module is naturally unintrusive, most functionality can be trusted to the user.
 
 ##### Module the 3rd 
 An important task in any system is to keep track of all files in existence at any point in time. In addition, many security systems monitor change information in the file system to help detect erroneous alteration.
