@@ -3,7 +3,7 @@
 #### Due: Wednesday Feb 10th 
 
   * Aaron: Answer Questions Module 1 []
-  * Anson: Answer Questions Module 2 []
+  * Anson: Answer Questions Module 2 [FIRST DRAFT COMPLETED]
   * Quentin: Answer Questions Module 3 []
 
   * Aaron: Look over contribute/critique ALL Questions []
