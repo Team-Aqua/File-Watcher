@@ -1,17 +1,41 @@
-##### Module 1
-  * Do it
+# Todo
 
-##### Module 2
-  * Do it
+#### Due: Wednesday Feb 10th 
 
-##### Module 3
-  * Do it
+  * Aaron: Answer Questions Module 1 []
+  * Anson: Answer Questions Module 2 []
+  * Quentin: Answer Questions Module 3 []
 
-## Other
-  * item1
-  * item2
+  * Aaron: Look over contribute/critique ALL Questions []
+  * Anson: Look over contribute/critique ALL Questions []
+  * Quentin: Look over contribute/critique ALL Questions []
 
+#### Due: Friday Feb 12th
+  * Specs
+    * Questions Answered []
+    * Find Examples of Shells / Which CMD's Need to be implemented []
+    * Write a Few User Stories []
+    * Use Cases []
 
-## FUNCTIONS TO ADD:
-  * item1
-  * item2
+#### Due: Late Saturday Feb 13th 
+  * Design []
+    * Expand Off Diagram (One Made in Meeting) []
+    * Skeletal []
+    * UML Class Diagram []
+
+    * Aaron: Look over contribute/critique Skeletal and Architecture Design Decisions []
+    * Anson: Look over contribute/critique Skeletal and Architecture Design Decisions []
+    * Quentin: Look over contribute/critique Skeletal and Architecture Design Decisions []
+
+#### Due: Tuesday Feb 16th
+  * Contracts
+
+#### Due: Thursday Feb 18th
+  * Module 1 Basics
+
+#### Due: Friday Feb 19th
+  * Module 2
+
+#### Due: Thursday Feb 20th
+  * Module 3 / Module 1 Complete
+
