@@ -32,33 +32,33 @@ Please note: In our current set-up, your shell program will sit above the curren
 
 **Questions (for pondering and answering)**
 
-  ##### Is your problem a class or a module? What is the difference?
+##### Is your problem a class or a module? What is the difference?
   
-  ##### What shell(s) are you using to provide a specification? What features do they support?
+##### What shell(s) are you using to provide a specification? What features do they support?
   
-  ##### In your opinion, which features are essential (should include in your design) and which are “window dressing” (should not include in your design)?
+##### In your opinion, which features are essential (should include in your design) and which are “window dressing” (should not include in your design)?
   
-  ##### Economics: Which, if any, essential features will be omitted from your design due to unmanageable effort requirements?
+##### Economics: Which, if any, essential features will be omitted from your design due to unmanageable effort requirements?
   
-  ##### Error handling? What percentage of code handles functional against potential pitfalls:
+##### Error handling? What percentage of code handles functional against potential pitfalls:
     **In the average commercial program? In your shell program?**:
     **If they are radically different, please provide a rationale**:
   
-  ##### Robustness? How do we make the system bullet-proof? Is Avoiding Core dumps of system shells important? Especially from a Security viewpoint, remember this dump will give access to underlying C system code and potentially Linux daemons?
+##### Robustness? How do we make the system bullet-proof? Is Avoiding Core dumps of system shells important? Especially from a Security viewpoint, remember this dump will give access to underlying C system code and potentially Linux daemons?
   
-  ##### Describe the Ruby exception hierarchy, which classes of exceptions are applicable to this problem?
+##### Describe the Ruby exception hierarchy, which classes of exceptions are applicable to this problem?
   
-  ##### What is Module Errno? Is it applicable to the problem? Explain your answer! Remember Ruby often wraps C code.
+##### What is Module Errno? Is it applicable to the problem? Explain your answer! Remember Ruby often wraps C code.
   
-  ##### Security? How will we protect the system from tainted objects? Can we trust the user?
+##### Security? How will we protect the system from tainted objects? Can we trust the user?
   
-  ##### Is sand boxing applicable to this problem? Is it feasible to write security contracts?
+##### Is sand boxing applicable to this problem? Is it feasible to write security contracts?
   
-  ##### Should we be using class GetoptLong? Or Regexp? Or shell? Or ...
+##### Should we be using class GetoptLong? Or Regexp? Or shell? Or ...
   
-  ##### What environment does a shell run within? Current Directory? Or ...
+##### What environment does a shell run within? Current Directory? Or ...
   
-  ##### What features should be user controllable? Prompts? Input and Output channels? Or ...
+##### What features should be user controllable? Prompts? Input and Output channels? Or ...
 
 ##### Module the 2nd
 The control of time in many real-time systems is very important. Further, many real-time systems run on processors with limited capabilities and capacity. Processes must know how to wait, not only for an event, but also for a certain time period.
