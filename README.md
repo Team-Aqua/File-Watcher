@@ -87,9 +87,9 @@ Sandboxing should not be needed to run untrusted code because it has either been
   
 ##### Should we be using class GetoptLong? Or Regexp? Or shell? Or ...
   
-[GetoptLong](http://ruby-doc.org/stdlib-1.9.3/libdoc/getoptlong/rdoc/GetoptLong.html): parse conmmand line option. It is a pure ruby implementation.
-[Regexp](http://ruby-doc.org/core-2.1.1/Regexp.html): Used to match patterns against a string.
-[Shell](http://ruby-doc.org/stdlib-2.0.0/libdoc/shell/rdoc/Shell.html): Implements an idiomatic interface for common UNIX shell commands.
+    [GetoptLong](http://ruby-doc.org/stdlib-1.9.3/libdoc/getoptlong/rdoc/GetoptLong.html): parse conmmand line option. It is a pure ruby implementation.
+    [Regexp](http://ruby-doc.org/core-2.1.1/Regexp.html): Used to match patterns against a string.
+    [Shell](http://ruby-doc.org/stdlib-2.0.0/libdoc/shell/rdoc/Shell.html): Implements an idiomatic interface for common UNIX shell commands.
 
 Use Regexp since some of the command line options will be custom made.
 
