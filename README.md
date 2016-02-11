@@ -62,26 +62,44 @@ We can make the system robust by validating unputs and commands. We can stop cor
   
 [Reference](http://makandracards.com/makandra/4851-ruby-exception-class-hierarchy) Ruby's exception heirarchy is as follows: 
 
-1) NoMemoryError
-2) ScrpitError
-3) SignalException
-4) StandardError
-5) SystemExit
-6) fatal
+    1) NoMemoryError
+    2) ScrpitError
+    3) SignalException
+    4) StandardError
+    5) SystemExit
+    6) fatal
 
 Standard error will be applicatble in order to handle IO exceptions. NoMemoryError will be needed due to the theoreticaly low amount of memory that our system will be having. SignalException will be used to ensure that interupts from the child processes are handled correctly. SystemExit will be taken into consideration in order to clean up processes if the shell is closed unexpectedly. 
   
 ##### What is Module Errno? Is it applicable to the problem? Explain your answer! Remember Ruby often wraps C code.
+
+[Errno Documentation](http://ruby-doc.org/core-1.9.3/Errno.html)
+
+The OS reports errors using pain integers. Module Errno is created dynamically to map operating system errors to Ruby classe, with each error number generating its own subclass of SystemCallError. This module is applicatble to our project since there needs to be a way to trace errors generated from C code and bring it to the ruby's front end to be displayed to the user. 
   
 ##### Security? How will we protect the system from tainted objects? Can we trust the user?
+
+We can use ruby to detect and sanitize tainted objects to prevent the user from attacking the host system. We can never trust the user. 
   
 ##### Is sand boxing applicable to this problem? Is it feasible to write security contracts?
   
+Sandboxing should not be needed to run untrusted code because it has either been used thoroughly or we will write it ourselves. It is feasable to write security contracts to test for tainted inputs.
+  
 ##### Should we be using class GetoptLong? Or Regexp? Or shell? Or ...
   
+[GetoptLong](http://ruby-doc.org/stdlib-1.9.3/libdoc/getoptlong/rdoc/GetoptLong.html): parse conmmand line option. It is a pure ruby implementation.
+[Regexp](http://ruby-doc.org/core-2.1.1/Regexp.html): Used to match patterns against a string.
+[Shell](http://ruby-doc.org/stdlib-2.0.0/libdoc/shell/rdoc/Shell.html): Implements an idiomatic interface for common UNIX shell commands.
+
+Use Regexp since some of the command line options will be custom made.
+
 ##### What environment does a shell run within? Current Directory? Or ...
+
+The shell will run within the current directory so the user can use cd or ls to start navigation from the current directory.
   
 ##### What features should be user controllable? Prompts? Input and Output channels? Or ...
+
+Inputs into the shell will be widely used, especially with file watcher. An output channel can be used if the user would want the data sent to a logfile instead of the shell.
 
 ##### Module the 2nd
 The control of time in many real-time systems is very important. Further, many real-time systems run on processors with limited capabilities and capacity. Processes must know how to wait, not only for an event, but also for a certain time period.
