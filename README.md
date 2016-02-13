@@ -181,7 +181,7 @@ Yes, C has better facilities for this problem. We plan on using one of those key
 ##### What should be user controllable? Can we trust the user?
 The values that should be user controllable are: evoking the function, setting the message, and setting the time duration. Because we properly sanitize the input, we can trust the user with manipulating the message, as well as setting the time duration. Of course, various gates are used in order to ensure that the user cannot 'break' the system - this includes adding a limit to both message size and duration, as well as preventing any 'bad' input from going through. However, because this module is naturally unintrusive, most functionality can be trusted to the user.
 
-##### Module the 3rd 
+### Module the 3rd 
 An important task in any system is to keep track of all files in existence at any point in time. In addition, many security systems monitor change information in the file system to help detect erroneous alteration.
 
 To help with this and other related tasks; **write a reusable component(s) plus a “driver” program**, which monitors files or potential files. The list of all names to be monitored is fully specified at execution time. If the file is altered, created or destroyed, the component should undertake a user-specified action after an optional, but highly accurate, time delay. Note that while these components are 'watching' the user must still be able to enter commands normally to the shell; that is, the system must be non-blocking. Think of this system as a typical batch-processing job that
@@ -201,21 +201,115 @@ Or give us a better idea – but you will need to be convincing.
 
 **Questions (for pondering and answering)**
 
-  * A class or a module?
-  * Error handling? Robustness? Security? Are any of these required?
-  * What components of the Ruby exception hierarchy are applicable to this problem? Illustrate your answer.
-  * Does this problem require an iterator?
-  * Describe Java’s anonymous inner classes.
-  * Compare and Contrast Java’s anonymous inner classes and Ruby Proc objects; which do you think is better?
-  * From a cohesion viewpoint, which interface protocol is superior? Explain your decision!
-  * Is Module Errno useful in this problem? Illustrate your answer.
-  * Do any of the Anti-patterns described at: [http://today.java.net/pub/a/today/2006/04/06/exception-handlingantipatterns.html](http://today.java.net/pub/a/today/2006/04/06/exception-handlingantipatterns.html) exist in your solution?
-  * Describe the content of the library at: [http://c2.com/cgi/wiki?ExceptionPatterns](http://c2.com/cgi/wiki?ExceptionPatterns). 
+##### A class or a module?
+#####Error handling? Robustness? Security? Are any of these required?
+#####What components of the Ruby exception hierarchy are applicable to this problem? Illustrate your answer.
+```ruby
+Exception
+  IRB::Abort
+  MonitorMixin::ConditionVariable::Timeout
+  NoMemoryError
+  ScriptError
+    LoadError
+      Gem::LoadError
+    NotImplementedError
+    SyntaxError
+  SecurityError
+  SignalException
+    Interrupt
+  StandardError
+    ArgumentError
+      Gem::Requirement::BadRequirementError
+    EncodingError
+      Encoding::CompatibilityError
+      Encoding::ConverterNotFoundError
+      Encoding::InvalidByteSequenceError
+      Encoding::UndefinedConversionError
+    Exception2MessageMapper::ErrNotRegisteredException
+    FiberError
+    IOError
+      EOFError
+    IRB::CantChangeBinding
+    IRB::CantReturnToNormalMode
+    IRB::CantShiftToMultiIrbMode
+    IRB::IllegalParameter
+    IRB::IllegalRCGenerator
+    IRB::IrbAlreadyDead
+    IRB::IrbSwitchedToCurrentThread
+    IRB::NoSuchJob
+    IRB::NotImplementedError
+    IRB::Notifier::ErrUndefinedNotifier
+    IRB::Notifier::ErrUnrecognizedLevel
+    IRB::OutputMethod::NotImplementedError
+    IRB::SLex::ErrNodeAlreadyExists
+    IRB::SLex::ErrNodeNothing
+    IRB::UndefinedPromptMode
+    IRB::UnrecognizedSwitch
+    IndexError
+      KeyError
+      StopIteration
+    LocalJumpError
+    Math::DomainError
+    NameError
+      NoMethodError
+    RangeError
+      FloatDomainError
+    RegexpError
+    RubyLex::AlreadyDefinedToken
+    RubyLex::SyntaxError
+    RubyLex::TerminateLineInput
+    RubyLex::TkReading2TokenDuplicateError
+    RubyLex::TkReading2TokenNoKey
+    RubyLex::TkSymbol2TokenNoKey
+    RuntimeError
+      Gem::Exception
+        Gem::CommandLineError
+        Gem::DependencyError
+        Gem::DependencyRemovalException
+        Gem::DocumentError
+        Gem::EndOfYAMLException
+        Gem::FilePermissionError
+        Gem::FormatException
+        Gem::GemNotFoundException
+          Gem::SpecificGemNotFoundException
+        Gem::GemNotInHomeException
+        Gem::InstallError
+        Gem::InvalidSpecificationException
+        Gem::OperationNotSupportedError
+        Gem::RemoteError
+        Gem::RemoteInstallationCancelled
+        Gem::RemoteInstallationSkipped
+        Gem::RemoteSourceException
+        Gem::VerificationError
+    SystemCallError
+    ThreadError
+    TypeError
+    ZeroDivisionError
+  SystemExit
+    Gem::SystemExitException
+  SystemStackError
+  fatal
+```
+
+#####Does this problem require an iterator?
+#####Describe Java’s anonymous inner classes.
+Single succinct expression with no name often used if only requiring one instance of the class. Can be included in method calls.
+
+#####Compare and Contrast Java’s anonymous inner classes and Ruby Proc objects; which do you think is better?
+#####From a cohesion viewpoint, which interface protocol is superior? Explain your decision!
+#####Is Module Errno useful in this problem? Illustrate your answer.
+#####Do any of the Anti-patterns described at: [http://today.java.net/pub/a/today/2006/04/06/exception-handlingantipatterns.html](http://today.java.net/pub/a/today/2006/04/06/exception-handlingantipatterns.html) exist in your solution?
+#####Describe the content of the library at: [http://c2.com/cgi/wiki?ExceptionPatterns](http://c2.com/cgi/wiki?ExceptionPatterns). 
     * Which are applicable to this problem? Illustrate your answer. 
     * Which are applicable to the previous two problems? Illustrate your answer.
-  * Is a directory, a file? Is a pipe, a file? Is a ….., a file? Tell us your thoughts on the definition of a file in a LINUX context.
-  * Define what is meant (in a LINUX environment) by file change? Does it mean only contents? Or does it include meta-information? What is meta-information for a file?
+##### Is a directory, a file? Is a pipe, a file? Is a ….., a file? Tell us your thoughts on the definition of a file in a LINUX context.
+Formally a file consists of an inode (file properties, incl pointer to data) and its data storage. In special storage is located the file names and directories. 
 
+Directory is a file. 
+Pipe is not a file? Its a process.
+##### Define what is meant (in a LINUX environment) by file change? Does it mean only contents? Or does it include meta-information? What is meta-information for a file?
+
+[Linux fschange](http://stefan.buettcher.org/cs/fschange/)
 #### Context
 
 Fortunately, systems programming in Ruby is similar to systems programming on any Linux box; hence this assignment we will rely on the knowledge that has been accrued from the operating systems class (CMPUT 379). Below are three short exercises to get everyone back up to speed while exercising some new concepts and ideas.
