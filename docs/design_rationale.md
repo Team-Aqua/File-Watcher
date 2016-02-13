@@ -3,7 +3,9 @@
 
 # Design Questions
 ### Module 1:
-Our problem is a module. Modules do not neet to be instantiated and are about functions while classes need to be instantiated and are about providing objects. [Reference](http://stackoverflow.com/questions/151505/difference-between-a-class-and-a-module)
+[Reference](http://stackoverflow.com/questions/151505/difference-between-a-class-and-a-module)
+
+Our problem is a module. Modules do not neet to be instantiated and are about functions while classes need to be instantiated and are about providing objects. 
   
 ##### What shell(s) are you using to provide a specification? What features do they support?
   
@@ -19,9 +21,9 @@ Most likely the directory stack, job control and path hashing wil be omitted fro
   
 ##### Error handling? What percentage of code handles functional against potential pitfalls:
 
-    **In the average commercial program? In your shell program?**: 20% of code in the average commercial program handles error handling and about 10% of our code will handle error handling.
+**In the average commercial program? In your shell program?**: 20% of code in the average commercial program handles error handling and about 10% of our code will handle error handling.
     
-    **If they are radically different, please provide a rationale**: Most likely our shell will not be performing a lot of error handling. Most testing will be completed on the front end to test for correct inputs using ruby's contracts.
+**If they are radically different, please provide a rationale**: Most likely our shell will not be performing a lot of error handling. Most testing will be completed on the front end to test for correct inputs using ruby's contracts.
   
 ##### Robustness? How do we make the system bullet-proof? Is Avoiding Core dumps of system shells important? Especially from a Security viewpoint, remember this dump will give access to underlying C system code and potentially Linux daemons?
 
@@ -44,7 +46,7 @@ Standard error will be applicatble in order to handle IO exceptions. NoMemoryErr
 
 [Errno Documentation](http://ruby-doc.org/core-1.9.3/Errno.html)
 
-The OS reports errors using pain integers. Module Errno is created dynamically to map operating system errors to Ruby classe, with each error number generating its own subclass of SystemCallError. This module is applicatble to our project since there needs to be a way to trace errors generated from C code and bring it to the ruby's front end to be displayed to the user. 
+The OS reports errors using pain integers. Module Errno is created dynamically to map operating system errors to Ruby classe, with each error number generating its own subclass of SystemCallError. This module is applicable to our project, since there needs to be a way to trace errors generated from C code and bring it to the ruby's front end to be displayed to the user. 
   
 ##### Security? How will we protect the system from tainted objects? Can we trust the user?
 
@@ -57,7 +59,9 @@ Sandboxing should not be needed to run untrusted code because it has either been
 ##### Should we be using class GetoptLong? Or Regexp? Or shell? Or ...
   
 [GetoptLong](http://ruby-doc.org/stdlib-1.9.3/libdoc/getoptlong/rdoc/GetoptLong.html): parse conmmand line option. It is a pure ruby implementation.
+
 [Regexp](http://ruby-doc.org/core-2.1.1/Regexp.html): Used to match patterns against a string.
+
 [Shell](http://ruby-doc.org/stdlib-2.0.0/libdoc/shell/rdoc/Shell.html): Implements an idiomatic interface for common UNIX shell commands.
 
 Use Regexp since some of the command line options will be custom made.
