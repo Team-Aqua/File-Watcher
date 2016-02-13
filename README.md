@@ -133,7 +133,20 @@ Or give us a better idea – but you will need to be convincing.
 **Questions (for pondering and answering)**
 
 ##### A class or a module?
+Classes become useful when we require instantiation or state. Modules are used as class helpers or for one-off functions.
+
+This should be a module (sub-module). We do not need to have multiple instantiations. Any state data will be maintained by the encompassing module or class that is the shell.
+
 #####Error handling? Robustness? Security? Are any of these required?
+The inputs would be sanitised beforehand by the Ruby script before being processed. This removes the possibility of 'tarnished' inputs prior to processing. Once the system is in module 2's exclusive code, the system follows the following parameters:
+
+**Error Handling**: the system would protect against external interrupts/kill signals, which would terminate the program, as well as the child. Additionally, if the second module encounters an issue on its own (for example, if the system encounters a segmentation fault before the process is complete) the module must appropriately handle the situation.
+
+**Robustness**: the system has to be robust enough to work despite adverse conditions. This means that the program would continue to work despite a segmentation fault raised outside of the process.
+
+**Security**: the system needs to be isolated, strictly within the child process. As a result, the system can protect the child process from external control, and thus would result in a secure system.
+
+These aspects are required, especially for a command line interface application. As users expect a level of quality with the innermost processes (aspects obtained by having a secure, robust system), developers need to build applications with respect to these key qualities at all times.
 #####What components of the Ruby exception hierarchy are applicable to this problem? Illustrate your answer.
 ```ruby
 Exception
@@ -223,13 +236,78 @@ Exception
 ```
 
 #####Does this problem require an iterator?
+Possibly. Still unsure.
+
 #####Describe Java’s anonymous inner classes.
 Single succinct expression with no name often used if only requiring one instance of the class. Can be included in method calls.
 
 #####Compare and Contrast Java’s anonymous inner classes and Ruby Proc objects; which do you think is better?
+
+
 #####From a cohesion viewpoint, which interface protocol is superior? Explain your decision!
+    FileWatch( type of alteration, duration, list of filenames) {action}
+
+Or
+
+    FileWatchCreation(duration, list of filenames) { action}
+    FileWatchAlter(duration, list of filenames) { action}
+    FileWatchDestroy(duration, list of filenames) { action}
+
+Low Coupling and High Cohesion are the the attributes we find in well-structured, maintainable, high readable software.
+Cohesion implies that 
+Thus from a cohesion viewpoint the superior interface protocol would be:
+
+
+
 #####Is Module Errno useful in this problem? Illustrate your answer.
+Reference:
+
+* http://ruby-doc.org/core-2.1.1/Errno.html
+
+Operating systems report errors in an integer format. Using Errno we can identify and handle each System Error with a ruby class.
+This will be very useful in our problem when attempting to design a reliable and secure program. 
+
+1. EACCES  Permission denied; the file permissions do not allow the attempted operation.
+  * Didn't have permission to call the function.
+2. EINVAL Invalid argument. This is used to indicate various kinds of problems with passing the wrong argument to a library function.
+  * Invalid argument passed; likely caught by ruby function before processing.
+
+```ruby
+Errno.constants
+=> [:NOERROR, :E2BIG, :EACCES, :EADDRINUSE, :EADDRNOTAVAIL, :EADV, :EAFNOSUPPORT, :EAGAIN, :EALREADY, :EAUTH, :EBADARCH, :EBADE, :EBADEXEC, 
+:EBADF, :EBADFD, :EBADMACHO, :EBADMSG, :EBADR, :EBADRPC, :EBADRQC, :EBADSLT, :EBFONT, :EBUSY, :ECANCELED, :ECHILD, :ECHRNG, :ECOMM,
+:ECONNABORTED, :ECONNREFUSED, :ECONNRESET, :EDEADLK, :EDEADLOCK, :EDESTADDRREQ, :EDEVERR, :EDOM, :EDOOFUS, :EDOTDOT, :EDQUOT, :EEXIST, 
+:EFAULT, :EFBIG, :EFTYPE, :EHOSTDOWN, :EHOSTUNREACH, :EIDRM, :EILSEQ, :EINPROGRESS, :EINTR, :EINVAL, :EIO, :EIPSEC, :EISCONN, :EISDIR, 
+:EISNAM, :EKEYEXPIRED, :EKEYREJECTED, :EKEYREVOKED, :EL2HLT, :EL2NSYNC, :EL3HLT, :EL3RST, :ELIBACC, :ELIBBAD, :ELIBEXEC, :ELIBMAX, :ELIBSCN, 
+:ELNRNG, :ELOOP, :EMEDIUMTYPE, :EMFILE, :EMLINK, :EMSGSIZE, :EMULTIHOP, :ENAMETOOLONG, :ENAVAIL, :ENEEDAUTH, :ENETDOWN, :ENETRESET, :ENETUNREACH, 
+:ENFILE, :ENOANO, :ENOATTR, :ENOBUFS, :ENOCSI, :ENODATA, :ENODEV, :ENOENT, :ENOEXEC, :ENOKEY, :ENOLCK, :ENOLINK, :ENOMEDIUM, :ENOMEM, :ENOMSG, 
+:ENONET, :ENOPKG, :ENOPOLICY, :ENOPROTOOPT, :ENOSPC, :ENOSR, :ENOSTR, :ENOSYS, :ENOTBLK, :ENOTCONN, :ENOTDIR, :ENOTEMPTY, :ENOTNAM, 
+:ENOTRECOVERABLE, :ENOTSOCK, :ENOTSUP, :ENOTTY, :ENOTUNIQ, :ENXIO, :EOPNOTSUPP, :EOVERFLOW, :EOWNERDEAD, :EPERM, :EPFNOSUPPORT, 
+:EPIPE, :EPROCLIM, :EPROCUNAVAIL, :EPROGMISMATCH, :EPROGUNAVAIL, :EPROTO, :EPROTONOSUPPORT, :EPROTOTYPE, :EPWROFF, :EQFULL, :ERANGE, :EREMCHG, 
+:EREMOTE, :EREMOTEIO, :ERESTART, :ERFKILL, :EROFS, :ERPCMISMATCH, :ESHLIBVERS, :ESHUTDOWN, :ESOCKTNOSUPPORT, :ESPIPE, :ESRCH, :ESRMNT, :ESTALE, 
+:ESTRPIPE, :ETIME, :ETIMEDOUT, :ETOOMANYREFS, :ETXTBSY, :EUCLEAN, :EUNATCH, :EUSERS, :EWOULDBLOCK, :EXDEV, :EXFULL]
+```
+
 #####Do any of the Anti-patterns described at: [http://today.java.net/pub/a/today/2006/04/06/exception-handlingantipatterns.html](http://today.java.net/pub/a/today/2006/04/06/exception-handlingantipatterns.html) exist in your solution?
+Lets hope not? but probably
+
+Reference:
+  * [Effective Java Exceptions](http://www.oracle.com/au/products/database/effective-exceptions-092345.html)
+  * [Exception-Handling Anti-patterns Blog](https://community.oracle.com/docs/DOC-983543)
+      * Log and Throw
+      * Throwing Exception
+      * Throwing the Kitchen Sink
+      * Catching Exception
+      * Destructive Wrapping
+      * Log and Return Null
+      * Catch and Ignore
+      * Throw from Within Finally
+      * Multi-Line Log Messages
+      * Unsupported Operation Returning Null
+      * IgnoringInterruptedException
+      * Relying on getCause()
+!!To be answered. Link does not work currently.
+
 #####Describe the content of the library at: [http://c2.com/cgi/wiki?ExceptionPatterns](http://c2.com/cgi/wiki?ExceptionPatterns). 
     * Which are applicable to this problem? Illustrate your answer. 
     * Which are applicable to the previous two problems? Illustrate your answer.
@@ -241,6 +319,13 @@ Pipe is not a file? Its a process.
 ##### Define what is meant (in a LINUX environment) by file change? Does it mean only contents? Or does it include meta-information? What is meta-information for a file?
 
 [Linux fschange](http://stefan.buettcher.org/cs/fschange/)
+
+##### Quentin Additional Notes.
+Shell Script Tips:
+__Invocation:__ Make your script accept long and short options. be careful because there are two commands to parse options, getopt and getopts. Use getopt as you face less trouble.
+SIGTERM
+SIGINT
+
 
 #### Context
 
