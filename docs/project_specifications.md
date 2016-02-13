@@ -8,6 +8,8 @@ Generic functions for shells:
     cd (directory_name)         :: enter a directory
     ls ()                       :: returns list of files in folder
     getdir ()                   :: returns directory_name
+    sys_path ()                 :: returns system path ( == echo $PATH )
+    echo (resp)                 :: prints system response (string, path, etc.)       
 
 Job-specific funcitonality:
 
