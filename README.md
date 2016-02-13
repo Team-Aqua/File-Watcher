@@ -30,77 +30,6 @@ Please note: In our current set-up, your shell program will sit above the curren
   * find file in folder?
   * call linux shell
 
-**Questions (for pondering and answering)**
-
-##### Is your problem a class or a module? What is the difference?
-
-Our problem is a module. Modules do not neet to be instantiated and are about functions while classes need to be instantiated and are about providing objects. [Reference](http://stackoverflow.com/questions/151505/difference-between-a-class-and-a-module)
-  
-##### What shell(s) are you using to provide a specification? What features do they support?
-  
-We are using the C Shell to provide a specification. Some features include history and editing, aliases, directory stacks, tilde notation, cdpath, job control and path hashing.
-  
-##### In your opinion, which features are essential (should include in your design) and which are “window dressing” (should not include in your design)?
-
-We believe that directory functions like ls and cd will be required functions for navigating and selecting files to monitor using the File Watcher. Tilde notation, aliases , history and editing are not needed for the completion of the shell.
-  
-##### Economics: Which, if any, essential features will be omitted from your design due to unmanageable effort requirements?
-
-Most likely the directory stack, job control and path hashing wil be omitted from the shell. Despite how useful they will be for a file watcher, they are not essential for its completion.
-  
-##### Error handling? What percentage of code handles functional against potential pitfalls:
-
-    **In the average commercial program? In your shell program?**: 20% of code in the average commercial program handles error handling and about 10% of our code will handle error handling.
-    
-    **If they are radically different, please provide a rationale**: Most likely our shell will not be performing a lot of error handling. Most testing will be completed on the front end to test for correct inputs using ruby's contracts.
-  
-##### Robustness? How do we make the system bullet-proof? Is Avoiding Core dumps of system shells important? Especially from a Security viewpoint, remember this dump will give access to underlying C system code and potentially Linux daemons?
-
-We can make the system robust by validating unputs and commands. We can stop core dumps by ensuring that there are correct inputs and files, and that links to the files have been closed.
-  
-##### Describe the Ruby exception hierarchy, which classes of exceptions are applicable to this problem?
-  
-[Reference](http://makandracards.com/makandra/4851-ruby-exception-class-hierarchy) Ruby's exception heirarchy is as follows: 
-
-    1) NoMemoryError
-    2) ScrpitError
-    3) SignalException
-    4) StandardError
-    5) SystemExit
-    6) fatal
-
-Standard error will be applicatble in order to handle IO exceptions. NoMemoryError will be needed due to the theoreticaly low amount of memory that our system will be having. SignalException will be used to ensure that interupts from the child processes are handled correctly. SystemExit will be taken into consideration in order to clean up processes if the shell is closed unexpectedly. 
-  
-##### What is Module Errno? Is it applicable to the problem? Explain your answer! Remember Ruby often wraps C code.
-
-[Errno Documentation](http://ruby-doc.org/core-1.9.3/Errno.html)
-
-The OS reports errors using pain integers. Module Errno is created dynamically to map operating system errors to Ruby classe, with each error number generating its own subclass of SystemCallError. This module is applicatble to our project since there needs to be a way to trace errors generated from C code and bring it to the ruby's front end to be displayed to the user. 
-  
-##### Security? How will we protect the system from tainted objects? Can we trust the user?
-
-We can use ruby to detect and sanitize tainted objects to prevent the user from attacking the host system. We can never trust the user. 
-  
-##### Is sand boxing applicable to this problem? Is it feasible to write security contracts?
-  
-Sandboxing should not be needed to run untrusted code because it has either been used thoroughly or we will write it ourselves. It is feasable to write security contracts to test for tainted inputs.
-  
-##### Should we be using class GetoptLong? Or Regexp? Or shell? Or ...
-  
-    [GetoptLong](http://ruby-doc.org/stdlib-1.9.3/libdoc/getoptlong/rdoc/GetoptLong.html): parse conmmand line option. It is a pure ruby implementation.
-    [Regexp](http://ruby-doc.org/core-2.1.1/Regexp.html): Used to match patterns against a string.
-    [Shell](http://ruby-doc.org/stdlib-2.0.0/libdoc/shell/rdoc/Shell.html): Implements an idiomatic interface for common UNIX shell commands.
-
-Use Regexp since some of the command line options will be custom made.
-
-##### What environment does a shell run within? Current Directory? Or ...
-
-The shell will run within the current directory so the user can use cd or ls to start navigation from the current directory.
-  
-##### What features should be user controllable? Prompts? Input and Output channels? Or ...
-
-Inputs into the shell will be widely used, especially with file watcher. An output channel can be used if the user would want the data sent to a logfile instead of the shell.
-
 ##### Module the 2nd
 The control of time in many real-time systems is very important. Further, many real-time systems run on processors with limited capabilities and capacity. Processes must know how to wait, not only for an event, but also for a certain time period.
 
@@ -111,6 +40,7 @@ The control of time in many real-time systems is very important. Further, many r
 
 Your program should wait for the specified amount of time and then print out the specified message. Meanwhile control of the shell should be returned to the user, i.e. the program must be non-blocking. Finally, your program should minimize the number of processes it creates, if any, as the memory capacity on the target system is expected to be very low.
 
+<<<<<<< HEAD
 **Questions (for pondering and answering)**
 ##### A class or a module?
 Likely, the implementation of this design would be completed through a series of modules, each holding the specific functions required. More specifically, the 2nd module would be housed within a module, and would be called by the main script by the child process.
@@ -182,6 +112,9 @@ Yes, C has better facilities for this problem. We plan on using one of those key
 The values that should be user controllable are: evoking the function, setting the message, and setting the time duration. Because we properly sanitize the input, we can trust the user with manipulating the message, as well as setting the time duration. Of course, various gates are used in order to ensure that the user cannot 'break' the system - this includes adding a limit to both message size and duration, as well as preventing any 'bad' input from going through. However, because this module is naturally unintrusive, most functionality can be trusted to the user.
 
 ### Module the 3rd 
+=======
+##### Module the 3rd 
+>>>>>>> 4b30aa4654de06014eea3ae79e9db9b215dfe92e
 An important task in any system is to keep track of all files in existence at any point in time. In addition, many security systems monitor change information in the file system to help detect erroneous alteration.
 
 To help with this and other related tasks; **write a reusable component(s) plus a “driver” program**, which monitors files or potential files. The list of all names to be monitored is fully specified at execution time. If the file is altered, created or destroyed, the component should undertake a user-specified action after an optional, but highly accurate, time delay. Note that while these components are 'watching' the user must still be able to enter commands normally to the shell; that is, the system must be non-blocking. Think of this system as a typical batch-processing job that
@@ -310,6 +243,7 @@ Pipe is not a file? Its a process.
 ##### Define what is meant (in a LINUX environment) by file change? Does it mean only contents? Or does it include meta-information? What is meta-information for a file?
 
 [Linux fschange](http://stefan.buettcher.org/cs/fschange/)
+
 #### Context
 
 Fortunately, systems programming in Ruby is similar to systems programming on any Linux box; hence this assignment we will rely on the knowledge that has been accrued from the operating systems class (CMPUT 379). Below are three short exercises to get everyone back up to speed while exercising some new concepts and ideas.

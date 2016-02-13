@@ -36,6 +36,6 @@
 #### Due: Friday Feb 19th
   * Module 2
 
-#### Due: Thursday Feb 20th
+#### Due: Saturday Feb 20th
   * Module 3 / Module 1 Complete
 
