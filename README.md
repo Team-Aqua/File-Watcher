@@ -112,9 +112,7 @@ Yes, C has better facilities for this problem. We plan on using one of those key
 The values that should be user controllable are: evoking the function, setting the message, and setting the time duration. Because we properly sanitize the input, we can trust the user with manipulating the message, as well as setting the time duration. Of course, various gates are used in order to ensure that the user cannot 'break' the system - this includes adding a limit to both message size and duration, as well as preventing any 'bad' input from going through. However, because this module is naturally unintrusive, most functionality can be trusted to the user.
 
 ### Module the 3rd 
-=======
-##### Module the 3rd 
->>>>>>> 4b30aa4654de06014eea3ae79e9db9b215dfe92e
+
 An important task in any system is to keep track of all files in existence at any point in time. In addition, many security systems monitor change information in the file system to help detect erroneous alteration.
 
 To help with this and other related tasks; **write a reusable component(s) plus a “driver” program**, which monitors files or potential files. The list of all names to be monitored is fully specified at execution time. If the file is altered, created or destroyed, the component should undertake a user-specified action after an optional, but highly accurate, time delay. Note that while these components are 'watching' the user must still be able to enter commands normally to the shell; that is, the system must be non-blocking. Think of this system as a typical batch-processing job that
