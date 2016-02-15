@@ -243,6 +243,10 @@ Single succinct expression with no name often used if only requiring one instanc
 
 #####Compare and Contrast Java’s anonymous inner classes and Ruby Proc objects; which do you think is better?
 
+Ruby Proc:
+  * Bound to local vars.
+
+Java Anon Inner Class:
 
 #####From a cohesion viewpoint, which interface protocol is superior? Explain your decision!
     FileWatch( type of alteration, duration, list of filenames) {action}
@@ -254,8 +258,14 @@ Or
     FileWatchDestroy(duration, list of filenames) { action}
 
 Low Coupling and High Cohesion are the the attributes we find in well-structured, maintainable, high readable software.
-Cohesion implies that 
-Thus from a cohesion viewpoint the superior interface protocol would be:
+In general the more variables a method manipulates the more cohesive that method is to its class.
+Thus from a high cohesion viewpoint the superior interface protocol would be:
+
+    FileWatch( type of alteration, duration, list of filenames) {action}
+
+
+
+
 
 
 
