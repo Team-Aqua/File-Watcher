@@ -31,7 +31,6 @@ void ls(){
         exit(2);
     }
 
-  int i = 1;
   while ((dirp = readdir(dp)) != NULL)
   {
     if (strncmp (dirp->d_name,".xxx",1) != 0){
@@ -46,6 +45,13 @@ void cd(){
 
 void filewatch(){
   cout << "EXECUTING FileWatcher!!!!" << endl;
+
+  int pid = fork();
+  if ( pid == 0 ){
+    /* child */
+  } else {
+    /* parent */
+  }
 }
 
 int main(){

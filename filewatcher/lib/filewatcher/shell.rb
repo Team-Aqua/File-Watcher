@@ -7,7 +7,7 @@ module FileWatcher
     def initialize
       @prompt = "\n> "
       @command_queue = []
-      @reports_queue = []
+      # @reports_queue = []
       @valid_commands = { :ls => lambda { Mylib::ls }, 
                           :cd => lambda { self.cd }, 
                           :filewatch => lambda { Mylib::filewatch }, 
@@ -38,21 +38,21 @@ module FileWatcher
 
         @valid_commands[command.to_sym].call()
 
-        @reports_queue.insert(0, "A Sample Report")
+        # @reports_queue.insert(0, "A Sample Report")
       end
     end
 
-    def report
-      if !@reports_queue.empty?
-        puts "Report: #{@reports_queue.pop}"
-      end
-    end
+    # def report
+    #   if !@reports_queue.empty?
+    #     puts "Report: #{@reports_queue.pop}"
+    #   end
+    # end
 
     def run
       while true
         receive_command
         process_command
-        report
+        # report
         sleep(0.25)
       end
     end
