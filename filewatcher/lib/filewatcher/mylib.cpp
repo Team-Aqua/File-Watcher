@@ -49,6 +49,7 @@ void filewatch(){
   int pid = fork();
   if ( pid == 0 ){
     /* child */
+    exit(0);
   } else {
     /* parent */
   }

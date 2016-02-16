@@ -11,13 +11,19 @@ module FileWatcher
       @valid_commands = { :ls => lambda { Mylib::ls }, 
                           :cd => lambda { self.cd }, 
                           :filewatch => lambda { Mylib::filewatch }, 
-                          :quit =>  lambda { abort("Closing Shell") } }
+                          :quit =>  lambda { self.quit } }
 
       # Initialize Low Level Parental C process
     end
 
     def cd
       puts "EXECUTING CD"
+    end
+
+    def quit
+      # ANY OTHER TEARDOWN REQUIRE
+      ## KILL ALL PROCESSES
+      abort("Closing Shell")
     end
 
     def receive_command
