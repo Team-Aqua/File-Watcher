@@ -1,17 +1,30 @@
+require 'filewatcher/mylib'
+
 module FileWatcher
   class Shell
+    include Mylib
     # Can discuss threading this portion later
     def initialize
-      @prompt = "> "
+      @prompt = "\n> "
       @command_queue = []
       @reports_queue = []
-      @valid_commands = { "ls" => true, "cd" => true, "filewatch" => true }
+      @valid_commands = { :ls => lambda { Mylib::ls }, 
+                          :cd => lambda { self.cd }, 
+                          :filewatch => lambda { Mylib::filewatch }, 
+                          :quit =>  lambda { abort("Closing Shell") } }
+
+      # Initialize Low Level Parental C process
+    end
+
+    def cd
+      puts "EXECUTING CD"
     end
 
     def receive_command
       print "#{@prompt}"
       command = gets.chomp
-      if @valid_commands.has_key?(command)
+
+      if @valid_commands.has_key?(command.to_sym)
         @command_queue.insert(0, command)
       else
         puts "Command not found: #{command}"
@@ -20,7 +33,11 @@ module FileWatcher
 
     def process_command
       if !@command_queue.empty?
-        puts "Processing Command: #{@command_queue.pop}"
+        command = @command_queue.pop
+        puts "Processing Command: #{command}"
+
+        @valid_commands[command.to_sym].call()
+
         @reports_queue.insert(0, "A Sample Report")
       end
     end
@@ -32,11 +49,6 @@ module FileWatcher
     end
 
     def run
-      # get_command
-      # create child/worker process
-      # Parent : wait for worker (child) to finish
-      # Child: change job
-      # Parent: report results
       while true
         receive_command
         process_command

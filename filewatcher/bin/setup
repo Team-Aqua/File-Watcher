@@ -3,6 +3,18 @@ set -euo pipefail
 IFS=$'\n\t'
 set -vx
 
+# Allows the bin/setup call from any directory
+ABSOLUTE_PATH=$(cd `dirname "${BASH_SOURCE[0]}"` && pwd)/`basename "${BASH_SOURCE[0]}"`
+ABSOLUTE_PATH="${ABSOLUTE_PATH%/*/*}"
+cd $ABSOLUTE_PATH/lib/filewatcher/
+
 bundle install
 
+
 # Do any other automated setup that you need to do here
+
+#compile our C code
+swig -c++ -ruby mylib.i
+ruby gen_makefile.rb
+make
+sudo make install
