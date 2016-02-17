@@ -8,6 +8,18 @@
   * bin/setup
   * bin/console
 
+### Functions Status
+##### Working
+* help
+* ls
+* quit
+
+##### In Development
+* cd
+* sysmgr [sysmgr test 1]
+
+##### Initial Development 
+* filewatch [filewatch new test.txt 20]
 
 ### Test your snippets
 When having trouble with your C snippets run them separate to figure it out.

@@ -1,4 +1,6 @@
 #include "mylib.h"
+#include <string>
+#include <unistd.h>
 
 void foo()
 {
@@ -62,15 +64,23 @@ void ls () {
   }
 }
 
-void cd () {
+void cd (char * arg) {
   cout << "~~~~~~~~~~~~" << endl;
   cout << "EXECUTING CD" << endl;
+  cout << "Input: " << arg << endl;
   cout << "~~~~~~~~~~~~\n" << endl;
+  //int ret;
+  //ret = chdir(arg.c_str());
 
 }
 
-void filewatch() {
-  cout << "EXECUTING FileWatcher!!!!" << endl;
+void filewatch(char * fn, char * name, int dur) {
+  cout << "~~~~~~~~~~~~" << endl;
+  cout << "EXECUTING FILEWATCH" << endl;
+  cout << "Function: " << fn << endl;
+  cout << "Filename: " << name << endl;
+  cout << "Duration: " << dur << endl;
+  cout << "~~~~~~~~~~~~\n" << endl;
 
   int pid = fork();
   if ( pid == 0 ){
@@ -81,8 +91,23 @@ void filewatch() {
   }
 }
 
-void sysmgr() {
-
+void sysmgr(char * arg1, int arg2) {
+  cout << "~~~~~~~~~~~~" << endl;
+  cout << "EXECUTING SYSMGR" << endl;
+  cout << "Phrase: " << arg1 << endl;
+  cout << "Duration: " << arg2 << endl;
+  cout << "~~~~~~~~~~~~\n" << endl;
+  int pid = fork();
+  if ( pid == 0 ){
+    sleep(arg2); // currently doesn't send to another child proc.
+    cout << "\n~~~~~~~~~~~~" << endl;
+    cout << "RETURNING SYSMGR" << endl;
+    cout << arg1 << endl;
+    cout << "~~~~~~~~~~~~\n" << endl;
+    exit(0);
+  } else {
+    return;
+  }
 }
 
 int main() {
