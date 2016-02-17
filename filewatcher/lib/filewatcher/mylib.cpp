@@ -4,17 +4,18 @@
 
 void foo()
 {
-    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-    cout << "FileWatcher Ruby Shell                 .. by Team AQuA " << endl;
-    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-    cout << "Available Functions:                                   " << endl;
-    cout << "help :: list available functions                       " << endl;
-    cout << "ls :: find files in current directory                  " << endl;
-    cout << "cd :: change directories                               " << endl;
-    cout << "filewatch :: watch files                               " << endl;
-    cout << "sysmgr :: repeat system message                        " << endl;
-    cout << "quit :: exit console                                   " << endl;
-    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+    help();
+    // cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+    // cout << "FileWatcher Ruby Shell                 .. by Team AQuA " << endl;
+    // cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+    // cout << "Available Functions:                                   " << endl;
+    // cout << "help :: list available functions                       " << endl;
+    // cout << "ls :: find files in current directory                  " << endl;
+    // cout << "cd :: change directories                               " << endl;
+    // cout << "filewatch :: watch files                               " << endl;
+    // cout << "sysmgr :: repeat system message                        " << endl;
+    // cout << "quit :: exit console                                   " << endl;
+    // cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
 }
 
 void help () {
