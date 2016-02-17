@@ -5,17 +5,6 @@
 void foo()
 {
     help();
-    // cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-    // cout << "FileWatcher Ruby Shell                 .. by Team AQuA " << endl;
-    // cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-    // cout << "Available Functions:                                   " << endl;
-    // cout << "help :: list available functions                       " << endl;
-    // cout << "ls :: find files in current directory                  " << endl;
-    // cout << "cd :: change directories                               " << endl;
-    // cout << "filewatch :: watch files                               " << endl;
-    // cout << "sysmgr :: repeat system message                        " << endl;
-    // cout << "quit :: exit console                                   " << endl;
-    // cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
 }
 
 void help () {
@@ -25,9 +14,9 @@ void help () {
   cout << "Available Functions:                                   " << endl;
   cout << "help :: list available functions                       " << endl;
   cout << "ls :: find files in current directory                  " << endl;
-  cout << "cd :: change directories                               " << endl;
+  cout << "cd {dir} :: change directories                         " << endl;
   cout << "filewatch :: watch files                               " << endl;
-  cout << "sysmgr :: repeat system message                        " << endl;
+  cout << "sysmgr -m {msg} -t {time} :: repeat system message     " << endl;
   cout << "quit :: exit console                                   " << endl;
   cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
 }
@@ -69,10 +58,12 @@ void cd (char * arg) {
   cout << "~~~~~~~~~~~~" << endl;
   cout << "EXECUTING CD" << endl;
   cout << "Input: " << arg << endl;
-  cout << "~~~~~~~~~~~~\n" << endl;
-  //int ret;
-  //ret = chdir(arg.c_str());
-
+  cout << "~~~~~~~~~~~~" << endl;
+  if ( chdir(arg) >= 0) { // good chdir
+    cout << "Entered successfully.\n" << endl;
+    return;
+  }
+  cout << "Unable to enter.\n" << endl;
 }
 
 void filewatch(char * fn, char * name, int dur) {
