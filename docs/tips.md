@@ -16,7 +16,7 @@
 
 ##### In Development
 * cd
-* sysmgr [sysmgr test 1]
+* sysmgr [sysmgr test 1] [sysmgr "Aged cheese" 3]
 
 ##### Initial Development 
 * filewatch [filewatch new test.txt 20]

@@ -1,5 +1,6 @@
 require 'filewatcher/mylib'
 require 'ffi' # possibly useful?
+require 'shellwords'
 
 module FileWatcher
   class Shell
@@ -53,15 +54,16 @@ module FileWatcher
       if !@command_queue.empty?
         command = @command_queue.pop
         puts "Processing Command: #{command}"
-        case command.split(" ").first
+        shellset = command.shellsplit
+        case shellset[0]
         when "cd"
-          @valid_commands[command.split(" ").first.to_sym].call(command.split(" ").last)
+          @valid_commands[shellset[0].to_sym].call(shellset[1])
         when "sysmgr"
-          @valid_commands[command.split(" ").first.to_sym].call(command.split(" ")[1], command.split(" ")[2])
+          @valid_commands[shellset[0].to_sym].call(shellset[1], shellset[2])
         when "filewatch"
-          @valid_commands[command.split(" ").first.to_sym].call(command.split(" ")[1], command.split(" ")[2], command.split(" ")[3])
+          @valid_commands[shellset[0].to_sym].call(shellset[1], shellset[2], shellset[3])
         else 
-          @valid_commands[command.split(" ").first.to_sym].call()
+          @valid_commands[shellset[0].to_sym].call()
         end
         # @reports_queue.insert(0, "A Sample Report")
       end
