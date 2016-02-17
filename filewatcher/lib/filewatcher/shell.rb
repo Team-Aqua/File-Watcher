@@ -10,7 +10,7 @@ module FileWatcher
       # @reports_queue = []
       @valid_commands = { :help => lambda { Mylib::help },
                           :ls => lambda { Mylib::ls }, 
-                          :cd => lambda { Mylib.cd }, 
+                          :cd => lambda { self.cd }, 
                           :filewatch => lambda { Mylib::filewatch }, 
                           :sysmgr => lambda { Mylib::sysmgr },
                           :quit =>  lambda { self.quit } }
@@ -22,17 +22,23 @@ module FileWatcher
       puts "EXECUTING CD"
     end
 
+    def cd (arg) 
+      puts "Executing CD"
+      puts arg
+    end
+
     def quit
       # ANY OTHER TEARDOWN REQUIRE
       ## KILL ALL PROCESSES
-      abort("Closing Shell")
+      abort("Exiting FileWatcher - Thanks!")
     end
 
     def receive_command
       print "#{@prompt}"
-      command = gets.chomp
+      command = gets.chomp #.split(" ");
+      # grab the first variable
 
-      if @valid_commands.has_key?(command.to_sym)
+      if @valid_commands.has_key?(command.split(" ").first.to_sym)
         @command_queue.insert(0, command)
       else
         puts "Command not found: #{command}"
@@ -44,7 +50,7 @@ module FileWatcher
         command = @command_queue.pop
         puts "Processing Command: #{command}"
 
-        @valid_commands[command.to_sym].call()
+        @valid_commands[command.split(" ").first.to_sym].call()
 
         # @reports_queue.insert(0, "A Sample Report")
       end
