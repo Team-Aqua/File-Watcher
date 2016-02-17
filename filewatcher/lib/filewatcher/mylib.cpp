@@ -2,22 +2,45 @@
 
 void foo()
 {
-    cout << "FileWatcher Ruby Shell                 .. by Team AQuA \n" << endl;
+    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+    cout << "FileWatcher Ruby Shell                 .. by Team AQuA " << endl;
+    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+    cout << "Available Functions:                                   " << endl;
+    cout << "help :: list available functions                       " << endl;
+    cout << "ls :: find files in current directory                  " << endl;
+    cout << "cd :: change directories                               " << endl;
+    cout << "filewatch :: watch files                               " << endl;
+    cout << "sysmgr :: repeat system message                        " << endl;
+    cout << "quit :: exit console                                   " << endl;
+    cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
 }
 
-int add(int a, int b)
-{
+void help () {
+  cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+  cout << "FileWatcher Ruby Shell                 .. by Team AQuA " << endl;
+  cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+  cout << "Available Functions:                                   " << endl;
+  cout << "help :: list available functions                       " << endl;
+  cout << "ls :: find files in current directory                  " << endl;
+  cout << "cd :: change directories                               " << endl;
+  cout << "filewatch :: watch files                               " << endl;
+  cout << "sysmgr :: repeat system message                        " << endl;
+  cout << "quit :: exit console                                   " << endl;
+  cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+}
+
+int add (int a, int b) {
     return a+b;
 }
 
-int sub(int a, int b)
-{
+int sub (int a, int b) {
     return a-b;
 }
 
-void ls(){
+void ls () {
+  cout << "~~~~~~~~~~~~" << endl;
   cout << "EXECUTING LS" << endl;
-  cout << "############" << endl;
+  cout << "~~~~~~~~~~~~\n" << endl;
 
   DIR           *dp;
   struct dirent *dirp;
@@ -39,11 +62,14 @@ void ls(){
   }
 }
 
-void cd(){
+void cd () {
+  cout << "~~~~~~~~~~~~" << endl;
   cout << "EXECUTING CD" << endl;
+  cout << "~~~~~~~~~~~~\n" << endl;
+
 }
 
-void filewatch(){
+void filewatch() {
   cout << "EXECUTING FileWatcher!!!!" << endl;
 
   int pid = fork();
@@ -55,6 +81,10 @@ void filewatch(){
   }
 }
 
-int main(){
+void sysmgr() {
+
+}
+
+int main() {
   ls();
 }

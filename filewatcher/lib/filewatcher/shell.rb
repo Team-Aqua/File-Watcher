@@ -8,9 +8,11 @@ module FileWatcher
       @prompt = "\n> "
       @command_queue = []
       # @reports_queue = []
-      @valid_commands = { :ls => lambda { Mylib::ls }, 
-                          :cd => lambda { self.cd }, 
+      @valid_commands = { :help => lambda { Mylib::help },
+                          :ls => lambda { Mylib::ls }, 
+                          :cd => lambda { Mylib.cd }, 
                           :filewatch => lambda { Mylib::filewatch }, 
+                          :sysmgr => lambda { Mylib::sysmgr },
                           :quit =>  lambda { self.quit } }
 
       # Initialize Low Level Parental C process

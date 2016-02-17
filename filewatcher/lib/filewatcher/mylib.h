@@ -15,6 +15,8 @@ using namespace std;
 void foo();
 int  add(int a, int b);
 int  sub(int a, int b);
+void help();
 void ls();
 void cd();
 void filewatch();
+void sysmgr();
