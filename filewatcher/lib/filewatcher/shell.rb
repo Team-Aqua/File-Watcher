@@ -51,7 +51,8 @@ module FileWatcher
         return false
       end
 
-      dump, arg1, arg2 = args.split(/-[a-z]/)
+      arg1 = (/-[m]([a-zA-Z]+)/).match(args)[1]
+      arg2 = (/-[t](\d+)/).match(args)[1]
 
       if ! (arg2 =~ /\A[-+]?[0-9]+\z/)
         puts "-t argument not numeric"
