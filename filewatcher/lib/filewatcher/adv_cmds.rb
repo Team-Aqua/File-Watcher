@@ -16,7 +16,7 @@ module FileWatcher
     Contract C::And[MContracts::NilArgs, MContracts::Arg_m, MContracts::Arg_t] => C::Any
     def self.sysmgr(args)
       args = args.gsub(/\s+(?=([^"]*"[^"]*")*[^"]*$)/, "") 
-      arg1 = (/-[m]([a-zA-Z0-9 "]+)/).match(args)[1]
+      arg1 = (/-[m]([a-zA-Z0-9 "]+)/).match(args)[1].gsub('"', "")
       arg2 = (/-[t](\d+)/).match(args)[1]
 
       if ! (arg2 =~ /\A[-+]?[0-9]+\z/)
@@ -30,7 +30,6 @@ module FileWatcher
     def self.filewatch(args)
       # extract fn, name, dur from command
       args = args.gsub(/\s+(?=([^"]*"[^"]*")*[^"]*$)/, "") # eg. statement sysmgr -t i love pie -t 2 should return [i love pie]
-      puts args
 
       if !args.include? "-f"
         puts "sysmgr :: requires -m arg"
@@ -47,8 +46,8 @@ module FileWatcher
         return false
       end
 
-      fn = (/-[f]([a-zA-Z0-9" ]+)/).match(args)[1]
-      name = (/-[n]([a-zA-Z0-9" ]+)/).match(args)[1]
+      fn = (/-[f]([a-zA-Z0-9" ]+)/).match(args)[1].gsub('"', "")
+      name = (/-[n]([a-zA-Z0-9" ]+)/).match(args)[1].gsub('"', "")
       time = (/-[t](\d+)/).match(args)[1]
 
       if ! (time =~ /\A[-+]?[0-9]+\z/)

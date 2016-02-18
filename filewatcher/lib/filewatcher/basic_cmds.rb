@@ -20,7 +20,7 @@ module FileWatcher
     def self.quit(args)
       # ANY OTHER TEARDOWN REQUIRE
       ## KILL ALL PROCESSES
-      abort("~~~~~~~~~~~~\nExiting FileWatcher\n~~~~~~~~~~~~")
+      abort("+-------------------+\n Exiting FileWatcher\n+-------------------+")
     end
   end
 end
