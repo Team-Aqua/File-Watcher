@@ -30,7 +30,6 @@ module FileWatcher
     def self.filewatch(args)
       # extract fn, name, dur from command
       args = args.gsub(/\s+(?=([^"]*"[^"]*")*[^"]*$)/, "") # eg. statement sysmgr -t i love pie -t 2 should return [i love pie]
-      puts args
 
       if !args.include? "-f"
         puts "sysmgr :: requires -m arg"
