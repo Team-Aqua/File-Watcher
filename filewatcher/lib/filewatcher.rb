@@ -1,13 +1,17 @@
 require "filewatcher/version"
-require_relative 'filewatcher/mylib'
+require "filewatcher/shell"
+require 'filewatcher/mylib'
+require 'filewatcher/exceptions'
+require 'filewatcher/mcontracts'
+require 'filewatcher/basic_cmds'
+require 'filewatcher/adv_cmds'
 
 module FileWatcher
-
-  # void method call
+  # # void method call
   Mylib::foo
+  
+  shell = Shell.new
+  shell.run
 
-  # method that takes arguments and returns integer
-  sum = Mylib::add(30, 12)
-  print sum
 
 end

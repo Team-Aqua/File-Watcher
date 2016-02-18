@@ -4,7 +4,7 @@
 
   * Aaron: Answer Questions Module 1 []
   * Anson: Answer Questions Module 2 [FIRST DRAFT COMPLETED]
-  * Quentin: Answer Questions Module 3 []
+  * Quentin: Answer Questions Module 3 [FIRST DRAFT COMPLETED]
 
   * Aaron: Look over contribute/critique ALL Questions []
   * Anson: Look over contribute/critique ALL Questions []
@@ -36,6 +36,6 @@
 #### Due: Friday Feb 19th
   * Module 2
 
-#### Due: Thursday Feb 20th
+#### Due: Saturday Feb 20th
   * Module 3 / Module 1 Complete
 
