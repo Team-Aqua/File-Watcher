@@ -15,9 +15,9 @@ module FileWatcher
 
     Contract C::And[MContracts::NilArgs, MContracts::Arg_m, MContracts::Arg_t] => C::Any
     def self.sysmgr(args)
-      args = args.gsub(/\s+/, "")
+      args = args.gsub(/\s+(?=([^"]*"[^"]*")*[^"]*$)/, "") 
 
-      arg1 = (/-[m]([a-zA-Z]+)/).match(args)[1]
+      arg1 = (/-[m]([a-zA-Z0-9 "]+)/).match(args)[1]
       arg2 = (/-[t](\d+)/).match(args)[1]
 
       if ! (arg2 =~ /\A[-+]?[0-9]+\z/)
@@ -48,8 +48,8 @@ module FileWatcher
         return false
       end
 
-      fn = (/-[f]([a-zA-Z0-9]+)/).match(args)[1]
-      name = (/-[n]([a-zA-Z0-9]+)/).match(args)[1]
+      fn = (/-[f]([a-zA-Z0-9" ]+)/).match(args)[1]
+      name = (/-[n]([a-zA-Z0-9" ]+)/).match(args)[1]
       time = (/-[t](\d+)/).match(args)[1]
 
       if ! (time =~ /\A[-+]?[0-9]+\z/)
