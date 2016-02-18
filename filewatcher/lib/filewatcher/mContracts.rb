@@ -14,7 +14,8 @@ module MContracts
 
   class Arg_m
     def self.valid? args
-      if !args.include? "-m"
+      args = args.gsub(/\s+/, "")
+      if !args.match(/-m('(.*?)'|"(.*?)")/)
         puts "Requires -m argument"
         return false
       end
