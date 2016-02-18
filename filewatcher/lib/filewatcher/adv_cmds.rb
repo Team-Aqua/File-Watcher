@@ -10,23 +10,12 @@ module FileWatcher
     Contract.override_failure_callback do |data|
       # Stop Exception Failures
       # print "Command error: "
-      puts Contract.failure_msg(data)
+      # puts Contract.failure_msg(data)
     end
 
-    Contract MContracts::NilArgs => C::Any
+    Contract C::And[MContracts::NilArgs, MContracts::Arg_m, MContracts::Arg_t] => C::Any
     def self.sysmgr(args)
-      # extract arg1. arg2 from command
       args = args.gsub(/\s+/, "")
-
-      if !args.include? "-m"
-        puts "sysmgr :: requires -m arg"
-        return false
-      end
-
-      if !args.include? "-t"
-        puts "sysmgr :: requires -t arg"
-        return false
-      end
 
       arg1 = (/-[m]([a-zA-Z]+)/).match(args)[1]
       arg2 = (/-[t](\d+)/).match(args)[1]
