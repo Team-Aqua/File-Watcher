@@ -15,7 +15,7 @@ void help () {
   cout << "help :: list available functions                       " << endl;
   cout << "ls :: find files in current directory                  " << endl;
   cout << "cd {dir} :: change directories                         " << endl;
-  cout << "filewatch :: watch files                               " << endl;
+  cout << "filewatch -f {function} -n {name} -t {time} ::         " << endl;
   cout << "sysmgr -m {msg} -t {time} :: repeat system message     " << endl;
   cout << "quit :: exit console                                   " << endl;
   cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
