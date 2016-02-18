@@ -17,7 +17,7 @@ module FileWatcher
     def self.sysmgr(args)
       args = args.gsub(/\s+/, "")
 
-      arg1 = (/-[m]([a-zA-Z]+)/).match(args)[1]
+      arg1 = (/-m('(.*?)'|"(.*?)")/).match(args)[1]
       arg2 = (/-[t](\d+)/).match(args)[1]
 
       if ! (arg2 =~ /\A[-+]?[0-9]+\z/)
