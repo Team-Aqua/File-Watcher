@@ -52,7 +52,7 @@ module MContracts
         puts "Requires -f 'filename.xx' argument"
         return false
       end
-      if !args.match(/-f('|")(.*?\.[a-z0-9]+)('|")/) # Ensure
+      if !args.match(/-f('|")([a-zA-Z0-9_-]+\.[a-z0-9]+)('|")/) # Ensure
         puts "Invalid filename: example 'filename.xx' "
       end
       return true

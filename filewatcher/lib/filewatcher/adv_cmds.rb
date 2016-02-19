@@ -31,7 +31,7 @@ module FileWatcher
       # extract fn, name, dur from command
       args = args.gsub(/\s+(?=([^"]*"[^"]*")*[^"]*$)/, "") # eg. statement sysmgr -t i love pie -t 2 should return [i love pie]
       watch_mode = (/-m(alter|create|destroy)($|-)/).match(args)[1]
-      file_name = (/-f('|")(.*?\.[a-z0-9]+)('|")/).match(args)[2].gsub(/(')|(")/, "")
+      file_name = (/-f('|")([a-zA-Z0-9_-]+\.[a-z0-9]+)('|")/).match(args)[2].gsub(/(')|(")/, "")
       time = (/-[t](\d+)/).match(args)[1]
 
       Mylib::filewatch(watch_mode, file_name, time.to_i)
