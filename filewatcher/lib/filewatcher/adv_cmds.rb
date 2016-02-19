@@ -30,7 +30,7 @@ module FileWatcher
     def self.filewatch(args)
       # extract fn, name, dur from command
       args = args.gsub(/\s+(?=([^"]*"[^"]*")*[^"]*$)/, "") # eg. statement sysmgr -t i love pie -t 2 should return [i love pie]
-      watch_mode = (/-m([CAD]+)($|-)/).match(args)[1]
+      watch_mode = (/-m(alter|create|destroy)($|-)/).match(args)[1]
       file_name = (/-f('|")(.*?\.[a-z0-9]+)('|")/).match(args)[2].gsub(/(')|(")/, "")
       time = (/-[t](\d+)/).match(args)[1]
 

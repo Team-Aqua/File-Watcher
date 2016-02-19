@@ -65,8 +65,8 @@ module MContracts
   class Arg_watch_mode
     def self.valid? args
       args = args.gsub(/\s+/, "") #Remove Whitespace
-      if !args.match(/-m([CAD]+)($|-)/)
-        puts "Requires mode argument: -m [C(creation), A(alteration), D(deletion)] "
+      if !args.match(/-m(alter|create|destroy)($|-)/)
+        puts "Requires mode argument: -m [create, alter, destroy] "
         return false
       end
       return true
