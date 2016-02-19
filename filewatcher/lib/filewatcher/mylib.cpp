@@ -19,7 +19,7 @@ void help () {
   cout << " quit :: exit console                                       " << endl;
   cout << "+----------------------------------------------------------+" << endl;
   cout << " Advanced Functions:                                        " << endl;
-  cout << " filewatch -f {function} -n {name} -t {time} ::             " << endl;
+  cout << " filewatch -f {create, alter, destroy} -n {name} -t {time}  " << endl;
   cout << " sysmgr -m {msg} -t {time} :: repeat system message         " << endl;
   cout << "+----------------------------------------------------------+" << endl;
   cout << " Other Functions:                                           " << endl;
@@ -95,10 +95,113 @@ void filewatch(char * fn, char * name, int dur) {
   int pid = fork();
   if ( pid == 0 ){
     /* child */
+    // FIXME: need to have an array of names, not just one name - maybe iterate @ this level?
+    if (strncmp (fn, "create", strlen(fn)) == 0 ) {
+      cout << "+-------------------+" << endl;
+      cout << "'CREATE' FUNCTION CALL" << endl;
+      cout << "+-------------------+\n" << endl;
+      fwcreate(name, dur);
+    } else if (strncmp (fn, "alter", strlen(fn)) == 0) {
+      cout << "+-------------------+" << endl;
+      cout << "'ALTER' FUNCTION CALL" << endl;
+      cout << "+-------------------+\n" << endl;
+      fwalter(name, dur);
+    } else if (strncmp (fn, "destroy", strlen(fn)) == 0) {
+      cout << "+-------------------+" << endl;
+      cout << "'DESTROY' FUNCTION CALL" << endl;
+      cout << "+-------------------+\n" << endl;
+      fwdestroy(name, dur);
+    } else {
+      cout << "No recognised function call presented." << endl;
+    }
     exit(0);
   } else {
     /* parent */
   }
+}
+
+void fwdestroy(char * name, int dur) {
+
+  DIR           *dp;
+  struct dirent *dirp;
+  struct stat    buf;
+
+  int duritr = 0;
+  bool found = false;
+  dp = opendir(".");
+
+  if(dp == NULL)
+    {
+        perror("Cannot open directory ");
+        exit(2);
+    }
+  // things need to be fixed:
+  // iterate over a group
+  // check that the file is present before checking if it's destroyed
+  while (duritr < dur) {
+    while ((dirp = readdir(dp)) != NULL)
+    {
+      if (strncmp (dirp->d_name,".xxx",1) != 0){
+        if (strncmp (dirp->d_name, name, strlen(name)) == 0) {
+          found = true;
+        } 
+      }
+    }
+    if (found == false) {
+      cout << "+-----------------------------------+" << endl;
+      cout << " File " << name << " not found after " << duritr + 1 << " seconds - destroyed" << endl;
+      cout << "+-----------------------------------+" << endl;
+      return;
+    }
+    duritr = duritr + 1;
+    sleep(1);
+  }
+  cout << "+-----------------------------------+" << endl;
+  cout << "File monitoring for "<< name << " complete after " << dur << " seconds." << endl;
+  cout << "+-----------------------------------+" << endl;
+  return;
+}
+
+void fwalter(char * name, int dur) {
+  cout << "ALTER inner function call" << endl;
+}
+
+void fwcreate(char * name, int dur) {
+
+  DIR           *dp;
+  struct dirent *dirp;
+  struct stat    buf;
+
+  int duritr = 0;
+  
+  dp = opendir(".");
+
+  if(dp == NULL)
+    {
+        perror("Cannot open directory ");
+        exit(2);
+    }
+  while (duritr < dur) {
+    while ((dirp = readdir(dp)) != NULL)
+    {
+      if (strncmp (dirp->d_name,".xxx",1) != 0){
+        if (strncmp (dirp->d_name, name, strlen(name)) == 0) {
+          // if file is found, then return 'true'.
+          // can test by running, then making a file @ location
+          cout << "+--------------------+" << endl;
+          cout << " File " << name << " found after " << duritr + 1 << " seconds - created" << endl;
+          cout << "+--------------------+" << endl;
+          return;
+        } 
+      }
+    }
+    duritr = duritr + 1;
+    sleep(1);
+  }
+  cout << "+-----------------------------------+" << endl;
+  cout << "File monitoring for "<< name << " complete after " << dur << " seconds." << endl;
+  cout << "+-----------------------------------+" << endl;
+  return;
 }
 
 void sysmgr(char * arg1, int arg2) {
