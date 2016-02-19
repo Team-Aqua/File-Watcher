@@ -19,7 +19,7 @@ void help () {
   cout << " quit :: exit console                                       " << endl;
   cout << "+----------------------------------------------------------+" << endl;
   cout << " Advanced Functions:                                        " << endl;
-  cout << " filewatch -f {function} -n {name} -t {time} ::             " << endl;
+  cout << " filewatch -m {mode: C, A, or D} -f {filename} -t {time}    " << endl;
   cout << " sysmgr -m {msg} -t {time} :: repeat system message         " << endl;
   cout << "+----------------------------------------------------------+" << endl;
   cout << " Other Functions:                                           " << endl;

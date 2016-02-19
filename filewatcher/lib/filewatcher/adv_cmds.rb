@@ -15,48 +15,26 @@ module FileWatcher
 
     Contract C::And[MContracts::NilArgs, MContracts::Arg_m, MContracts::Arg_t] => C::Any
     def self.sysmgr(args)
-      args = args.gsub(/\s+(?=([^"]*"[^"]*")*[^"]*$)/, "") 
-      arg1 = (/-[m]([a-zA-Z0-9 "]+)/).match(args)[1].gsub('"', "")
-      arg2 = (/-[t](\d+)/).match(args)[1]
-      if ! (arg2 =~ /\A[-+]?[0-9]+\z/)
-        puts "-t argument not numeric"
-        return false
-      end
-      Mylib::sysmgr(arg1, arg2.to_i)
+      args = args.gsub(/\s+(?=([^"]*"[^"]*")*[^"]*$)/, "") # removes whitespace...? # eg. statement sysmgr -t i love pie -t 2 should return [i love pie]
+      message = (/-m('(.*?)'|"(.*?)")/).match(args)[1].gsub(/(')|(")/, "") #returns -m arg quotes removed.
+      time = (/-[t](\d+)/).match(args)[1]
+      Mylib::sysmgr(message, time.to_i)
     end
 
+    Contract MContracts::NilArgs => C::Any
     def self.getdir(args)
       Mylib::getdir()
     end
 
+    Contract C::And[MContracts::NilArgs, MContracts::Arg_watch_mode, MContracts::Arg_file, MContracts::Arg_t] => C::Any
     def self.filewatch(args)
       # extract fn, name, dur from command
       args = args.gsub(/\s+(?=([^"]*"[^"]*")*[^"]*$)/, "") # eg. statement sysmgr -t i love pie -t 2 should return [i love pie]
-
-      if !args.include? "-f"
-        puts "sysmgr :: requires -m arg"
-        return false
-      end
-
-      if !args.include? "-n"
-        puts "sysmgr :: requires -n arg"
-        return false
-      end
-
-      if !args.include? "-t"
-        puts "sysmgr :: requires -t arg"
-        return false
-      end
-
-      fn = (/-[f]([a-zA-Z0-9" ]+)/).match(args)[1].gsub('"', "")
-      name = (/-[n]([a-zA-Z0-9" ]+)/).match(args)[1].gsub('"', "")
+      watch_mode = (/-m([CAD]+)($|-)/).match(args)[1]
+      file_name = (/-f('|")(.*?\.[a-z0-9]+)('|")/).match(args)[2].gsub(/(')|(")/, "")
       time = (/-[t](\d+)/).match(args)[1]
 
-      if ! (time =~ /\A[-+]?[0-9]+\z/)
-        puts "-t argument not numeric"
-        return false
-      end
-      Mylib::filewatch(fn, name, time.to_i)
+      Mylib::filewatch(watch_mode, file_name, time.to_i)
     end
     
   end
