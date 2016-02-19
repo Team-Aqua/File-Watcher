@@ -138,6 +138,20 @@ void fwdestroy(char * name, int dur) {
   // things need to be fixed:
   // iterate over a group
   // check that the file is present before checking if it's destroyed
+  while ((dirp = readdir(dp)) != NULL) {
+    if (strncmp (dirp->d_name,".xxx",1) != 0){
+      if (strncmp (dirp->d_name, name, strlen(name)) == 0) {
+        found = true;
+      } 
+    }
+  }
+  if (found == false) {
+    cout << "+---------------------------------------+" << endl;
+    cout << " File isn't found ;; filewatch has ended" << endl;
+    cout << "+---------------------------------------+" << endl;
+    return;
+  }
+
   while (duritr < dur) {
     while ((dirp = readdir(dp)) != NULL)
     {
@@ -164,6 +178,7 @@ void fwdestroy(char * name, int dur) {
 
 void fwalter(char * name, int dur) {
   cout << "ALTER inner function call" << endl;
+  // doesn't do anything right now! have to modify implementation 
 }
 
 void fwcreate(char * name, int dur) {
@@ -181,6 +196,20 @@ void fwcreate(char * name, int dur) {
         perror("Cannot open directory ");
         exit(2);
     }
+
+  while ((dirp = readdir(dp)) != NULL) {
+    if (strncmp (dirp->d_name,".xxx",1) != 0){
+      if (strncmp (dirp->d_name, name, strlen(name)) == 0) {
+        // if file is found, then return 'true'.
+        // can test by running, then making a file @ location
+        cout << "+----------------------------------------------+" << endl;
+        cout << " File is already created ;; filewatch has ended" << endl;
+        cout << "+----------------------------------------------+" << endl;
+        return;
+      } 
+    }
+  }
+
   while (duritr < dur) {
     while ((dirp = readdir(dp)) != NULL)
     {

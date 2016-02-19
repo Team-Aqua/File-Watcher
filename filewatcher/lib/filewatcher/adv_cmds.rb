@@ -33,8 +33,13 @@ module FileWatcher
       watch_mode = (/-m(alter|create|destroy)($|-)/).match(args)[1]
       file_name = (/-f('|")([a-zA-Z0-9_-]+\.[a-z0-9]+)('|")/).match(args)[2].gsub(/(')|(")/, "")
       time = (/-[t](\d+)/).match(args)[1]
-
-      Mylib::filewatch(watch_mode, file_name, time.to_i)
+      # extract each filename
+      # right now we split by space - rework later
+      # broken because of regex
+      filenames = file_name.split(" ");
+      for name in filenames
+        Mylib::filewatch(watch_mode, name, time.to_i)
+      end
     end
     
   end
