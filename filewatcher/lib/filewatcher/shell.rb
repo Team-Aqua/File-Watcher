@@ -28,7 +28,7 @@ module FileWatcher
       if args != nil and args.to_i != 0
         puts " Last #{args.to_i} Entries"
         puts "+---------------------+"
-        for index in 0..args.to_i
+        for index in 0..args.to_i - 1
           puts @command_history[index]
         end
       else 
