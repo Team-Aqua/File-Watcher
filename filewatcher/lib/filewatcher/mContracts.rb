@@ -54,6 +54,7 @@ module MContracts
       end
       if !args.match(/-f('|")([a-zA-Z0-9_-]+\.[a-z0-9]+)('|")/) # Ensure
         puts "Invalid filename: example 'filename.xx' "
+        return false
       end
       return true
     end
