@@ -10,3 +10,4 @@ void   help();
 void   cd(char * arg);
 void   filewatch(char * fn, char * name, int dur);
 void   sysmgr(char * arg1, int arg2);
+void   getdir();

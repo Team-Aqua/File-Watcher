@@ -2178,6 +2178,18 @@ fail:
 }
 
 
+SWIGINTERN VALUE
+_wrap_getdir(int argc, VALUE *argv, VALUE self) {
+  if ((argc < 0) || (argc > 0)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 0)",argc); SWIG_fail;
+  }
+  getdir();
+  return Qnil;
+fail:
+  return Qnil;
+}
+
+
 
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
 
@@ -2453,5 +2465,6 @@ SWIGEXPORT void Init_mylib(void) {
   rb_define_module_function(mMylib, "cd", VALUEFUNC(_wrap_cd), -1);
   rb_define_module_function(mMylib, "filewatch", VALUEFUNC(_wrap_filewatch), -1);
   rb_define_module_function(mMylib, "sysmgr", VALUEFUNC(_wrap_sysmgr), -1);
+  rb_define_module_function(mMylib, "getdir", VALUEFUNC(_wrap_getdir), -1);
 }
 

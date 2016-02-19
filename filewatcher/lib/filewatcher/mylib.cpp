@@ -15,11 +15,15 @@ void help () {
   cout << " help :: list available functions                           " << endl;
   cout << " ls :: find files in current directory                      " << endl;
   cout << " cd {dir} :: change directories                             " << endl;
+  cout << " getdir :: get current directory                            " << endl;
   cout << " quit :: exit console                                       " << endl;
   cout << "+----------------------------------------------------------+" << endl;
   cout << " Advanced Functions:                                        " << endl;
   cout << " filewatch -f {function} -n {name} -t {time} ::             " << endl;
   cout << " sysmgr -m {msg} -t {time} :: repeat system message         " << endl;
+  cout << "+----------------------------------------------------------+" << endl;
+  cout << " Other Functions:                                           " << endl;
+  cout << " histfn {num = 0} :: prints function history                " << endl;
   cout << "+----------------------------------------------------------+" << endl;
 }
 
@@ -29,6 +33,18 @@ int add (int a, int b) {
 
 int sub (int a, int b) {
     return a-b;
+}
+
+void getdir () {
+  // ref: http://stackoverflow.com/questions/2203159/is-there-a-c-equivalent-to-getcwd
+  char buff[PATH_MAX];
+  getcwd( buff, PATH_MAX );
+  std::string cwd( buff );
+  cout << "+------------------------+" << endl;
+  cout << " Current Directory: " << endl;
+  cout << "+------------------------+" << endl;
+  cout << buff << endl;
+  return;
 }
 
 void ls () {

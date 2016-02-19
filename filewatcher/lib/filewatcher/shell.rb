@@ -5,6 +5,7 @@ module FileWatcher
   class Shell
     # Can discuss threading this portion later 
     def initialize
+      @command_history = []
       @prompt = "\n> "
       @command_queue = []
       @valid_commands = { 
@@ -13,8 +14,28 @@ module FileWatcher
         :cd => lambda { |args| BasicCmds::cd(args) }, 
         :quit =>  lambda { |args| BasicCmds::quit(args) },
         :filewatch => lambda { |args| AdvCmds::filewatch(args) }, 
+        :histfn => lambda { |args| self.histfn(args) },
+        :getdir => lambda { |args| AdvCmds::getdir(args) },
         :sysmgr => lambda { |args| AdvCmds::sysmgr(args) }
       }
+    end
+
+    def histfn(args = nil)
+      puts args
+      puts "+---------------------+"
+      puts " Function History"
+      puts "+---------------------+"
+      if args != nil and args.to_i != 0
+        puts " Last #{args.to_i} Entries"
+        puts "+---------------------+"
+        for index in 0..args.to_i
+          puts @command_history[index]
+        end
+      else 
+        puts " Full History"
+        puts "+---------------------+"
+        puts @command_history
+      end
     end
       
     def receive_command
@@ -34,8 +55,11 @@ module FileWatcher
 
     def process_command
       if !@command_queue.empty?
-        command, args = @command_queue.pop.split(" ", 2)
+
+        @lastcommand = @command_queue.pop
+        command, args = @lastcommand.split(" ", 2)
         # puts "Processing Command: #{command}"
+        @command_history.insert(0, @lastcommand)
         @valid_commands[command.to_sym].call(args)
       end
     end

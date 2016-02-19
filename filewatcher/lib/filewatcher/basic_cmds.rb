@@ -12,8 +12,6 @@ module FileWatcher
         puts "Requires arg"
         return false
       end
-
-      puts args
       Mylib::cd(args)
     end
 
@@ -22,5 +20,6 @@ module FileWatcher
       ## KILL ALL PROCESSES
       abort("+-------------------+\n Exiting FileWatcher\n+-------------------+")
     end
+
   end
 end

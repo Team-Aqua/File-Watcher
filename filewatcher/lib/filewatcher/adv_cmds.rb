@@ -18,13 +18,15 @@ module FileWatcher
       args = args.gsub(/\s+(?=([^"]*"[^"]*")*[^"]*$)/, "") 
       arg1 = (/-[m]([a-zA-Z0-9 "]+)/).match(args)[1].gsub('"', "")
       arg2 = (/-[t](\d+)/).match(args)[1]
-
       if ! (arg2 =~ /\A[-+]?[0-9]+\z/)
         puts "-t argument not numeric"
         return false
       end
-
       Mylib::sysmgr(arg1, arg2.to_i)
+    end
+
+    def self.getdir(args)
+      Mylib::getdir()
     end
 
     def self.filewatch(args)
