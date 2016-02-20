@@ -10,8 +10,7 @@ module FileWatcher
   # # void method call
   Mylib::foo
   
-  shell = Shell.new
-  shell.run
-
+  # shell = Shell.new
+  # shell.run
 
 end

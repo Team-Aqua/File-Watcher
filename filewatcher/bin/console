@@ -11,4 +11,7 @@ require "filewatcher"
 # Pry.start
 
 require "irb"
+
+s = FileWatcher::Shell.new.run
 IRB.start
+
