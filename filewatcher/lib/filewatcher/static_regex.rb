@@ -11,7 +11,9 @@ module StaticRegex
 
   MESSAGE_ARG_QUOTES_CONTAIN_ANY = /-m('(.*?)'|"(.*?)")/
 
-  WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT = /\s+(?=([^"]*"[^"]*")*[^"]*$)/
+  WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT = /\s+(?=([^']*'[^']*')*[^']*$)/
+
+  WHITESPACE_OMIT_DOUBLE_BRACKET_WHITESPACE_CONTENT = /\s+(?=([^"]*"[^"]*")*[^"]*$)/
 
   FIND_QUOTES = /(')|(")/
 
