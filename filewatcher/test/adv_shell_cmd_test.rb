@@ -23,4 +23,12 @@ class AdvShellCMDTest < Minitest::Test
   def test_filewatch
     assert_output(/#{MContracts::ERROR_STRING_NO_ARGS}/) {FileWatcher::AdvCmds::filewatch("")}
   end
+
+  def test_getdir
+    assert_output(/No arguments provided/) {FileWatcher::AdvCmds::getdir("")}
+  end
+
+  def test_filewatch
+    assert_output(/No arguments provided/) {FileWatcher::AdvCmds::filewatch("")}
+  end
 end

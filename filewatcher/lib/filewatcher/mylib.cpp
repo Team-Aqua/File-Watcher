@@ -97,9 +97,6 @@ void filewatch(char * fn, char * name, int dur) {
     /* child */
     // FIXME: need to have an array of names, not just one name - maybe iterate @ this level?
     if (strncmp (fn, "create", strlen(fn)) == 0 ) {
-      cout << "+-------------------+" << endl;
-      cout << "'CREATE' FUNCTION CALL" << endl;
-      cout << "+-------------------+\n" << endl;
       fwcreate(name, dur);
     } else if (strncmp (fn, "alter", strlen(fn)) == 0) {
       cout << "+-------------------+" << endl;
@@ -107,9 +104,6 @@ void filewatch(char * fn, char * name, int dur) {
       cout << "+-------------------+\n" << endl;
       fwalter(name, dur);
     } else if (strncmp (fn, "destroy", strlen(fn)) == 0) {
-      cout << "+-------------------+" << endl;
-      cout << "'DESTROY' FUNCTION CALL" << endl;
-      cout << "+-------------------+\n" << endl;
       fwdestroy(name, dur);
     } else {
       cout << "No recognised function call presented." << endl;
@@ -147,7 +141,7 @@ void fwdestroy(char * name, int dur) {
   }
   if (found == false) {
     cout << "+---------------------------------------+" << endl;
-    cout << " File isn't found ;; filewatch has ended" << endl;
+    cout << " " << name << " isn't found ;; filewatch has ended" << endl;
     cout << "+---------------------------------------+" << endl;
     return;
   }
@@ -203,7 +197,7 @@ void fwcreate(char * name, int dur) {
         // if file is found, then return 'true'.
         // can test by running, then making a file @ location
         cout << "+----------------------------------------------+" << endl;
-        cout << " File is already created ;; filewatch has ended" << endl;
+        cout << " " << name << " is already created ;; filewatch has ended" << endl;
         cout << "+----------------------------------------------+" << endl;
         return;
       } 
@@ -227,9 +221,9 @@ void fwcreate(char * name, int dur) {
     duritr = duritr + 1;
     sleep(1);
   }
-  cout << "+-----------------------------------+" << endl;
+  cout << "+----------------------------------------------+" << endl;
   cout << "File monitoring for "<< name << " complete after " << dur << " seconds." << endl;
-  cout << "+-----------------------------------+" << endl;
+  cout << "+----------------------------------------------+" << endl;
   return;
 }
 
