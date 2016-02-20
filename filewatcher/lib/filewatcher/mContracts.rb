@@ -1,16 +1,25 @@
 require "filewatcher/static_regex"
 
 module MContracts
+  ERROR_STRING_NO_ARGS = "No arguments provided"
+  ERROR_STRING_T_IS_INT = "-t Argument must be a positive integer"
+  ERROR_STRING_FILEWATCH_MODE_ARGS =  "Requires mode argument: -m [create, alter, destroy]"
+  ERROR_STRING_HELP_DETAILS = "Type 'help {cmd}' for details"
+
+  def self.req_arg_string(arg)
+    return "Requires -#{arg} argument. #{ERROR_STRING_HELP_DETAILS}"
+  end
+
   class NilArgs
     def self.valid? args
       if args == nil or args == ""
-        puts "No arguments provided"
+        puts MContracts::ERROR_STRING_NO_ARGS
         return false
       end
       return true
     end
     def self.to_s
-      "No arguments provided"
+      MContracts::ERROR_STRING_NO_ARGS
     end
   end
 
@@ -18,13 +27,13 @@ module MContracts
     def self.valid? args
       args = args.gsub(StaticRegex::ALL_WHITESPACE, "")
       if !args.match(StaticRegex::MESSAGE_ARG_QUOTES_CONTAIN_ANY)
-        puts "Requires -m argument"
+        puts MContracts::req_arg_string("m")
         return false
       end
       return true
     end
     def self.to_s
-      "Requires -m argument"
+      MContracts::req_arg_string("m")
     end
   end
 
@@ -32,18 +41,18 @@ module MContracts
     def self.valid? args
       args = args.gsub(StaticRegex::ALL_WHITESPACE, "") 
       if !args.match(StaticRegex::TIME_ARG_ANY) 
-        puts "Requires -t argument"
+        puts MContracts::req_arg_string("t")
         return false
       end
       if !args.match(/-t(\d+)($|-)/) # Verify Positive integer with no trailing characters
-        puts "-t Argument must be a positive integer"
+        puts MContracts::ERROR_STRING_T_IS_INT
         return false
       end
 
       return true
     end
     def self.to_s
-      "Requires -t argument"
+      MContracts::req_arg_string("m")
     end
   end
 
@@ -52,7 +61,7 @@ module MContracts
       args = args.gsub(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, "") 
 
       if !args.match(StaticRegex::FILENAME_ARG_ANY)
-        puts "Requires -f 'filename.xx' pr -f 'file1.xx file2.xx' argument"
+        puts MContracts::req_arg_string("f")
         return false
       end
       f_arg = StaticRegex::FILENAME_ARG_ANY.match(args)[1]
@@ -61,7 +70,7 @@ module MContracts
       f_args = f_arg.split(" ")
       f_args.each do | filename | 
         if !filename.match(StaticRegex::VALID_FILENAME)
-          puts "#{filename} invalid filename. Should be: 'filename.xx' [a-zA-Z0-9_-].[a-z0-9]"
+          puts "#{filename} invalid filename. #{ERROR_STRING_HELP_DETAILS}"
           return false
         end
       end
@@ -81,7 +90,7 @@ module MContracts
     def self.valid? args
       args = args.gsub(StaticRegex::ALL_WHITESPACE, "") 
       if !args.match(StaticRegex::WATCH_MODE_ARG)
-        puts "Requires mode argument: -m [create, alter, destroy] "
+        puts MContracts::ERROR_STRING_FILEWATCH_MODE_ARGS
         return false
       end
       return true
