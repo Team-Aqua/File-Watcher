@@ -31,7 +31,10 @@ module FileWatcher
       # extract fn, name, dur from command
       args = args.gsub(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, "") 
       watch_mode = StaticRegex::WATCH_MODE_ARG.match(args)[1]
-      file_name = StaticRegex::FILE_NAME_ARG.match(args)[2].gsub(StaticRegex::FIND_QUOTES, "")
+
+      file_name = StaticRegex::FILENAME_ARG_ANY.match(args)[1]
+      file_name = StaticRegex::CONTENT_BETWEEN_QUOTES.match(file_name)[2]
+
       time = StaticRegex::TIME_ARG_INTEGER.match(args)[1]
       # extract each filename
       # right now we split by space - rework later
