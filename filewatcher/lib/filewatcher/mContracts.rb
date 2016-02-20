@@ -49,15 +49,27 @@ module MContracts
 
   class Arg_file
     def self.valid? args
-      args = args.gsub(StaticRegex::ALL_WHITESPACE, "") 
+      args = args.gsub(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, "") 
+
       if !args.match(StaticRegex::FILENAME_ARG_ANY)
-        puts "Requires -f 'filename.xx' argument"
+        puts "Requires -f 'filename.xx' pr -f 'file1.xx file2.xx' argument"
         return false
       end
-      if !args.match(StaticRegex::FILENAME_ARG_VALID) # Ensure
-        puts "Invalid filename: example 'filename.xx' "
-        return false
+      f_arg = StaticRegex::FILENAME_ARG_ANY.match(args)[1]
+      f_arg = StaticRegex::CONTENT_BETWEEN_QUOTES.match(f_arg)[2]
+      
+      f_args = f_arg.split(" ")
+      f_args.each do | filename | 
+        if !filename.match(StaticRegex::VALID_FILENAME)
+          puts "#{filename} invalid filename. Should be: 'filename.xx' [a-zA-Z0-9_-].[a-z0-9]"
+          return false
+        end
       end
+      
+      # if !args.match(StaticRegex::FILENAME_ARG_VALID) # Ensure
+      #   puts "Invalid filename: example 'filename.xx' "
+      #   return false
+      # end
       return true
     end
     def self.to_s
