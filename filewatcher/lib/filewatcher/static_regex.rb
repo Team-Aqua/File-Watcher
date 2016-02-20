@@ -1,7 +1,7 @@
 module StaticRegex
   TIME_ARG_ANY = /-t(.*?)/
 
-  TIME_ARG_INTEGER = /-[t](\d+)/
+  TIME_ARG_INTEGER = /-[t](\d+)$/
 
   FILENAME_ARG_ANY = /-f('(.*?)'|"(.*?)")/
 
@@ -20,8 +20,6 @@ module StaticRegex
   CONTENT_BETWEEN_QUOTES = /('|")(.*?)('|")/
 
   WATCH_MODE_ARG = /-m(alter|create|destroy)($|-)/
-
-  FILE_NAME_ARG = /-f('|")([a-zA-Z0-9_-]+\.[a-z0-9]+)('|")/
 
   ALL_WHITESPACE = /\s+/
 
