@@ -1,3 +1,5 @@
+require "filewatcher/static_regex"
+
 module MContracts
   class NilArgs
     def self.valid? args
@@ -14,8 +16,8 @@ module MContracts
 
   class Arg_m
     def self.valid? args
-      args = args.gsub(/\s+/, "") # Remove Whitespace
-      if !args.match(/-m('(.*?)'|"(.*?)")/) # verify -m with quotes containing anything
+      args = args.gsub(StaticRegex::ALL_WHITESPACE, "")
+      if !args.match(StaticRegex::MESSAGE_ARG_QUOTES_CONTAIN_ANY)
         puts "Requires -m argument"
         return false
       end
@@ -28,8 +30,8 @@ module MContracts
 
   class Arg_t
     def self.valid? args
-      args = args.gsub(/\s+/, "") #Remove Whitespace
-      if !args.match(/-t(.*?)/) # Verify -t follow by anything
+      args = args.gsub(StaticRegex::ALL_WHITESPACE, "") 
+      if !args.match(StaticRegex::TIME_ARG_ANY) 
         puts "Requires -t argument"
         return false
       end
@@ -47,12 +49,12 @@ module MContracts
 
   class Arg_file
     def self.valid? args
-      args = args.gsub(/\s+/, "") #Remove Whitespace
-      if !args.match(/-f('(.*?)'|"(.*?)")/)
+      args = args.gsub(StaticRegex::ALL_WHITESPACE, "") 
+      if !args.match(StaticRegex::FILENAME_ARG_ANY)
         puts "Requires -f 'filename.xx' argument"
         return false
       end
-      if !args.match(/-f('|")([a-zA-Z0-9_-]+\.[a-z0-9]+)('|")/) # Ensure
+      if !args.match(StaticRegex::FILENAME_ARG_VALID) # Ensure
         puts "Invalid filename: example 'filename.xx' "
         return false
       end
@@ -65,8 +67,8 @@ module MContracts
 
   class Arg_watch_mode
     def self.valid? args
-      args = args.gsub(/\s+/, "") #Remove Whitespace
-      if !args.match(/-m(alter|create|destroy)($|-)/)
+      args = args.gsub(StaticRegex::ALL_WHITESPACE, "") 
+      if !args.match(StaticRegex::WATCH_MODE_ARG)
         puts "Requires mode argument: -m [create, alter, destroy] "
         return false
       end
@@ -80,7 +82,7 @@ module MContracts
   ## TEMPLATE
   # class CLASS
   #   def self.valid? args
-  #     args = args.gsub(/\s+/, "") #Remove Whitespace
+  #     args = args.gsub(StaticRegex::ALL_WHITESPACE, "") 
   #     if CONDITION
   #       puts ""
   #       return false

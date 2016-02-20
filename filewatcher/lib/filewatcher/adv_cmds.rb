@@ -1,6 +1,7 @@
 require "filewatcher/exceptions"
 require "contracts"
 require "filewatcher/mcontracts"
+require "filewatcher/static_regex"
 
 module FileWatcher
   module AdvCmds
@@ -9,15 +10,14 @@ module FileWatcher
 
     Contract.override_failure_callback do |data|
       # Stop Exception Failures
-      # print "Command error: "
       # puts Contract.failure_msg(data)
     end
 
     Contract C::And[MContracts::NilArgs, MContracts::Arg_m, MContracts::Arg_t] => C::Any
     def self.sysmgr(args)
-      args = args.gsub(/\s+(?=([^"]*"[^"]*")*[^"]*$)/, "") # removes whitespace...? # eg. statement sysmgr -t i love pie -t 2 should return [i love pie]
-      message = (/-m('(.*?)'|"(.*?)")/).match(args)[1].gsub(/(')|(")/, "") #returns -m arg quotes removed.
-      time = (/-[t](\d+)/).match(args)[1]
+      args = args.gsub(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, "")
+      message = StaticRegex::MESSAGE_ARG_QUOTES_CONTAIN_ANY.match(args)[1].gsub(StaticRegex::FIND_QUOTES, "")
+      time = StaticRegex::TIME_ARG_INTEGER.match(args)[1]
       Mylib::sysmgr(message, time.to_i)
     end
 
@@ -29,10 +29,10 @@ module FileWatcher
     Contract C::And[MContracts::NilArgs, MContracts::Arg_watch_mode, MContracts::Arg_file, MContracts::Arg_t] => C::Any
     def self.filewatch(args)
       # extract fn, name, dur from command
-      args = args.gsub(/\s+(?=([^"]*"[^"]*")*[^"]*$)/, "") # eg. statement sysmgr -t i love pie -t 2 should return [i love pie]
-      watch_mode = (/-m(alter|create|destroy)($|-)/).match(args)[1]
-      file_name = (/-f('|")([a-zA-Z0-9_-]+\.[a-z0-9]+)('|")/).match(args)[2].gsub(/(')|(")/, "")
-      time = (/-[t](\d+)/).match(args)[1]
+      args = args.gsub(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, "") 
+      watch_mode = StaticRegex::WATCH_MODE_ARG.match(args)[1]
+      file_name = StaticRegex::FILE_NAME_ARG.match(args)[2].gsub(StaticRegex::FIND_QUOTES, "")
+      time = StaticRegex::TIME_ARG_INTEGER.match(args)[1]
       # extract each filename
       # right now we split by space - rework later
       # broken because of regex

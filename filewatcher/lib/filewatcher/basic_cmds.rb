@@ -1,17 +1,18 @@
 require 'filewatcher/mylib'
+require "contracts"
+require "filewatcher/mcontracts"
 
 module FileWatcher
   module BasicCmds
+    include Contracts::Core
+    C = Contracts
 
     def self.ls(args)
       Mylib::ls
     end 
 
+    Contract MContracts::NilArgs => C::Any
     def self.cd(args)
-      if args == nil or args == ""
-        puts "Requires arg"
-        return false
-      end
       Mylib::cd(args)
     end
 
