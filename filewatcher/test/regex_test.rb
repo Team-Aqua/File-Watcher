@@ -156,7 +156,18 @@ class RegexTest < Minitest::Test
   end
 
   # WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT = /\s+(?=([^']*'[^']*')*[^']*$)/
+  def test_regex_omit_single_brackets
+    assert(StaticRegex::matcher(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, " 'test.txt' ") )
+    assert(StaticRegex::matcher(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, "-f 'test.txt'") )
+    assert(StaticRegex::matcher(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, " ") )
+    assert(!StaticRegex::matcher(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, "-f'test.txt'") )
+  end
 
   # WHITESPACE_OMIT_DOUBLE_BRACKET_WHITESPACE_CONTENT = /\s+(?=([^"]*"[^"]*")*[^"]*$)/
-
+  def test_regex_omit_single_brackets
+    assert(StaticRegex::matcher(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, " \"test.txt\" ") )
+    assert(StaticRegex::matcher(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, "-f \"test.txt\"") )
+    assert(StaticRegex::matcher(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, " ") )
+    assert(!StaticRegex::matcher(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, "-f\"test.txt\"") )
+  end
 end
