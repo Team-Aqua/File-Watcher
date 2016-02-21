@@ -14,3 +14,6 @@ void   getdir();
 void   fwcreate(char * name, int dur);
 void   fwalter(char * name, int dur);
 void   fwdestroy(char * name, int dur);
+void   newfile (char * filename);
+void   delfile (char * filename);
+

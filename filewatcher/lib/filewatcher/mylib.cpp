@@ -1,6 +1,9 @@
 #include "mylib.h"
 #include <string>
 #include <unistd.h>
+#include <iostream>
+#include <fstream>
+#include <cstdio>
 
 void foo()
 {
@@ -24,6 +27,8 @@ void help () {
   cout << "+------------------------------------------------------------+" << endl;
   cout << " Other Functions:                                             " << endl;
   cout << " histfn {num = 0} :: prints function history                  " << endl;
+  cout << " newfile -f {filename} :: creates a blank file                " << endl;
+  cout << " delfile -f {filename} :: deletes a file                      " << endl;
   cout << "+------------------------------------------------------------+" << endl;
 }
 
@@ -33,6 +38,55 @@ int add (int a, int b) {
 
 int sub (int a, int b) {
     return a-b;
+}
+
+void newfile (char * filename) {
+  // ref: http://en.cppreference.com/w/cpp/io/c/remove
+  bool created = static_cast<bool>(std::ofstream(filename));
+  if (!created) {
+    cout << "+------------------------------+" << endl;
+    cout << " File " << filename << " cannot be created!" << endl;
+    cout << "+------------------------------+" << endl;
+  } else {
+    cout << "+------------------------------+" << endl;
+    cout << " File " << filename << " created." << endl;
+    cout << "+------------------------------+" << endl;
+  }
+  return;
+}
+
+void delfile (char * filename) {
+  // ref: http://en.cppreference.com/w/cpp/io/c/remove
+  // removes a file or empty directory
+  DIR           *dp;
+  struct dirent *dirp;
+  struct stat    buf;
+
+  int duritr = 0;
+  
+  dp = opendir(".");
+
+  if(dp == NULL)
+    {
+        perror("Cannot open directory ");
+        exit(2);
+    }
+
+  while ((dirp = readdir(dp)) != NULL) {
+    if (strncmp (dirp->d_name,".xxx",1) != 0){
+      if (strncmp (dirp->d_name, filename, strlen(filename)) == 0) {
+          std::remove(filename);
+          cout << "+------------------------------+" << endl;
+          cout << " File " << filename << " deleted." << endl;
+          cout << "+------------------------------+" << endl;
+          return;
+      } 
+    }
+  }
+  cout << "+------------------------------+" << endl;
+  cout << " File " << filename << " could not be found." << endl;
+  cout << "+------------------------------+" << endl;
+  return;
 }
 
 void getdir () {

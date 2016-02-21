@@ -16,6 +16,30 @@ module FileWatcher
       Mylib::cd(args)
     end
 
+    Contract MContracts::Arg_file => C::Any
+    def self.newfile(args)
+      args = args.gsub(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, "") 
+      file_name = StaticRegex::FILENAME_ARG_ANY.match(args)[1]
+      file_name = StaticRegex::CONTENT_BETWEEN_QUOTES.match(file_name)[2]
+      filenames = file_name.split(" ");
+      for name in filenames
+        Mylib::newfile(name)
+        sleep 0.15
+      end
+    end
+
+    Contract MContracts::Arg_file => C::Any
+    def self.delfile(args)
+      args = args.gsub(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, "") 
+      file_name = StaticRegex::FILENAME_ARG_ANY.match(args)[1]
+      file_name = StaticRegex::CONTENT_BETWEEN_QUOTES.match(file_name)[2]
+      filenames = file_name.split(" ");
+      for name in filenames
+        Mylib::delfile(name)
+        sleep 0.15
+      end
+    end
+
     def self.quit(args)
       # ANY OTHER TEARDOWN REQUIRE
       ## KILL ALL PROCESSES

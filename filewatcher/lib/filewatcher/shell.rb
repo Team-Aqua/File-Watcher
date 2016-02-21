@@ -16,7 +16,9 @@ module FileWatcher
         :filewatch => lambda { |args| AdvCmds::filewatch(args) }, 
         :histfn => lambda { |args| self.histfn(args) },
         :getdir => lambda { |args| AdvCmds::getdir(args) },
-        :sysmgr => lambda { |args| AdvCmds::sysmgr(args) }
+        :sysmgr => lambda { |args| AdvCmds::sysmgr(args) },
+        :newfile => lambda { |args| BasicCmds::newfile(args) },
+        :delfile => lambda { |args| BasicCmds::delfile(args) }
       }
     end
 
@@ -68,7 +70,7 @@ module FileWatcher
       while true
         receive_command
         process_command
-        sleep(0.25)
+        sleep(0.15)
       end
     end
 
