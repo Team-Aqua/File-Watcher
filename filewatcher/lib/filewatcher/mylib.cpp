@@ -147,6 +147,8 @@ void fwdestroy(char * name, int dur) {
   }
 
   while (duritr < dur) {
+    dp = opendir(".");
+    found = false;
     while ((dirp = readdir(dp)) != NULL)
     {
       if (strncmp (dirp->d_name,".xxx",1) != 0){
