@@ -11,25 +11,30 @@ void foo()
 }
 
 void help () {
-  cout << "+------------------------------------------------------------+" << endl;
+  cout << "+----------------------------------------------------------+" << endl;
   cout << " FileWatcher Ruby Shell                     .. by Team AQuA   " << endl;
-  cout << "+------------------------------------------------------------+" << endl;
+  cout << "+----------------------------------------------------------+" << endl;
   cout << " Standard Functions:                                          " << endl;
-  cout << " help :: list available functions                             " << endl;
-  cout << " ls :: find files in current directory                        " << endl;
-  cout << " cd {dir} :: change directories                               " << endl;
-  cout << " getdir :: get current directory                              " << endl;
-  cout << " quit :: exit console                                         " << endl;
-  cout << "+------------------------------------------------------------+" << endl;
+  cout << " ===================                                          " << endl;
+  cout << " help                          :: list available functions  " << endl;
+  cout << " ls                            :: find files in directory   " << endl;
+  cout << " cd {dir}                      :: change directories        " << endl;
+  cout << " getdir                        :: get current directory     " << endl;
+  cout << " quit                          :: exit console              " << endl;
+  cout << "+----------------------------------------------------------+" << endl;
   cout << " Advanced Functions:                                          " << endl;
-  cout << " filewatch -m {create, alter, destroy} -f {filename} -t {time}" << endl;
-  cout << " sysmgr -m {msg} -t {time} :: repeat system message           " << endl;
-  cout << "+------------------------------------------------------------+" << endl;
+  cout << " ===================                                          " << endl;
+  cout << " filewatch -m {create, alter, destroy}                        " << endl;     
+  cout << "           -f '{filename list}'                               " << endl;  
+  cout << "           -t {time}           :: monitors file changes     " << endl;  
+  cout << " sysmgr -m \"{msg}\" -t {time}   :: repeat system message   " << endl; // shifter by \" movement
+  cout << "+----------------------------------------------------------+" << endl;
   cout << " Other Functions:                                             " << endl;
-  cout << " histfn {num = 0} :: prints function history                  " << endl;
-  cout << " newfile -f {filename} :: creates a blank file                " << endl;
-  cout << " delfile -f {filename} :: deletes a file                      " << endl;
-  cout << "+------------------------------------------------------------+" << endl;
+  cout << " ===================                                          " << endl;
+  cout << " histfn {num = 0}              :: prints function history   " << endl;
+  cout << " newfile -f '{filename list}'  :: creates blank files       " << endl;
+  cout << " delfile -f '{filename}'       :: deletes files in dir.     " << endl;
+  cout << "+----------------------------------------------------------+" << endl;
 }
 
 int add (int a, int b) {
@@ -212,9 +217,9 @@ void fwdestroy(char * name, int dur) {
       }
     }
     if (found == false) {
-      cout << "+-----------------------------------+" << endl;
-      cout << " File " << name << " not found after " << duritr + 1 << " seconds - destroyed" << endl;
-      cout << "+-----------------------------------+" << endl;
+      cout << "+----------------------------------------+" << endl;
+      cout << " File " << name << " destroyed after " << duritr + 1 << " seconds" << endl;
+      cout << "+----------------------------------------+" << endl;
       return;
     }
     duritr = duritr + 1;
@@ -267,9 +272,9 @@ void fwcreate(char * name, int dur) {
         if (strncmp (dirp->d_name, name, strlen(name)) == 0) {
           // if file is found, then return 'true'.
           // can test by running, then making a file @ location
-          cout << "+--------------------+" << endl;
-          cout << " File " << name << " found after " << duritr + 1 << " seconds - created" << endl;
-          cout << "+--------------------+" << endl;
+          cout << "+----------------------------------------+" << endl;
+          cout << " File " << name << " created after " << duritr + 1 << " seconds" << endl;
+          cout << "+----------------------------------------+" << endl;
           return;
         } 
       }
