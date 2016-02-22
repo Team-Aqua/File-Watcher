@@ -170,9 +170,6 @@ void filewatch(char * fn, char * name, int dur) {
     if (strncmp (fn, "create", strlen(fn)) == 0 ) {
       fwcreate(name, dur);
     } else if (strncmp (fn, "alter", strlen(fn)) == 0) {
-      cout << "+-------------------+" << endl;
-      cout << "'ALTER' FUNCTION CALL" << endl;
-      cout << "+-------------------+\n" << endl;
       fwalter(name, dur);
     } else if (strncmp (fn, "destroy", strlen(fn)) == 0) {
       fwdestroy(name, dur);

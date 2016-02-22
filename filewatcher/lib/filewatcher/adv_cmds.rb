@@ -21,7 +21,8 @@ module FileWatcher
       Mylib::sysmgr(message, time.to_i)
     end
 
-    Contract MContracts::NilArgs => C::Any
+    # Contract MContracts::NilArgs => C::Any
+    # design: getdir requests no arguments
     def self.getdir(args)
       Mylib::getdir()
     end
