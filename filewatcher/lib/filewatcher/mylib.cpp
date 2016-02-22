@@ -1,6 +1,8 @@
 #include "mylib.h"
 #include <string>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 void foo()
 {
@@ -33,6 +35,16 @@ int add (int a, int b) {
 
 int sub (int a, int b) {
     return a-b;
+}
+
+time_t get_mtime(char *path) {
+		// ref: http://stackoverflow.com/questions/4021479/getting-file-modification-time-on-unix-using-utime-in-c
+    struct stat statbuf;
+    if (stat(path, &statbuf) == -1) {
+        perror(path);
+        exit(1);
+    }
+    return statbuf.st_mtime;
 }
 
 void getdir () {
@@ -171,8 +183,71 @@ void fwdestroy(char * name, int dur) {
 }
 
 void fwalter(char * name, int dur) {
-  cout << "ALTER inner function call" << endl;
-  // doesn't do anything right now! have to modify implementation 
+  DIR           *dp;
+  struct dirent *dirp;
+  struct stat    buf;
+  char* filepath;
+  time_t oldModifiedTime;
+  time_t newModifiedTime;
+  char buff[20];
+  
+  int duritr = 0;
+  bool found = false;
+  dp = opendir(".");
+ 
+  if(dp == NULL) {
+    perror("Cannot open directory ");
+    exit(2);
+  }
+
+	// check that the file is present before checking if it's altered
+  while ((dirp = readdir(dp)) != NULL) {
+    if (strncmp (dirp->d_name,".xxx",1) != 0){
+      if (strncmp (dirp->d_name, name, strlen(name)) == 0) {
+        found = true;
+        strcpy(filepath, "./");
+        strcat(filepath, dirp->d_name);
+        oldModifiedTime = get_mtime(filepath);
+      }
+    }
+  }
+  if (found == false) {
+    cout << "+---------------------------------------+" << endl;
+    cout << " " << name << " isn't found ;; filewatch has ended" << endl;
+    cout << "+---------------------------------------+" << endl;
+    return;
+  }
+
+  while (duritr < dur) {
+    while ((dirp = readdir(dp)) != NULL)
+    {
+      if (strncmp (dirp->d_name,".xxx",1) != 0){
+        if (strncmp (dirp->d_name, name, strlen(name)) == 0) {
+          found = true;
+          oldModifiedTime = get_mtime(filepath);
+          if (difftime(newModifiedTime, oldModifiedTime) != 0) {
+            cout << "+-----------------------------------+" << endl;
+            cout << " File " << name << " has been changed after " << duritr + 1 << " seconds - altered" <<     endl;
+            cout << "+-----------------------------------+" << endl;
+            return;
+          }
+        } 
+      }
+    }
+
+    if (found == false) {
+      cout << "+-----------------------------------+" << endl;
+      cout << " File " << name << " not found after " << duritr + 1 << " seconds - destroyed" << endl;
+      cout << "+-----------------------------------+" << endl;
+      return;
+    }
+    duritr = duritr + 1;
+    sleep(1);
+  }
+  cout << "+-----------------------------------+" << endl;
+  cout << "File monitoring for "<< name << " complete after " << dur << " seconds." << endl;
+  cout << "+-----------------------------------+" << endl;
+  return;
 }
 
 void fwcreate(char * name, int dur) {
