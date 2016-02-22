@@ -39,6 +39,11 @@
 #### Due: Thursday Feb 20th
   * Module 3 / Module 1 Complete
 
+#### Due: Tuesday
+  * Ensure that all inputs are properly sanitised
+  * Ensure that all basic shell commands are implemented
+  * Must watch for inputs - eg. if there's no viable inputs, don't break system - just return error
+    * Eg. input FIXNUM instead of int breaks system right now
 
 
 
