@@ -162,7 +162,7 @@ void filewatch(char * fn, char * name, int dur) {
   cout << " EXECUTING FILEWATCH" << endl;
   cout << " Function: " << fn << endl;
   cout << " Filename: " << name << endl;
-  cout << " Duration: " << dur << endl;
+  cout << " Duration: " << dur << "s" << endl;
   cout << "+-------------------+\n" << endl;
 
   int pid = fork();

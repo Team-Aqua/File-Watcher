@@ -147,12 +147,13 @@ Used to identify exception handling, as well as custom exceptions. More specific
 ##### How can I make the timing accurate? What time resolution should I be looking at, remember real-time systems? Time formats?
 Generally, system time is considered accurate enough. For example, sleep(x) is considered accurate.
 
-Reference:
-
-* http://pubs.opengroup.org/onlinepubs/009695399/functions/sleep.html
-
 ##### Does ‘C’ have better facilities for this problem than Ruby? (Big hint!)
-Yes, C has better facilities for this problem. We plan on using one of those key facilities (sleep) to accurately time our processes.
+Yes, C has better facilities for this problem. We plan on using one of those key facilities (sleep) to accurately time our processes. 
+
+###### AUGMENTED DESIGN DECISIONS
+In part three, we have swapped sleep(x) for nanosleep(x) - this is because of several reasons. First, we can ensure that the timing is more accurate by handling it by nanosecond count. This gives us a lot more leeway to ensure that our timing gives us the omst accurate response possible - without crashing on us. By doing so, we can increase precision 4+x that of sleep(x) (as we're using breaks of 250ms). 
+
+However, because of the nature of the second module (wherein a child process can simply sleep for an alloted period of time), the sleep(x) function will suffice. After looking at nanosleep, we decided that it would be easier for users to specify time delays in seconds - rather than milliseconds (i.e. the number of users that would benefit from 12000ms instead of 12 seconds outweigh the number of people that would use a shorter function with seconds). As a result, the second module retains its 'seconds' modifier.
 
 ##### What should be user controllable? Can we trust the user?
 The values that should be user controllable are: evoking the function, setting the message, and setting the time duration. Because we properly sanitize the input, we can trust the user with manipulating the message, as well as setting the time duration. Of course, various gates are used in order to ensure that the user cannot 'break' the system - this includes adding a limit to both message size and duration, as well as preventing any 'bad' input from going through. However, because this module is naturally unintrusive, most functionality can be trusted to the user.
