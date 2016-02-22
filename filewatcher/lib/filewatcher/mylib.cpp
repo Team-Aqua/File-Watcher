@@ -6,6 +6,8 @@
 #include <iostream>
 #include <fstream>
 #include <cstdio>
+#include <sys/time.h>
+#include <time.h>
 
 void foo()
 {
@@ -189,6 +191,12 @@ void fwdestroy(char * name, int dur) {
   struct stat    buf;
 
   int duritr = 0;
+  int durms = dur * 1000; // expression in ms
+  
+  struct timespec timeeval;
+  timeeval.tv_sec = 0;
+  timeeval.tv_nsec = 250000000; /* 250 milliseconds */
+
   bool found = false;
   dp = opendir(".");
 
@@ -214,7 +222,7 @@ void fwdestroy(char * name, int dur) {
     return;
   }
 
-  while (duritr < dur) {
+  while (duritr < durms) {
     dp = opendir(".");
     found = false;
     while ((dirp = readdir(dp)) != NULL)
@@ -227,12 +235,13 @@ void fwdestroy(char * name, int dur) {
     }
     if (found == false) {
       cout << "+----------------------------------------+" << endl;
-      cout << " File " << name << " destroyed after " << duritr + 1 << " seconds" << endl;
+      cout << " File " << name << " destroyed after " << duritr + 25 << " milliseconds" << endl;
       cout << "+----------------------------------------+" << endl;
       return;
     }
-    duritr = duritr + 1;
-    sleep(1);
+    duritr = duritr + 250;
+    nanosleep(&timeeval, NULL);
+    // cout << duritr << endl;
   }
   cout << "+-----------------------------------+" << endl;
   cout << "File monitoring for "<< name << " complete after " << dur << " seconds." << endl;
@@ -249,7 +258,13 @@ void fwalter(char * name, int dur) {
   time_t newModifiedTime;
   char buff[20];
   
+  int durms = dur * 1000; // time expression in microseconds
   int duritr = 0;
+
+  struct timespec timeeval;
+  timeeval.tv_sec = 0;
+  timeeval.tv_nsec = 250000000; /* 25 milliseconds */
+
   bool found = false;
   dp = opendir(".");
  
@@ -276,7 +291,7 @@ void fwalter(char * name, int dur) {
     return;
   }
 
-  while (duritr < dur) {
+  while (duritr < durms) {
     while ((dirp = readdir(dp)) != NULL)
     {
       if (strncmp (dirp->d_name,".xxx",1) != 0){
@@ -285,7 +300,7 @@ void fwalter(char * name, int dur) {
           oldModifiedTime = get_mtime(filepath);
           if (difftime(newModifiedTime, oldModifiedTime) != 0) {
             cout << "+-----------------------------------+" << endl;
-            cout << " File " << name << " has been changed after " << duritr + 1 << " seconds - altered" <<     endl;
+            cout << " File " << name << " has been changed after " << duritr + 25 << " milliseconds - altered" <<     endl;
             cout << "+-----------------------------------+" << endl;
             return;
           }
@@ -299,8 +314,8 @@ void fwalter(char * name, int dur) {
       cout << "+-----------------------------------+" << endl;
       return;
     }
-    duritr = duritr + 1;
-    sleep(1);
+    duritr = duritr + 250;
+    nanosleep(&timeeval, NULL);
   }
   cout << "+-----------------------------------+" << endl;
   cout << "File monitoring for "<< name << " complete after " << dur << " seconds." << endl;
@@ -315,6 +330,12 @@ void fwcreate(char * name, int dur) {
   struct stat    buf;
 
   int duritr = 0;
+  int durms = dur * 1000;
+
+  struct timespec timeeval;
+  timeeval.tv_sec = 0;
+  timeeval.tv_nsec = 250000000; /* 250 milliseconds */
+
   
   dp = opendir(".");
 
@@ -337,7 +358,7 @@ void fwcreate(char * name, int dur) {
     }
   }
 
-  while (duritr < dur) {
+  while (duritr < durms) {
     while ((dirp = readdir(dp)) != NULL)
     {
       if (strncmp (dirp->d_name,".xxx",1) != 0){
@@ -345,14 +366,14 @@ void fwcreate(char * name, int dur) {
           // if file is found, then return 'true'.
           // can test by running, then making a file @ location
           cout << "+----------------------------------------+" << endl;
-          cout << " File " << name << " created after " << duritr + 1 << " seconds" << endl;
+          cout << " File " << name << " created after " << duritr + 25 << " milliseconds" << endl;
           cout << "+----------------------------------------+" << endl;
           return;
         } 
       }
     }
-    duritr = duritr + 1;
-    sleep(1);
+    duritr = duritr + 250;
+    nanosleep(&timeeval, NULL);
   }
   cout << "+----------------------------------------------+" << endl;
   cout << "File monitoring for "<< name << " complete after " << dur << " seconds." << endl;
