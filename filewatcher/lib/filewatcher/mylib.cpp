@@ -48,13 +48,14 @@ int sub (int a, int b) {
 }
 
 time_t get_mtime(char *path) {
-		// ref: http://stackoverflow.com/questions/4021479/getting-file-modification-time-on-unix-using-utime-in-c
+    // ref: http://stackoverflow.com/questions/4021479/getting-file-modification-time-on-unix-using-utime-in-c
     struct stat statbuf;
     if (stat(path, &statbuf) == -1) {
         perror(path);
         exit(1);
     }
     return statbuf.st_mtime;
+}
 
 void newfile (char * filename) {
   // ref: http://en.cppreference.com/w/cpp/io/c/remove
