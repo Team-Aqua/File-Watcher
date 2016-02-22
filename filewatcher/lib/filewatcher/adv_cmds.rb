@@ -32,8 +32,8 @@ module FileWatcher
       args = args.gsub(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, "") 
       watch_mode = StaticRegex::WATCH_MODE_ARG.match(args)[1]
 
-      file_name = StaticRegex::FILENAME_ARG_ANY.match(args)[1]
-      file_name = StaticRegex::CONTENT_BETWEEN_QUOTES.match(file_name)[2]
+      file_names = StaticRegex::FILENAME_ARG_ANY.match(args)[1]
+      file_name = StaticRegex::CONTENT_BETWEEN_QUOTES.match(file_names)[2]
 
       time = StaticRegex::TIME_ARG_INTEGER.match(args)[1]
       # extract each filename
@@ -42,6 +42,7 @@ module FileWatcher
       filenames = file_name.split(" ");
       for name in filenames
         Mylib::filewatch(watch_mode, name, time.to_i)
+        sleep 0.15
       end
     end
     

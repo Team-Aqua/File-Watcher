@@ -11,6 +11,9 @@
 #include <poll.h>
 #include <string>
 #include <ruby.h>
+#include <iostream>
+#include <fstream>
+#include <cstdio>
 
 using namespace std;
 
@@ -26,3 +29,5 @@ void getdir();
 void fwcreate(char * name, int dur);
 void fwalter(char * name, int dur);
 void fwdestroy(char * name, int dur);
+void newfile (char * filename);
+void delfile (char * filename);

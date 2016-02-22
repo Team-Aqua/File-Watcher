@@ -2275,6 +2275,54 @@ fail:
 }
 
 
+SWIGINTERN VALUE
+_wrap_newfile(int argc, VALUE *argv, VALUE self) {
+  char *arg1 = (char *) 0 ;
+  int res1 ;
+  char *buf1 = 0 ;
+  int alloc1 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_AsCharPtrAndSize(argv[0], &buf1, NULL, &alloc1);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "char *","newfile", 1, argv[0] ));
+  }
+  arg1 = reinterpret_cast< char * >(buf1);
+  newfile(arg1);
+  if (alloc1 == SWIG_NEWOBJ) delete[] buf1;
+  return Qnil;
+fail:
+  if (alloc1 == SWIG_NEWOBJ) delete[] buf1;
+  return Qnil;
+}
+
+
+SWIGINTERN VALUE
+_wrap_delfile(int argc, VALUE *argv, VALUE self) {
+  char *arg1 = (char *) 0 ;
+  int res1 ;
+  char *buf1 = 0 ;
+  int alloc1 = 0 ;
+  
+  if ((argc < 1) || (argc > 1)) {
+    rb_raise(rb_eArgError, "wrong # of arguments(%d for 1)",argc); SWIG_fail;
+  }
+  res1 = SWIG_AsCharPtrAndSize(argv[0], &buf1, NULL, &alloc1);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), Ruby_Format_TypeError( "", "char *","delfile", 1, argv[0] ));
+  }
+  arg1 = reinterpret_cast< char * >(buf1);
+  delfile(arg1);
+  if (alloc1 == SWIG_NEWOBJ) delete[] buf1;
+  return Qnil;
+fail:
+  if (alloc1 == SWIG_NEWOBJ) delete[] buf1;
+  return Qnil;
+}
+
+
 
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
 
@@ -2554,5 +2602,7 @@ SWIGEXPORT void Init_mylib(void) {
   rb_define_module_function(mMylib, "fwcreate", VALUEFUNC(_wrap_fwcreate), -1);
   rb_define_module_function(mMylib, "fwalter", VALUEFUNC(_wrap_fwalter), -1);
   rb_define_module_function(mMylib, "fwdestroy", VALUEFUNC(_wrap_fwdestroy), -1);
+  rb_define_module_function(mMylib, "newfile", VALUEFUNC(_wrap_newfile), -1);
+  rb_define_module_function(mMylib, "delfile", VALUEFUNC(_wrap_delfile), -1);
 }
 
