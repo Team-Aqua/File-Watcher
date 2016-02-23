@@ -24,7 +24,7 @@ void help () {
   cout << " ls                            :: find files in directory   " << endl;
   cout << " cd {dir}                      :: change directories        " << endl;
   cout << " getdir                        :: get current directory     " << endl;
-  cout << " print -m \"{statement}\"        :: prints statement        " << endl;
+  cout << " print -m '{statement}'        :: prints statement        " << endl;
   cout << " quit                          :: exit console              " << endl;
   cout << "+----------------------------------------------------------+" << endl;
   cout << " Advanced Functions:                                          " << endl;
@@ -263,7 +263,7 @@ void fwalter(char * name, int dur) {
   DIR           *dp;
   struct dirent *dirp;
   struct stat    buf;
-  char filepath[100];
+  char filepath[1000];
   time_t oldModifiedTime;
   time_t newModifiedTime;
   char buff[20];
