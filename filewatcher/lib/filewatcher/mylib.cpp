@@ -300,14 +300,13 @@ void fwalter(char * name, int dur) {
           oldModifiedTime = get_mtime(filepath);
           if (difftime(newModifiedTime, oldModifiedTime) != 0) {
             cout << "+-----------------------------------+" << endl;
-            cout << " File " << name << " has been changed after " << duritr + 25 << " milliseconds - altered" <<     endl;
+            cout << " File " << name << " has been changed after " << duritr + 250 << " milliseconds - altered" << endl;
             cout << "+-----------------------------------+" << endl;
             return;
           }
         } 
       }
     }
-
     if (found == false) {
       cout << "+-----------------------------------+" << endl;
       cout << " File " << name << " not found after " << duritr + 1 << " seconds - destroyed" << endl;
@@ -315,7 +314,9 @@ void fwalter(char * name, int dur) {
       return;
     }
     duritr = duritr + 250;
+    //duritr = duritr + 1000;
     nanosleep(&timeeval, NULL);
+    // sleep(1);
   }
   cout << "+-----------------------------------+" << endl;
   cout << "File monitoring for "<< name << " complete after " << dur << " seconds." << endl;
