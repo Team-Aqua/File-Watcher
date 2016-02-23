@@ -250,14 +250,16 @@ void fwdestroy(char * name, int dur) {
 }
 
 void fwalter(char * name, int dur) {
+
+
   DIR           *dp;
   struct dirent *dirp;
   struct stat    buf;
-  char* filepath;
+  char filepath[100];
   time_t oldModifiedTime;
   time_t newModifiedTime;
   char buff[20];
-  
+
   int durms = dur * 1000; // time expression in microseconds
   int duritr = 0;
 
@@ -278,7 +280,7 @@ void fwalter(char * name, int dur) {
     if (strncmp (dirp->d_name,".xxx",1) != 0){
       if (strncmp (dirp->d_name, name, strlen(name)) == 0) {
         found = true;
-        strcpy(filepath, "./");
+        strcpy(filepath, "./"); // WARNING: THIS GIVES SEGFAULTS WITHOUT MALLOC
         strcat(filepath, dirp->d_name);
         oldModifiedTime = get_mtime(filepath);
       }
@@ -292,12 +294,14 @@ void fwalter(char * name, int dur) {
   }
 
   while (duritr < durms) {
+    dp = opendir(".");
+    found = false;
     while ((dirp = readdir(dp)) != NULL)
     {
       if (strncmp (dirp->d_name,".xxx",1) != 0){
         if (strncmp (dirp->d_name, name, strlen(name)) == 0) {
           found = true;
-          oldModifiedTime = get_mtime(filepath);
+          newModifiedTime = get_mtime(filepath);
           if (difftime(newModifiedTime, oldModifiedTime) != 0) {
             cout << "+-----------------------------------+" << endl;
             cout << " File " << name << " has been changed after " << duritr + 250 << " milliseconds - altered" << endl;
@@ -309,14 +313,14 @@ void fwalter(char * name, int dur) {
     }
     if (found == false) {
       cout << "+-----------------------------------+" << endl;
-      cout << " File " << name << " not found after " << duritr + 1 << " seconds - destroyed" << endl;
+      cout << " File " << name << " not found after " << duritr + 250 << " milliseconds - destroyed" << endl;
       cout << "+-----------------------------------+" << endl;
       return;
     }
     duritr = duritr + 250;
     //duritr = duritr + 1000;
     nanosleep(&timeeval, NULL);
-    // sleep(1);
+    //sleep(1);
   }
   cout << "+-----------------------------------+" << endl;
   cout << "File monitoring for "<< name << " complete after " << dur << " seconds." << endl;
