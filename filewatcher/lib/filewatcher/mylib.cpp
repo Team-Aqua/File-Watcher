@@ -235,7 +235,7 @@ void fwdestroy(char * name, int dur) {
     }
     if (found == false) {
       cout << "+----------------------------------------+" << endl;
-      cout << " File " << name << " destroyed after " << duritr + 25 << " milliseconds" << endl;
+      cout << " File " << name << " destroyed after " << duritr + 250 << " milliseconds" << endl;
       cout << "+----------------------------------------+" << endl;
       return;
     }
@@ -265,7 +265,7 @@ void fwalter(char * name, int dur) {
 
   struct timespec timeeval;
   timeeval.tv_sec = 0;
-  timeeval.tv_nsec = 250000000; /* 25 milliseconds */
+  timeeval.tv_nsec = 250000000; /* 250 milliseconds */
 
   bool found = false;
   dp = opendir(".");
@@ -371,7 +371,7 @@ void fwcreate(char * name, int dur) {
           // if file is found, then return 'true'.
           // can test by running, then making a file @ location
           cout << "+----------------------------------------+" << endl;
-          cout << " File " << name << " created after " << duritr + 25 << " milliseconds" << endl;
+          cout << " File " << name << " created after " << duritr + 250 << " milliseconds" << endl;
           cout << "+----------------------------------------+" << endl;
           return;
         } 
