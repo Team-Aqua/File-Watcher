@@ -24,6 +24,7 @@ void help () {
   cout << " ls                            :: find files in directory   " << endl;
   cout << " cd {dir}                      :: change directories        " << endl;
   cout << " getdir                        :: get current directory     " << endl;
+  cout << " print -m \"{statement}\"        :: prints statement        " << endl;
   cout << " quit                          :: exit console              " << endl;
   cout << "+----------------------------------------------------------+" << endl;
   cout << " Advanced Functions:                                          " << endl;
@@ -47,6 +48,13 @@ int add (int a, int b) {
 
 int sub (int a, int b) {
     return a-b;
+}
+
+void strprint(char * statement) {
+  cout << "+------------------------------+" << endl;
+  cout << statement << endl;
+  cout << "+------------------------------+\n" << endl;
+  return;
 }
 
 time_t get_mtime(char *path) {

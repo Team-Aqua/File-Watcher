@@ -8,15 +8,12 @@
 Our problem is a module. Modules do not neet to be instantiated and are about functions while classes need to be instantiated and are about providing objects. 
   
 ##### What shell(s) are you using to provide a specification? What features do they support?
-  
 We are using the C Shell to provide a specification. Some features include history and editing, aliases, directory stacks, tilde notation, cdpath, job control and path hashing.
   
 ##### In your opinion, which features are essential (should include in your design) and which are “window dressing” (should not include in your design)?
-
 We believe that directory functions like ls and cd will be required functions for navigating and selecting files to monitor using the File Watcher. Tilde notation, aliases , history and editing are not needed for the completion of the shell.
   
 ##### Economics: Which, if any, essential features will be omitted from your design due to unmanageable effort requirements?
-
 Most likely the directory stack, job control and path hashing wil be omitted from the shell. Despite how useful they will be for a file watcher, they are not essential for its completion.
   
 ##### Error handling? What percentage of code handles functional against potential pitfalls:
@@ -34,7 +31,7 @@ We can make the system robust by validating unputs and commands. We can stop cor
 [Reference](http://makandracards.com/makandra/4851-ruby-exception-class-hierarchy) Ruby's exception heirarchy is as follows: 
 
     1) NoMemoryError
-    2) ScrpitError
+    2) ScriptError
     3) SignalException
     4) StandardError
     5) SystemExit
@@ -89,15 +86,6 @@ The inputs would be sanitised beforehand by the Ruby script before being process
 
 These aspects are required, especially for a command line interface application. As users expect a level of quality with the innermost processes (aspects obtained by having a secure, robust system), developers need to build applications with respect to these key qualities at all times.
 
-###### AUGMENTED DESIGN DECISIONS
-**Error Handling**
-Because of the disjointed nature of our system messager (as a result of the implementation of the fork process), there is cause for concern that failures found in the parent process would not affect the child process - when, in reality, this is the preferred approach. We have since designed our systems to ensure that we can properly handle all errors that arise.
-
-We also ensure that user inputs to the program are properly sanitised - as a result, we properly handle all errors that arise from bad input data.
-
-**Robustness**
-Ultimately, we came to the following conclusion for our implementation: if there is an external segmentation fault, then our system should stop entirely. When looking at user requirements, most users would want a system that works to expectations. If the system falls prey to other issues - absolutely, we can handle those and preserve the initial function. However, our full system should not break by itself - but must also know when to stop. Regardless, our original missive remains - we will preserve our applicaiton to mitigate segmentation dumps.
-
 ##### What components of the Ruby exception hierarchy are applicable to this problem? Illustrate your answer.
 Reference: 
 
@@ -112,10 +100,6 @@ The following components are applicable to this problem:
   * Generic class used if the system encounters a runtime error.
 3. http://ruby-doc.org/core-2.1.1/TypeError.html
   * TypeError when the system is passed a bad input (eg. RelayMessage "Two" "Hello World", where proper input is RelayMessage 2 "Hello World")
-
-###### AUGMENTED DESIGN DECISIONS
-We have decided to use contracts in lieu of exceptions in order to properly illustrate either bad inputs or bad commands. That way, we can properly handle improper inputs through 'requirements design', instead of using the exception hierarchy. However, if errors exist outside of this scope (most notably within C, where contracts have no reach), then the exception hierarchy within C is implemented.
-
 
 ##### Is Module Errno useful in this problem? Illustrate your answer.
 Reference:

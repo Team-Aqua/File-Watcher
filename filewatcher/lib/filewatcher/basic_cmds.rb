@@ -16,6 +16,13 @@ module FileWatcher
       Mylib::cd(args)
     end
 
+    Contract MContracts::Arg_m => C::Any
+    def self.strprint(args)
+      args = args.gsub(StaticRegex::WHITESPACE_OMIT_DOUBLE_BRACKET_WHITESPACE_CONTENT, "")
+      message = StaticRegex::MESSAGE_ARG_QUOTES_CONTAIN_ANY.match(args)[1].gsub(StaticRegex::FIND_QUOTES, "")
+      Mylib::strprint(message)
+    end
+
     Contract MContracts::Arg_file => C::Any
     def self.newfile(args)
       args = args.gsub(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, "") 
