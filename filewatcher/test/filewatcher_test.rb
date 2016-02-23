@@ -3,4 +3,12 @@ class FileWatcherTest < Minitest::Test
     refute_nil ::FileWatcher::VERSION
   end
 
+  def system_test
+    ls
+    cd ..
+    ls
+    getdir
+    quit
+  end
+
 end
