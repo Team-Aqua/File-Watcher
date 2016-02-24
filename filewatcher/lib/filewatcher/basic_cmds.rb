@@ -23,14 +23,14 @@ module FileWatcher
 
     Contract MContracts::Arg_m => C::Any
     def self.strprint(args)
-      args = args.gsub(StaticRegex::WHITESPACE_OMIT_DOUBLE_BRACKET_WHITESPACE_CONTENT, "")
+      args = args.gsub(StaticRegex::WHITESPACE_OMIT_CONTENT, "")
       message = StaticRegex::MESSAGE_ARG_QUOTES_CONTAIN_ANY.match(args)[1].gsub(StaticRegex::FIND_QUOTES, "")
       Mylib::strprint(message)
     end
 
     Contract MContracts::Arg_file => C::Any
     def self.newfile(args)
-      args = args.gsub(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, "") 
+      args = args.gsub(StaticRegex::WHITESPACE_OMIT_CONTENT, "") 
       file_name = StaticRegex::FILENAME_ARG_ANY.match(args)[1]
       file_name = StaticRegex::CONTENT_BETWEEN_QUOTES.match(file_name)[2]
       filenames = file_name.split(" ");
@@ -42,7 +42,7 @@ module FileWatcher
 
     Contract MContracts::Arg_file => C::Any
     def self.delfile(args)
-      args = args.gsub(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, "") 
+      args = args.gsub(StaticRegex::WHITESPACE_OMIT_CONTENT, "") 
       file_name = StaticRegex::FILENAME_ARG_ANY.match(args)[1]
       file_name = StaticRegex::CONTENT_BETWEEN_QUOTES.match(file_name)[2]
       filenames = file_name.split(" ");

@@ -36,7 +36,7 @@ module FileWatcher
     def self.sysmgr(args)
       if !MContracts::argument_validation(args, PreContracts::getContract(:sysmgr)) then return end
 
-      args = args.gsub(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, "")
+      args = args.gsub(StaticRegex::WHITESPACE_OMIT_CONTENT, "")
       message = StaticRegex::MESSAGE_ARG_QUOTES_CONTAIN_ANY.match(args)[1].gsub(StaticRegex::FIND_QUOTES, "")
       time = StaticRegex::TIME_ARG_INTEGER.match(args)[1]
       Mylib::sysmgr(message, time.to_i)
@@ -53,7 +53,7 @@ module FileWatcher
       command, sub_args = ""
 
       # extract fn, name, dur from command
-      args = args.gsub(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, "") 
+      args = args.gsub(StaticRegex::WHITESPACE_OMIT_CONTENT, "") 
       watch_mode = StaticRegex::WATCH_MODE_ARG.match(args)[1]
 
       file_names = StaticRegex::FILENAME_ARG_ANY.match(args)[1]
