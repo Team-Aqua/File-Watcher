@@ -4,7 +4,7 @@ module FileWatcher
     ERROR_STRING_NO_ARGS = "No arguments provided"
     ERROR_STRING_T_IS_INT = "-t Argument must be a positive integer"
     ERROR_STRING_FILEWATCH_MODE_ARGS =  "Requires mode argument: -m [create, alter, destroy]"
-    ERROR_STRING_HELP_DETAILS = "Type 'help {cmd}' for details"
+    ERROR_STRING_HELP_DETAILS = "Type 'help' for commands"
 
     # Contract C::Any,C::ArrayOf[] => C::Bool
     def self.argument_validation(args, contracts)
