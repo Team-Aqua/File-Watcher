@@ -6,6 +6,20 @@ module FileWatcher
     ERROR_STRING_FILEWATCH_MODE_ARGS =  "Requires mode argument: -m [create, alter, destroy]"
     ERROR_STRING_HELP_DETAILS = "Type 'help {cmd}' for details"
 
+    # @commands_pre_contracts = { 
+    #   :help =>  [],
+    #   :ls => [], 
+    #   :cd => [], 
+    #   :quit => [],
+    #   :filewatch => [], 
+    #   :histfn =>  [],
+    #   :getdir =>  [],
+    #   :sysmgr =>  [self::NilArgs, self::Arg_m, self::Arg_t],
+    #   :newfile =>  [],
+    #   :delfile =>  []
+    # }
+
+
     # Contract C::Any,C::ArrayOf[] => C::Bool
     def self.argument_validation(args, contracts)
       contracts.each do | contract |
