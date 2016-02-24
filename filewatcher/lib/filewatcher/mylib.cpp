@@ -157,7 +157,7 @@ void cd (char * arg) {
   cout << "Unable to enter.\n" << endl;
 }
 
-void filewatch(char * fn, char * name, int dur, char * action) {
+void filewatch(char * fn, char * name, int dur, char * commandName, char * action) {
   cout << "+-------------------+" << endl;
   cout << " EXECUTING FILEWATCH" << endl;
   cout << " Function: " << fn << endl;
@@ -169,8 +169,6 @@ void filewatch(char * fn, char * name, int dur, char * action) {
   if ( pid == 0 ){
     int *err = (int *)malloc(sizeof(int));
     char *tempAction = (char *)malloc(sizeof(char) * sizeof(action));
-    char *actionName = (char *)malloc(sizeof(char) * 64);
-    actionName = strtok(tempAction, " ");
       
     /* child */
     if (strncmp (fn, "create", strlen(fn)) == 0 ) {
@@ -185,35 +183,35 @@ void filewatch(char * fn, char * name, int dur, char * action) {
     }
       
     if (*err == 0) {
-        if (strncmp (actionName, "help", strlen(fn)) == 0) {
+        if (strncmp (commandName, "help", strlen(fn)) == 0) {
             cout << "The addition action 'help' is being processed." << endl;
             help();
             
-        } else if (strncmp (actionName, "ls", strlen(fn)) == 0) {
+        } else if (strncmp (commandName, "ls", strlen(fn)) == 0) {
             cout << "The addition action 'ls' is being processed." << endl;
             ls();
             
-        } else if (strncmp (actionName, "getdir", strlen(fn)) == 0) {
+        } else if (strncmp (commandName, "getdir", strlen(fn)) == 0) {
             cout << "The addition action 'getdir' is being processed." << endl;
             getdir();
             
-        } else if (strncmp (actionName, "newfile", strlen(fn)) == 0) {
+        } else if (strncmp (commandName, "newfile", strlen(fn)) == 0) {
             cout << "The addition action 'newfile' is being processed." << endl;
             newfile(strtok(tempAction, " "));
             
-        } else if (strncmp (actionName, "delfile", strlen(fn)) == 0) {
+        } else if (strncmp (commandName, "delfile", strlen(fn)) == 0) {
             cout << "The addition action 'delfile' is being processed." << endl;
             delfile(strtok(tempAction, " "));
             
-        } else if (strncmp (actionName, "cd", strlen(fn)) == 0) {
+        } else if (strncmp (commandName, "cd", strlen(fn)) == 0) {
             cout << "The addition action 'cd' is being processed." << endl;
             cd(strtok(tempAction, " "));
             
-        } else if (strncmp (actionName, "strprint", strlen(fn)) == 0) {
+        } else if (strncmp (commandName, "strprint", strlen(fn)) == 0) {
             cout << "The addition action 'strprint' is being processed." << endl;
             strprint(strtok(tempAction, " "));
             
-        } else if (strncmp (actionName, "sysmgr", strlen(fn)) == 0) {
+        } else if (strncmp (commandName, "sysmgr", strlen(fn)) == 0) {
             cout << "The addition action 'sysmgr' is being processed." << endl;
             sysmgr(strtok(tempAction, " "), atoi(strtok(tempAction, " ")));
             
