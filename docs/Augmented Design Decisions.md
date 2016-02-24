@@ -45,3 +45,8 @@ For filewatcher, only one action can be parsed at a time. For example, there can
 We have overhead on our processes and its count - when the system states it's checking immediately, there is a delay of 0.15s per item in the list. This is to ensure the cohesiveness of the product, but may not lend to accurate timing. While the 0.15s issue is relieved once the iterator is running, the overhead of reading through the file system is not accounted for, and may lead to minor timing problems.
 
 We have used an iterator of 250ms per iteration for filewatcher. This is to ensure that the system doesn't take too many resources reading the files over and over, but also maximises the precision of the product.
+
+### Additional Testing
+**Unit Tests**
+
+Several unit tests were created to test he regex and the contracts. This helped us insure that our contract implementation was correct and had no gaps in in whatsoever.
