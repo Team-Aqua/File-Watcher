@@ -16,27 +16,34 @@ void foo()
 
 void help () {
   cout << "+----------------------------------------------------------+" << endl;
-  cout << " FileWatcher Ruby Shell                     .. by Team AQuA   " << endl;
+  cout << " FileWatcher Ruby Shell                     .. by Team AQuA " << endl;
   cout << "+----------------------------------------------------------+" << endl;
-  cout << " Standard Functions:                                          " << endl;
-  cout << " ===================                                          " << endl;
+  cout << " Standard Functions:                                        " << endl;
+  cout << " ===================                                        " << endl;
   cout << " help                          :: list available functions  " << endl;
   cout << " ls                            :: find files in directory   " << endl;
   cout << " cd {dir}                      :: change directories        " << endl;
   cout << " getdir                        :: get current directory     " << endl;
-  cout << " print -m '{statement}'        :: prints statement        " << endl;
+  cout << " print -m '{statement}'        :: prints statement          " << endl;
   cout << " quit                          :: exit console              " << endl;
   cout << "+----------------------------------------------------------+" << endl;
-  cout << " Advanced Functions:                                          " << endl;
-  cout << " ===================                                          " << endl;
-  cout << " filewatch -m {create, alter, destroy}                        " << endl;     
-  cout << "           -f '{filename list}'                               " << endl;  
+  cout << " Advanced Functions:                                        " << endl;
+  cout << " ===================                                        " << endl;
+  cout << " filewatch -m {create, alter, destroy}                      " << endl;     
+  cout << "           -f '{filename list}'                             " << endl;  
   cout << "           -t {time}           :: monitors file changes     " << endl;  
-  cout << "           -a {action}         :: adds action                " << endl;  
-  cout << " sysmgr -m \"{msg}\" -t {time}   :: repeat system message   " << endl; // shifter by \" movement
+  cout << "           -a '{help |         :: adds action               " << endl;
+  cout << "                  ls |         :: NOTE: system subquery     " << endl;
+  cout << "            cd {cmd} |                 must be separated    " << endl;
+  cout << "              getdir |                 by one space only    " << endl;
+  cout << "  newfile {filename} |          :: eg. newfile test.txt     " << endl;
+  cout << "  delfile {filename} |                 sysmgr Warning! 3    " << endl;
+  cout << "   strprint {string} |                 strprint Help!       " << endl;
+  cout << "       sysmgr {string time}}'                               " << endl;  
+  cout << " sysmgr -m '{msg}' -t {time}   :: repeat system message     " << endl; // shifter by \" movement
   cout << "+----------------------------------------------------------+" << endl;
-  cout << " Other Functions:                                             " << endl;
-  cout << " ===================                                          " << endl;
+  cout << " Other Functions:                                           " << endl;
+  cout << " ===================                                        " << endl;
   cout << " histfn {num = 0}              :: prints function history   " << endl;
   cout << " newfile -f '{filename list}'  :: creates blank files       " << endl;
   cout << " delfile -f '{filename}'       :: deletes files in dir.     " << endl;
