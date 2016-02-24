@@ -1,9 +1,8 @@
-require 'ffi' # possibly useful?
 require 'shellwords'
 
 module FileWatcher
   class Shell
-    # Can discuss threading this portion later 
+ 
     def initialize
       @command_history = []
       @prompt = "\n> "
@@ -61,7 +60,6 @@ module FileWatcher
 
         @lastcommand = @command_queue.pop
         command, args = @lastcommand.split(" ", 2)
-        # puts "Processing Command: #{command}"
         @command_history.insert(0, @lastcommand)
         @valid_commands[command.to_sym].call(args)
       end

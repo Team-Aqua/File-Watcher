@@ -6,8 +6,6 @@ module FileWatcher
     ERROR_STRING_FILEWATCH_MODE_ARGS =  "Requires mode argument: -m [create, alter, destroy]"
     ERROR_STRING_HELP_DETAILS = "Type 'help' for commands"
 
-
-    # Contract C::Any,C::ArrayOf[] => C::Bool
     def self.argument_validation(args, contracts)
       contracts.each do | contract |
         if !contract.valid? args
@@ -83,8 +81,7 @@ module FileWatcher
           return false
         end
         f_arg = StaticRegex::FILENAME_ARG_ANY.match(args)[1]
-        # f_arg = StaticRegex::CONTENT_BETWEEN_QUOTES.match(f_arg)[1]
-        
+
         f_args = f_arg.split(" ")
         f_args.each do | filename | 
           if !filename.match(StaticRegex::VALID_FILENAME)
@@ -92,11 +89,7 @@ module FileWatcher
             return false
           end
         end
-        
-        # if !args.match(StaticRegex::FILENAME_ARG_VALID) # Ensure
-        #   puts "Invalid filename: example 'filename.xx' "
-        #   return false
-        # end
+
         return true
       end
       def self.to_s
@@ -126,22 +119,6 @@ module FileWatcher
         "TODO"
       end
     end
-
-    ## TEMPLATE
-    # class CLASS
-    #   def self.valid? args
-    #     args = args.gsub(StaticRegex::ALL_WHITESPACE, "") 
-    #     if CONDITION
-    #       puts ""
-    #       return false
-    #     end
-    #     return true
-    #   end
-    #   def self.to_s
-    #     "TODO"
-    #   end
-    # end
-
 
   end
 end

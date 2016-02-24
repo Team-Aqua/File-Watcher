@@ -12,20 +12,12 @@ NULLCMD = :
 #### Start of system configuration section. ####
 
 srcdir = .
-<<<<<<< HEAD
-topdir = /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/include/ruby-2.0.0
-=======
-topdir = /usr/local/rvm/rubies/ruby-2.2.1/include/ruby-2.2.0
->>>>>>> 3212ad8cb0db6351f857026dcacf3c96c5b45cbf
+topdir = /Users/aaronplamondon/.rvm/rubies/ruby-2.2.1/include/ruby-2.2.0
 hdrdir = $(topdir)
-arch_hdrdir = /usr/local/rvm/rubies/ruby-2.2.1/include/ruby-2.2.0/x86_64-darwin14
+arch_hdrdir = /Users/aaronplamondon/.rvm/rubies/ruby-2.2.1/include/ruby-2.2.0/x86_64-darwin14
 PATH_SEPARATOR = :
 VPATH = $(srcdir):$(arch_hdrdir)/ruby:$(hdrdir)/ruby
-<<<<<<< HEAD
-prefix = $(DESTDIR)/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr
-=======
-prefix = $(DESTDIR)/usr/local/rvm/rubies/ruby-2.2.1
->>>>>>> 3212ad8cb0db6351f857026dcacf3c96c5b45cbf
+prefix = $(DESTDIR)/Users/aaronplamondon/.rvm/rubies/ruby-2.2.1
 rubysitearchprefix = $(rubylibprefix)/$(sitearch)
 rubyarchprefix = $(rubylibprefix)/$(arch)
 rubylibprefix = $(libdir)/$(RUBY_BASE_NAME)
