@@ -158,7 +158,7 @@ void cd (char * arg) {
   cout << " EXECUTING CD" << endl;
   cout << " Input: " << arg << endl;
   cout << "+------------+" << endl;
-  if ( chdir(arg) >= 0) { // good chdir
+  if ( chdir(arg) >= 0) {
     cout << "Entered successfully.\n" << endl;
     return;
   }
@@ -278,9 +278,7 @@ int fwdestroy(char * name, int dur) {
         perror("Cannot open directory ");
         exit(2);
     }
-  // things need to be fixed:
-  // iterate over a group
-  // check that the file is present before checking if it's destroyed
+ 
   while ((dirp = readdir(dp)) != NULL) {
     if (strncmp (dirp->d_name,".xxx",1) != 0){
       if (strncmp (dirp->d_name, name, strlen(name)) == 0) {
@@ -314,7 +312,6 @@ int fwdestroy(char * name, int dur) {
     }
     duritr = duritr + 250;
     nanosleep(&timeeval, NULL);
-    // cout << duritr << endl;
   }
   cout << "+-----------------------------------+" << endl;
   cout << "File monitoring for "<< name << " complete after " << dur << " seconds." << endl;
@@ -346,12 +343,12 @@ int fwalter(char * name, int dur) {
     exit(2);
   }
 
-	// check that the file is present before checking if it's altered
+  // check that the file is present before checking if it's altered
   while ((dirp = readdir(dp)) != NULL) {
     if (strncmp (dirp->d_name,".xxx",1) != 0){
       if (strncmp (dirp->d_name, name, strlen(name)) == 0) {
         found = true;
-        strcpy(filepath, "./"); // WARNING: THIS GIVES SEGFAULTS WITHOUT MALLOC
+        strcpy(filepath, "./");
         strcat(filepath, dirp->d_name);
         oldModifiedTime = get_mtime(filepath);
       }
@@ -395,9 +392,7 @@ int fwalter(char * name, int dur) {
       return 1;
     }
     duritr = duritr + 250;
-    //duritr = duritr + 1000;
     nanosleep(&timeeval, NULL);
-    //sleep(1);
   }
   cout << "+-----------------------------------+" << endl;
   cout << "File monitoring for "<< name << " complete after " << dur << " seconds." << endl;
@@ -433,7 +428,6 @@ int fwcreate(char * name, int dur) {
     if (strncmp (dirp->d_name,".xxx",1) != 0){
       if (strncmp (dirp->d_name, name, strlen(name)) == 0) {
         // if file is found, then return 'true'.
-        // can test by running, then making a file @ location
         cout << "+----------------------------------------------+" << endl;
         cout << " " << name << " is already created ;; filewatch has ended" << endl;
         cout << "+----------------------------------------------+" << endl;
@@ -448,7 +442,6 @@ int fwcreate(char * name, int dur) {
       if (strncmp (dirp->d_name,".xxx",1) != 0){
         if (strncmp (dirp->d_name, name, strlen(name)) == 0) {
           // if file is found, then return 'true'.
-          // can test by running, then making a file @ location
           cout << "+----------------------------------------+" << endl;
           cout << " File " << name << " created after " << duritr + 250 << " milliseconds" << endl;
           cout << "+----------------------------------------+" << endl;
@@ -473,7 +466,7 @@ void sysmgr(char * arg1, int arg2) {
   cout << "+-----------------+\n" << endl;
   int pid = fork();
   if ( pid == 0 ){
-    sleep(arg2); // currently doesn't send to another child proc.
+    sleep(arg2);
     cout << "\n+-----------------+" << endl;
     cout << " RETURNING SYSMGR" << endl;
     cout << " " << arg1 << endl;

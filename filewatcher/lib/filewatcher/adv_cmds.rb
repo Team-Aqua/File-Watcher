@@ -9,8 +9,6 @@ module FileWatcher
     C = Contracts
 
     Contract.override_failure_callback do |data|
-      # Stop Exception Failures
-      # puts Contract.failure_msg(data)
     end
 
       def self.filewatcher_whitelist_commands(cmd)
@@ -30,8 +28,6 @@ module FileWatcher
         return whitelist_commands[cmd.to_sym]
       end
 
-
-    # Contract C::And[MContracts::NilArgs, MContracts::Arg_m, MContracts::Arg_t] => C::Any
     def self.sysmgr(args)
       if !MContracts::argument_validation(args, PreContracts::getContract(:sysmgr)) then return end
 
@@ -41,8 +37,6 @@ module FileWatcher
       Mylib::sysmgr(message, time.to_i)
     end
 
-    # Contract MContracts::NilArgs => C::Any
-    # design: getdir requests no arguments
     def self.getdir(args)
       Mylib::getdir()
     end
@@ -56,7 +50,6 @@ module FileWatcher
       watch_mode = StaticRegex::WATCH_MODE_ARG.match(args)[1]
 
       file_names = StaticRegex::FILENAME_ARG_ANY.match(args)[1]
-      # file_name = StaticRegex::CONTENT_BETWEEN_QUOTES.match(file_names)[2]
 
       time = StaticRegex::TIME_ARG_INTEGER.match(args)[1]
       if StaticRegex::ACTION_ARG_ANY.match(args)
@@ -69,17 +62,12 @@ module FileWatcher
           puts "Sub command: #{command} is not allowed."
           return
         end
-        # puts command
-        # puts sub_args
         if !MContracts::argument_validation(sub_args,PreContracts::getContract(command.to_sym))
           puts "subcommand #{command} Arguments: #{sub_args} are not valid"
           return
         end
       end
 
-      # extract each filename
-      # right now we split by space - rework later
-      # broken because of regex
       filenames = file_names.split(" ");
       for name in filenames
         Mylib::filewatch(watch_mode, name, time.to_i, command, sub_args)
