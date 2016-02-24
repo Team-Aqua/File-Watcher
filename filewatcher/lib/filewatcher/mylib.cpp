@@ -238,8 +238,10 @@ void filewatch(char * fn, char * name, int dur, char * commandName, char * actio
             cout << "+-----------------------------------------------+" << endl;
             cout << "The addition action 'sysmgr' is being processed." << endl;
             cout << "+-----------------------------------------------+" << endl;
-            int number = atoi(strtok(tempAction, " "));
-            sysmgr(strtok(NULL, ""), number);
+            int *number = (int *)malloc(sizeof(int));
+            *number = atoi(strtok(tempAction, " "));
+            sysmgr(strtok(NULL, ""), *number);
+            free(number);
             
         } else {
             cout << "+--------------------------+" << endl;

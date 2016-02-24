@@ -259,6 +259,9 @@ Ruby Proc:
   * Bound to local vars.
 
 Java Anon Inner Class:
+  * They have a larger overhead by passsing the whole class
+
+Ruby's proc is better because it operate within the class constraints without having to pass the whole class. 
 
 #####From a cohesion viewpoint, which interface protocol is superior? Explain your decision!
     FileWatch( type of alteration, duration, list of filenames) {action}
@@ -288,7 +291,7 @@ This will be very useful in our problem when attempting to design a reliable and
 2. EINVAL Invalid argument. This is used to indicate various kinds of problems with passing the wrong argument to a library function.
   * Invalid argument passed; likely caught by ruby function before processing.
 
-```ruby
+ruby
 Errno.constants
 => [:NOERROR, :E2BIG, :EACCES, :EADDRINUSE, :EADDRNOTAVAIL, :EADV, :EAFNOSUPPORT, :EAGAIN, :EALREADY, :EAUTH, :EBADARCH, :EBADE, :EBADEXEC, 
 :EBADF, :EBADFD, :EBADMACHO, :EBADMSG, :EBADR, :EBADRPC, :EBADRQC, :EBADSLT, :EBFONT, :EBUSY, :ECANCELED, :ECHILD, :ECHRNG, :ECOMM,
@@ -302,7 +305,7 @@ Errno.constants
 :EPIPE, :EPROCLIM, :EPROCUNAVAIL, :EPROGMISMATCH, :EPROGUNAVAIL, :EPROTO, :EPROTONOSUPPORT, :EPROTOTYPE, :EPWROFF, :EQFULL, :ERANGE, :EREMCHG, 
 :EREMOTE, :EREMOTEIO, :ERESTART, :ERFKILL, :EROFS, :ERPCMISMATCH, :ESHLIBVERS, :ESHUTDOWN, :ESOCKTNOSUPPORT, :ESPIPE, :ESRCH, :ESRMNT, :ESTALE, 
 :ESTRPIPE, :ETIME, :ETIMEDOUT, :ETOOMANYREFS, :ETXTBSY, :EUCLEAN, :EUNATCH, :EUSERS, :EWOULDBLOCK, :EXDEV, :EXFULL]
-```
+
 
 #####Do any of the Anti-patterns described at: [http://today.java.net/pub/a/today/2006/04/06/exception-handlingantipatterns.html](http://today.java.net/pub/a/today/2006/04/06/exception-handlingantipatterns.html) exist in your solution?
 See Module 2 for response.
