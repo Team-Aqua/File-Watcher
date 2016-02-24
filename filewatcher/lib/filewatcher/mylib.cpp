@@ -168,8 +168,8 @@ void filewatch(char * fn, char * name, int dur, char * commandName, char * actio
   int pid = fork();
   if ( pid == 0 ){
     int *err = (int *)malloc(sizeof(int));
-    char *tempAction = (char *)malloc(sizeof(char) * sizeof(action));
-    tempAction = action;
+    char *tempAction = (char *)calloc(strlen(action)+1, sizeof(char));
+    strcpy(tempAction, action);
       
     /* child */
     if (strncmp (fn, "create", strlen(fn)) == 0 ) {
@@ -224,13 +224,13 @@ void filewatch(char * fn, char * name, int dur, char * commandName, char * actio
             cout << "+-------------------------------------------------+" << endl;
             cout << "The addition action 'strprint' is being processed." << endl;
             cout << "+-------------------------------------------------+" << endl;
-            strprint(strtok(tempAction, " "));
+            strprint(action);
             
         } else if (strncmp (commandName, "sysmgr", strlen(fn)) == 0) {
             cout << "+-----------------------------------------------+" << endl;
             cout << "The addition action 'sysmgr' is being processed." << endl;
             cout << "+-----------------------------------------------+" << endl;
-            sysmgr(strtok(tempAction, " "), atoi(strtok(tempAction, " ")));
+            sysmgr(strtok(tempAction, " "), atoi(strtok(NULL, " ")));
             
         } else {
             cout << "+--------------------------+" << endl;
@@ -239,8 +239,7 @@ void filewatch(char * fn, char * name, int dur, char * commandName, char * actio
         }
     }
     
-    free(err)
-    free(tempAction)
+      free(err);
       
     exit(0);
   } else {
@@ -475,9 +474,5 @@ void sysmgr(char * arg1, int arg2) {
 }
 
 int main() {
-  char* fn = "alter";
-  char* name = "TEST.md";
-  char* cmd = "newfile";
-  char* action = "TEST2.md";
-  filewatch(fn, name, 100, cmd, action);
+
 }
