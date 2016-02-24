@@ -32,6 +32,7 @@ void help () {
   cout << " filewatch -m {create, alter, destroy}                        " << endl;     
   cout << "           -f '{filename list}'                               " << endl;  
   cout << "           -t {time}           :: monitors file changes     " << endl;  
+  cout << "           -a {action}         :: adds action                " << endl;  
   cout << " sysmgr -m \"{msg}\" -t {time}   :: repeat system message   " << endl; // shifter by \" movement
   cout << "+----------------------------------------------------------+" << endl;
   cout << " Other Functions:                                             " << endl;
@@ -238,10 +239,8 @@ void filewatch(char * fn, char * name, int dur, char * commandName, char * actio
             cout << "+--------------------------+" << endl;
         }
     }
-    
-    free(err)
-    free(tempAction)
-      
+        
+    free(err);
     exit(0);
   } else {
     /* parent */
@@ -474,10 +473,4 @@ void sysmgr(char * arg1, int arg2) {
   }
 }
 
-int main() {
-  char* fn = "alter";
-  char* name = "TEST.md";
-  char* cmd = "newfile";
-  char* action = "TEST2.md";
-  filewatch(fn, name, 100, cmd, action);
-}
+int main() {}
