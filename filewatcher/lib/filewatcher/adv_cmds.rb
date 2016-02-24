@@ -14,19 +14,22 @@ module FileWatcher
       # puts Contract.failure_msg(data)
     end
 
-    @filewatcher_whitelist_commands {
-      :help => true,
-      :ls => true,
-      :cd => false,
-      :quit =>  false,
-      :filewatch => false,
-      :histfn => false,
-      :getdir => true,
-      :sysmgr => true,
-      :newfile => true,
-      :delfile => true,
-      :strprint => true,
-    }
+      def self.filewatcher_whitelist_commands(cmd)
+        whitelist_commands = {
+          :help => true,
+          :ls => true,
+          :cd => false,
+          :quit =>  false,
+          :filewatch => false,
+          :histfn => false,
+          :getdir => true,
+          :sysmgr => true,
+          :newfile => true,
+          :delfile => true,
+          :strprint => true
+        }
+        return whitelist_commands[cmd.to_sym]
+      end
 
 
     # Contract C::And[MContracts::NilArgs, MContracts::Arg_m, MContracts::Arg_t] => C::Any
@@ -60,7 +63,10 @@ module FileWatcher
       if StaticRegex::ACTION_ARG_ANY.match(args)
         action = StaticRegex::ACTION_ARG_ANY.match(args)[1]
         command, sub_args = action.split(" ", 2)
-        if 
+        if !filewatcher_whitelist_commands(command)
+          puts "Sub command: #{command} is not allowed."
+          return
+        end
       end
 
       # extract each filename
