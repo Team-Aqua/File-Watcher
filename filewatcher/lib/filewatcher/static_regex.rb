@@ -1,7 +1,9 @@
 module StaticRegex
   TIME_ARG_ANY = /-t(.*?)/
 
-  TIME_ARG_INTEGER = /-[t](\d+)$/
+  ACTION_ARG_ANY = /-a'(.*?)'/ 
+
+  TIME_ARG_INTEGER = /-[t](\d+)($|-)/
 
   FILENAME_ARG_ANY = /-f('(.*?)'|"(.*?)")/
 

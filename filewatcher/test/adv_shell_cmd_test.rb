@@ -21,14 +21,33 @@ class AdvShellCMDTest < Minitest::Test
   end
 
   def test_filewatch
-    assert_output(/#{FileWatcher::MContracts::ERROR_STRING_NO_ARGS}/) {FileWatcher::AdvCmds::filewatch("")}
+    # assert_output(/#{FileWatcher::MContracts::ERROR_STRING_FILEWATCH_MODE_ARGS}/) {FileWatcher::AdvCmds::filewatch("-m")}
+    assert_output(/#{FileWatcher::MContracts::ERROR_STRING_T_IS_INT}/) {FileWatcher::AdvCmds::filewatch("-mcreate-f\"lal.txt\"-ta")}
+    # assert_output("") {FileWatcher::AdvCmds::filewatch("-mcreate-f\"newFile.txt\"-t20-a' delfile -f \"newFile.txt\" '")}
+    # assert_output("") {FileWatcher::AdvCmds::filewatch("-mcreate-f\"newFile.txt\"-t20")}
   end
 
   def test_getdir
     # assert_output(/No arguments provided/) {FileWatcher::AdvCmds::getdir("")}
   end
-
-  def test_filewatch
-    assert_output(/No arguments provided/) {FileWatcher::AdvCmds::filewatch("")}
-  end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

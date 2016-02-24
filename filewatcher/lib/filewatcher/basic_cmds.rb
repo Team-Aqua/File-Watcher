@@ -7,6 +7,22 @@ module FileWatcher
     include Contracts::Core
     C = Contracts
 
+    Contract.override_failure_callback do |data|
+      # Stop Exception Failures
+      # puts Contract.failure_msg(data)
+    end
+
+    @commands_pre_checks = { 
+      :help => lambda { |args| self.pre_help() },
+      :ls => lambda { |args| BasicCmds::ls(args) }, 
+      :cd => lambda { |args| BasicCmds::cd(args) }, 
+      :quit =>  lambda { |args| BasicCmds::quit(args) },
+      :histfn => lambda { |args| self.histfn(args) },
+      :getdir => lambda { |args| AdvCmds::getdir(args) },
+      :newfile => lambda { |args| BasicCmds::newfile(args) },
+      :delfile => lambda { |args| BasicCmds::delfile(args) }
+    }
+
     def self.ls(args)
       Mylib::ls
     end 
