@@ -146,8 +146,6 @@ The values that should be user controllable are: evoking the function, setting t
 ### Module 3:
 ##### Which interface protocol is presented?
 ##### A class or a module?
-Classes become useful when we require instantiation or state. Modules are used as class helpers or for one-off functions.
-
 This should be a module (sub-module). We do not need to have multiple instantiations. Any state data will be maintained by the encompassing module or class that is the shell.
 
 #####Error handling? Robustness? Security? Are any of these required?
@@ -163,7 +161,7 @@ These aspects are required, especially for a command line interface application.
 #####What components of the Ruby exception hierarchy are applicable to this problem? Illustrate your answer.
 The ruby exception heirarchy can be explained here:
 
-```ruby
+ruby
 Exception
   IRB::Abort
   MonitorMixin::ConditionVariable::Timeout
@@ -248,7 +246,6 @@ Exception
     Gem::SystemExitException
   SystemStackError
   fatal
-```
 
 #####Does this problem require an iterator?
 Yes, this problem requires an iterator. We have to use one to continually cycle through our operations, in order to ensure that the system is constantly 'examined' for FileWatcher.
