@@ -5,29 +5,29 @@
 ### Module 1:
 [Reference](http://stackoverflow.com/questions/151505/difference-between-a-class-and-a-module)
 
-Our problem is a module. Modules do not neet to be instantiated and are about functions while classes need to be instantiated and are about providing objects. 
+Our problem is a module. Modules do not need to be instantiated while classes need to be. We are also choosing modules because Modules are about giving us functions, which can be used for the shell and file watcher, while classes are about producing objects, which is something that is not required of us for this project.
   
 ##### What shell(s) are you using to provide a specification? What features do they support?
   
-We are using the C Shell to provide a specification. Some features include history and editing, aliases, directory stacks, tilde notation, cdpath, job control and path hashing.
+We are using the C Shell to provide a specification. Some features include history and editing, aliases, directory stacks, tilde notation, cdpath, job control and path hashing. This shell is chosen because of its primary features with history, cdpath and path hashing. The rest of the functions might be concidered but are not required.
   
 ##### In your opinion, which features are essential (should include in your design) and which are “window dressing” (should not include in your design)?
 
-We believe that directory functions like ls and cd will be required functions for navigating and selecting files to monitor using the File Watcher. Tilde notation, aliases , history and editing are not needed for the completion of the shell.
+We believe that directory functions like ls and cd will be required functions for navigating and selecting files to monitor using the File Watcher. Tilde notation, aliases , history and editing are not needed for the completion of file watcher and will be considered as extra dressing that we might add if time permits.
   
 ##### Economics: Which, if any, essential features will be omitted from your design due to unmanageable effort requirements?
 
-Most likely the directory stack, job control and path hashing wil be omitted from the shell. Despite how useful they will be for a file watcher, they are not essential for its completion.
+The directory stack, job control and path hashing will be omitted from the shell. Despite how useful they will be for a file watcher, they are not essential for its completion as functions like job control can be taken care of by the parent process in c.
   
 ##### Error handling? What percentage of code handles functional against potential pitfalls:
 
 **In the average commercial program? In your shell program?**: 20% of code in the average commercial program handles error handling and about 10% of our code will handle error handling.
     
-**If they are radically different, please provide a rationale**: Most likely our shell will not be performing a lot of error handling. Most testing will be completed on the front end to test for correct inputs using ruby's contracts.
+**If they are radically different, please provide a rationale**: Our shell will be performing most of the error handling in our program since it wil be handling the inputs. If we manage to sanitize and ensure that the \
   
 ##### Robustness? How do we make the system bullet-proof? Is Avoiding Core dumps of system shells important? Especially from a Security viewpoint, remember this dump will give access to underlying C system code and potentially Linux daemons?
 
-We can make the system robust by validating unputs and commands. We can stop core dumps by ensuring that there are correct inputs and files, and that links to the files have been closed.
+We can make the system robust by validating the input commands and making sure that the user correctly inputs valid commands. We can stop core dumps by ensuring that there are correct inputs and files, and that links to the files have been closed.
   
 ##### Describe the Ruby exception hierarchy, which classes of exceptions are applicable to this problem?
   
@@ -40,7 +40,7 @@ We can make the system robust by validating unputs and commands. We can stop cor
     5) SystemExit
     6) fatal
 
-Standard error will be applicatble in order to handle IO exceptions. NoMemoryError will be needed due to the theoreticaly low amount of memory that our system will be having. SignalException will be used to ensure that interupts from the child processes are handled correctly. SystemExit will be taken into consideration in order to clean up processes if the shell is closed unexpectedly. 
+Standard error will be applicatble in order to handle IO exceptions. NoMemoryError will be needed due to the theoreticaly low amount of memory that our system will be having, especially if we start to create several children for each process instead of reusing our unused children. SignalException will be used to ensure that interupts from the child processes are handled correctly. SystemExit will be taken into consideration in order to clean up processes if the shell is closed unexpectedly. 
   
 ##### What is Module Errno? Is it applicable to the problem? Explain your answer! Remember Ruby often wraps C code.
 

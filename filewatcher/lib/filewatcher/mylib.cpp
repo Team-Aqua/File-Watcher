@@ -41,14 +41,6 @@ void help () {
   cout << "+----------------------------------------------------------+" << endl;
 }
 
-int add (int a, int b) {
-    return a+b;
-}
-
-int sub (int a, int b) {
-    return a-b;
-}
-
 time_t get_mtime(char *path) {
     // ref: http://stackoverflow.com/questions/4021479/getting-file-modification-time-on-unix-using-utime-in-c
     struct stat statbuf;
@@ -157,7 +149,7 @@ void cd (char * arg) {
   cout << "Unable to enter.\n" << endl;
 }
 
-void filewatch(char * fn, char * name, int dur) {
+void filewatch(char * fn, char * name, int dur, char * action) {
   cout << "+-------------------+" << endl;
   cout << " EXECUTING FILEWATCH" << endl;
   cout << " Function: " << fn << endl;
@@ -167,24 +159,71 @@ void filewatch(char * fn, char * name, int dur) {
 
   int pid = fork();
   if ( pid == 0 ){
+    int *err = (int *)malloc(sizeof(int));
+    char *tempAction = (char *)malloc(sizeof(char) * sizeof(action));
+    char *actionName = (char *)malloc(sizeof(char) * 64);
+    actionName = strtok(tempAction, " ");
+      
     /* child */
-    // FIXME: need to have an array of names, not just one name - maybe iterate @ this level?
     if (strncmp (fn, "create", strlen(fn)) == 0 ) {
-      fwcreate(name, dur);
+      *err = fwcreate(name, dur);
     } else if (strncmp (fn, "alter", strlen(fn)) == 0) {
-      fwalter(name, dur);
+      *err = fwalter(name, dur);
     } else if (strncmp (fn, "destroy", strlen(fn)) == 0) {
-      fwdestroy(name, dur);
+      *err = fwdestroy(name, dur);
     } else {
       cout << "No recognised function call presented." << endl;
+      *err = 1;
     }
+      
+    if (*err == 0) {
+        if (strncmp (actionName, "help", strlen(fn)) == 0) {
+            cout << "The addition action 'help' is being processed." << endl;
+            help();
+            
+        } else if (strncmp (actionName, "ls", strlen(fn)) == 0) {
+            cout << "The addition action 'ls' is being processed." << endl;
+            ls();
+            
+        } else if (strncmp (actionName, "getdir", strlen(fn)) == 0) {
+            cout << "The addition action 'getdir' is being processed." << endl;
+            getdir();
+            
+        } else if (strncmp (actionName, "newfile", strlen(fn)) == 0) {
+            cout << "The addition action 'newfile' is being processed." << endl;
+            newfile(strtok(tempAction, " "));
+            
+        } else if (strncmp (actionName, "delfile", strlen(fn)) == 0) {
+            cout << "The addition action 'delfile' is being processed." << endl;
+            delfile(strtok(tempAction, " "));
+            
+        } else if (strncmp (actionName, "cd", strlen(fn)) == 0) {
+            cout << "The addition action 'cd' is being processed." << endl;
+            cd(strtok(tempAction, " "));
+            
+        } else if (strncmp (actionName, "strprint", strlen(fn)) == 0) {
+            cout << "The addition action 'strprint' is being processed." << endl;
+            strprint(strtok(tempAction, " "));
+            
+        } else if (strncmp (actionName, "sysmgr", strlen(fn)) == 0) {
+            cout << "The addition action 'sysmgr' is being processed." << endl;
+            sysmgr(strtok(tempAction, " "), atoi(strtok(tempAction, " ")));
+            
+        } else {
+            cout << "No additional action taken." << endl;
+        }
+    }
+    
+    free(err);
+    free(tempAction);
+    free(actionName);
+      
     exit(0);
   } else {
     /* parent */
   }
 }
-
-void fwdestroy(char * name, int dur) {
+int fwdestroy(char * name, int dur) {
 
   DIR           *dp;
   struct dirent *dirp;
@@ -219,7 +258,7 @@ void fwdestroy(char * name, int dur) {
     cout << "+---------------------------------------+" << endl;
     cout << " " << name << " isn't found ;; filewatch has ended" << endl;
     cout << "+---------------------------------------+" << endl;
-    return;
+    return 1;
   }
 
   while (duritr < durms) {
@@ -237,7 +276,7 @@ void fwdestroy(char * name, int dur) {
       cout << "+----------------------------------------+" << endl;
       cout << " File " << name << " destroyed after " << duritr + 25 << " milliseconds" << endl;
       cout << "+----------------------------------------+" << endl;
-      return;
+      return 0;
     }
     duritr = duritr + 250;
     nanosleep(&timeeval, NULL);
@@ -246,16 +285,14 @@ void fwdestroy(char * name, int dur) {
   cout << "+-----------------------------------+" << endl;
   cout << "File monitoring for "<< name << " complete after " << dur << " seconds." << endl;
   cout << "+-----------------------------------+" << endl;
-  return;
+  return 1;
 }
 
-void fwalter(char * name, int dur) {
-
-
+int fwalter(char * name, int dur) {
   DIR           *dp;
   struct dirent *dirp;
   struct stat    buf;
-  char filepath[100];
+  char *filepath = (char *)malloc(sizeof(char) * 100);
   time_t oldModifiedTime;
   time_t newModifiedTime;
   char buff[20];
@@ -290,7 +327,7 @@ void fwalter(char * name, int dur) {
     cout << "+---------------------------------------+" << endl;
     cout << " " << name << " isn't found ;; filewatch has ended" << endl;
     cout << "+---------------------------------------+" << endl;
-    return;
+    return 1;
   }
 
   while (duritr < durms) {
@@ -306,7 +343,7 @@ void fwalter(char * name, int dur) {
             cout << "+-----------------------------------+" << endl;
             cout << " File " << name << " has been changed after " << duritr + 250 << " milliseconds - altered" << endl;
             cout << "+-----------------------------------+" << endl;
-            return;
+            return 0;
           }
         } 
       }
@@ -315,7 +352,7 @@ void fwalter(char * name, int dur) {
       cout << "+-----------------------------------+" << endl;
       cout << " File " << name << " not found after " << duritr + 250 << " milliseconds - destroyed" << endl;
       cout << "+-----------------------------------+" << endl;
-      return;
+      return 1;
     }
     duritr = duritr + 250;
     //duritr = duritr + 1000;
@@ -325,10 +362,10 @@ void fwalter(char * name, int dur) {
   cout << "+-----------------------------------+" << endl;
   cout << "File monitoring for "<< name << " complete after " << dur << " seconds." << endl;
   cout << "+-----------------------------------+" << endl;
-  return;
+  return 1;
 }
 
-void fwcreate(char * name, int dur) {
+int fwcreate(char * name, int dur) {
 
   DIR           *dp;
   struct dirent *dirp;
@@ -358,7 +395,7 @@ void fwcreate(char * name, int dur) {
         cout << "+----------------------------------------------+" << endl;
         cout << " " << name << " is already created ;; filewatch has ended" << endl;
         cout << "+----------------------------------------------+" << endl;
-        return;
+        return 1;
       } 
     }
   }
@@ -373,7 +410,7 @@ void fwcreate(char * name, int dur) {
           cout << "+----------------------------------------+" << endl;
           cout << " File " << name << " created after " << duritr + 25 << " milliseconds" << endl;
           cout << "+----------------------------------------+" << endl;
-          return;
+          return 0;
         } 
       }
     }
@@ -383,7 +420,7 @@ void fwcreate(char * name, int dur) {
   cout << "+----------------------------------------------+" << endl;
   cout << "File monitoring for "<< name << " complete after " << dur << " seconds." << endl;
   cout << "+----------------------------------------------+" << endl;
-  return;
+  return 1;
 }
 
 void sysmgr(char * arg1, int arg2) {
