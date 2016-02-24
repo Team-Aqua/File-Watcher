@@ -1,7 +1,7 @@
 module StaticRegex
   TIME_ARG_ANY = /-t(.*?)/
 
-  ACTION_ARG_ANY = /-a'(.*?)'/ 
+  ACTION_ARG_ANY = /-a{(.*?)}/ 
 
   TIME_ARG_INTEGER = /-[t](\d+)($|-)/
 

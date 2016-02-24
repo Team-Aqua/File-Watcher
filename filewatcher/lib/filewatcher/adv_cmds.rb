@@ -47,7 +47,7 @@ module FileWatcher
       Mylib::getdir()
     end
 
-    Contract C::And[MContracts::NilArgs, MContracts::Arg_watch_mode, MContracts::Arg_file, MContracts::Arg_t] => C::Any
+    Contract C::And[MContracts::NilArgs, MContracts::Arg_watch_mode, MContracts::Arg_file, MContracts::Arg_t, MContracts::Arg_action] => C::Any
     def self.filewatch(args)
       command, sub_args = ""
 
@@ -61,11 +61,16 @@ module FileWatcher
       time = StaticRegex::TIME_ARG_INTEGER.match(args)[1]
       if StaticRegex::ACTION_ARG_ANY.match(args)
         action = StaticRegex::ACTION_ARG_ANY.match(args)[1]
-        command, sub_args = action.split(" ", 2)
+        command, sub_args = action.split("-", 2)
+        if sub_args != nil
+          sub_args.prepend("-")
+        end
         if !filewatcher_whitelist_commands(command)
           puts "Sub command: #{command} is not allowed."
           return
         end
+        # puts command
+        # puts sub_args
         if !MContracts::argument_validation(sub_args,PreContracts::getContract(command.to_sym))
           puts "subcommand #{command} Arguments: #{sub_args} are not valid"
           return

@@ -120,8 +120,6 @@ module FileWatcher
 
     class Arg_action
       def self.valid? args
-        args = args.gsub(StaticRegex::ALL_WHITESPACE, "")
-        puts "ERROR"
         return true
       end
       def self.to_s

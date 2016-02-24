@@ -47,13 +47,14 @@ class AdvShellCMDTest < Minitest::Test
     assert_output(/delfile Arguments:  are not valid/) {FileWatcher::AdvCmds::filewatch("-mcreate-f'newFile.txt'-t0-a{delfile}")}
     assert_output(/No arguments provided\nsubcommand strprint Arguments:  are not valid\n/) {FileWatcher::AdvCmds::filewatch("-mcreate-f'newFile.txt'-t0-a{strprint}")}
 
-    assert_output("") {FileWatcher::AdvCmds::filewatch("-mcreate-f'newFile.txt'-t0-a{newfile -f 'text.txt'}")}
+    assert_output("") {FileWatcher::AdvCmds::filewatch("-mcreate-f'newFile.txt'-t0-a{newfile -f ' text.txt '}")}
     assert_output("") {FileWatcher::AdvCmds::filewatch("-mcreate-f'newFile.txt'-t0-a{delfile -f 'text.txt'}")}
     assert_output("") {FileWatcher::AdvCmds::filewatch("-mcreate-f'newFile.txt'-t0-a{strprint -m 'msg'}")}
 
-    assert_output("") {FileWatcher::AdvCmds::filewatch("-mcreate-f'newFile.txt'-t0-a{sysmgr}")}
+    assert_output(/No arguments provided\nsubcommand sysmgr Arguments:  are not valid\n/) {FileWatcher::AdvCmds::filewatch("-mcreate-f'newFile.txt'-t0-a{sysmgr}")}
 
-    assert_output(/Sub command: histfn is not allowed./) {FileWatcher::AdvCmds::filewatch("-mcreate-f'newFile.txt'-t0-a'histfn 2'")}    
+    assert_output(/Sub command: histfn2 is not allowed.\n/) {FileWatcher::AdvCmds::filewatch("-mcreate-f'newFile.txt'-t0-a{histfn 2}")}    
+    assert_output("") {FileWatcher::AdvCmds::filewatch("-mcreate-f'newFile.txt'-t0-a'histfn 2'")}    
 
   end
 
