@@ -18,7 +18,8 @@ module FileWatcher
         :getdir => lambda { |args| AdvCmds::getdir(args) },
         :sysmgr => lambda { |args| AdvCmds::sysmgr(args) },
         :newfile => lambda { |args| BasicCmds::newfile(args) },
-        :delfile => lambda { |args| BasicCmds::delfile(args) }
+        :delfile => lambda { |args| BasicCmds::delfile(args) },
+        :print => lambda { |args| BasicCmds::strprint(args) }
       }
     end
 

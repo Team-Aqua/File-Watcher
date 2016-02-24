@@ -13,6 +13,7 @@ These exercises are worth 20% of the final mark for this class; as with all of o
 (i) You must provide complete design rationale and system research – i.e. the written answers to the design questions; this must be handed in by Tuesday February 23rd @ midnight;
 (ii) You must provide complete design by contract test cases for the three problems; this must be handed in by Tuesday February 23rd @ midnight; please note: since these problems are systems programming problems you can expect your contracts to be more abstract than in the previous assignment; and
 (iii) Your system must be completed by: Tuesday February 23rd @ midnight and must be ready for demonstration in the following practical session.
+
 In addition to the practical demonstration, you are required to hand-in:
 1) A detailed rational for any augmented decisions (from Part 1) with regard to the below design questions.
 2) A list of deviations in the contracts implemented form the contracts specified in Part 2.

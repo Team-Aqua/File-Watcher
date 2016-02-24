@@ -5,42 +5,52 @@
 ### Module 1:
 [Reference](http://stackoverflow.com/questions/151505/difference-between-a-class-and-a-module)
 
-Our problem is a module. Modules do not neet to be instantiated and are about functions while classes need to be instantiated and are about providing objects. 
+Our problem is a module. Modules do not need to be instantiated while classes need to be. We are also choosing modules because Modules are about giving us functions, which can be used for the shell and file watcher, while classes are about producing objects, which is something that is not required of us for this project.
   
 ##### What shell(s) are you using to provide a specification? What features do they support?
+<<<<<<< HEAD
   
-We are using the C Shell to provide a specification. Some features include history and editing, aliases, directory stacks, tilde notation, cdpath, job control and path hashing.
+We are using the C Shell to provide a specification. Some features include history and editing, aliases, directory stacks, tilde notation, cdpath, job control and path hashing. This shell is chosen because of its primary features with history, cdpath and path hashing. The rest of the functions might be concidered but are not required.
   
 ##### In your opinion, which features are essential (should include in your design) and which are “window dressing” (should not include in your design)?
 
-We believe that directory functions like ls and cd will be required functions for navigating and selecting files to monitor using the File Watcher. Tilde notation, aliases , history and editing are not needed for the completion of the shell.
+We believe that directory functions like ls and cd will be required functions for navigating and selecting files to monitor using the File Watcher. Tilde notation, aliases , history and editing are not needed for the completion of file watcher and will be considered as extra dressing that we might add if time permits.
   
 ##### Economics: Which, if any, essential features will be omitted from your design due to unmanageable effort requirements?
 
+The directory stack, job control and path hashing will be omitted from the shell. Despite how useful they will be for a file watcher, they are not essential for its completion as functions like job control can be taken care of by the parent process in c.
+=======
+We are using the C Shell to provide a specification. Some features include history and editing, aliases, directory stacks, tilde notation, cdpath, job control and path hashing.
+  
+##### In your opinion, which features are essential (should include in your design) and which are “window dressing” (should not include in your design)?
+We believe that directory functions like ls and cd will be required functions for navigating and selecting files to monitor using the File Watcher. Tilde notation, aliases , history and editing are not needed for the completion of the shell.
+  
+##### Economics: Which, if any, essential features will be omitted from your design due to unmanageable effort requirements?
 Most likely the directory stack, job control and path hashing wil be omitted from the shell. Despite how useful they will be for a file watcher, they are not essential for its completion.
+>>>>>>> 8b5518c2029dd7a12b619ba267e6c29c4f5e8be8
   
 ##### Error handling? What percentage of code handles functional against potential pitfalls:
 
 **In the average commercial program? In your shell program?**: 20% of code in the average commercial program handles error handling and about 10% of our code will handle error handling.
     
-**If they are radically different, please provide a rationale**: Most likely our shell will not be performing a lot of error handling. Most testing will be completed on the front end to test for correct inputs using ruby's contracts.
+**If they are radically different, please provide a rationale**: Our shell will be performing most of the error handling in our program since it wil be handling the inputs. If we manage to sanitize and ensure that the \
   
 ##### Robustness? How do we make the system bullet-proof? Is Avoiding Core dumps of system shells important? Especially from a Security viewpoint, remember this dump will give access to underlying C system code and potentially Linux daemons?
 
-We can make the system robust by validating unputs and commands. We can stop core dumps by ensuring that there are correct inputs and files, and that links to the files have been closed.
+We can make the system robust by validating the input commands and making sure that the user correctly inputs valid commands. We can stop core dumps by ensuring that there are correct inputs and files, and that links to the files have been closed.
   
 ##### Describe the Ruby exception hierarchy, which classes of exceptions are applicable to this problem?
   
 [Reference](http://makandracards.com/makandra/4851-ruby-exception-class-hierarchy) Ruby's exception heirarchy is as follows: 
 
     1) NoMemoryError
-    2) ScrpitError
+    2) ScriptError
     3) SignalException
     4) StandardError
     5) SystemExit
     6) fatal
 
-Standard error will be applicatble in order to handle IO exceptions. NoMemoryError will be needed due to the theoreticaly low amount of memory that our system will be having. SignalException will be used to ensure that interupts from the child processes are handled correctly. SystemExit will be taken into consideration in order to clean up processes if the shell is closed unexpectedly. 
+Standard error will be applicatble in order to handle IO exceptions. NoMemoryError will be needed due to the theoreticaly low amount of memory that our system will be having, especially if we start to create several children for each process instead of reusing our unused children. SignalException will be used to ensure that interupts from the child processes are handled correctly. SystemExit will be taken into consideration in order to clean up processes if the shell is closed unexpectedly. 
   
 ##### What is Module Errno? Is it applicable to the problem? Explain your answer! Remember Ruby often wraps C code.
 
@@ -89,15 +99,6 @@ The inputs would be sanitised beforehand by the Ruby script before being process
 
 These aspects are required, especially for a command line interface application. As users expect a level of quality with the innermost processes (aspects obtained by having a secure, robust system), developers need to build applications with respect to these key qualities at all times.
 
-###### AUGMENTED DESIGN DECISIONS
-**Error Handling**
-Because of the disjointed nature of our system messager (as a result of the implementation of the fork process), there is cause for concern that failures found in the parent process would not affect the child process - when, in reality, this is the preferred approach. We have since designed our systems to ensure that we can properly handle all errors that arise.
-
-We also ensure that user inputs to the program are properly sanitised - as a result, we properly handle all errors that arise from bad input data.
-
-**Robustness**
-Ultimately, we came to the following conclusion for our implementation: if there is an external segmentation fault, then our system should stop entirely. When looking at user requirements, most users would want a system that works to expectations. If the system falls prey to other issues - absolutely, we can handle those and preserve the initial function. However, our full system should not break by itself - but must also know when to stop. Regardless, our original missive remains - we will preserve our applicaiton to mitigate segmentation dumps.
-
 ##### What components of the Ruby exception hierarchy are applicable to this problem? Illustrate your answer.
 Reference: 
 
@@ -112,10 +113,6 @@ The following components are applicable to this problem:
   * Generic class used if the system encounters a runtime error.
 3. http://ruby-doc.org/core-2.1.1/TypeError.html
   * TypeError when the system is passed a bad input (eg. RelayMessage "Two" "Hello World", where proper input is RelayMessage 2 "Hello World")
-
-###### AUGMENTED DESIGN DECISIONS
-We have decided to use contracts in lieu of exceptions in order to properly illustrate either bad inputs or bad commands. That way, we can properly handle improper inputs through 'requirements design', instead of using the exception hierarchy. However, if errors exist outside of this scope (most notably within C, where contracts have no reach), then the exception hierarchy within C is implemented.
-
 
 ##### Is Module Errno useful in this problem? Illustrate your answer.
 Reference:
