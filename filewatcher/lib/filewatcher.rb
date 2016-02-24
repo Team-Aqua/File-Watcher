@@ -1,7 +1,6 @@
 require "filewatcher/version"
 require "filewatcher/shell"
 require 'filewatcher/mylib'
-require 'filewatcher/exceptions'
 require 'filewatcher/mcontracts'
 require 'filewatcher/basic_cmds'
 require 'filewatcher/adv_cmds'

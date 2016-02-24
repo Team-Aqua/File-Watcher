@@ -1,4 +1,3 @@
-require "filewatcher/exceptions"
 require "contracts"
 require "filewatcher/mcontracts"
 require "filewatcher/static_regex"
