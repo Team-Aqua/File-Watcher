@@ -27,6 +27,8 @@ module StaticRegex
 
   WHITESPACE_OMIT_CONTENT = /\s+(?=([^("|')]*("|')[^("|')]*("|'))*[^("|')]*$)/
 
+  M_ARG_AT_END = /-m'(.*?)'$/
+
   def self.matcher(pattern, arg)
     if arg.match(pattern) == nil
       return false

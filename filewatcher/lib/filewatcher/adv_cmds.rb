@@ -75,6 +75,11 @@ module FileWatcher
           puts "subcommand #{command} Arguments: #{sub_args} are not valid"
           return
         end
+        if command=="sysmgr" and !StaticRegex::M_ARG_AT_END.match(sub_args)
+          puts "sub-argument -m for sysmgr must be terminating (e.g. -t # -m 'msg txt')"
+          return
+        end
+          
       end
 
       # extract each filename
@@ -86,6 +91,5 @@ module FileWatcher
         sleep 0.15
       end
     end
-    
   end
 end

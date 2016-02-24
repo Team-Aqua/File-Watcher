@@ -52,6 +52,8 @@ class AdvShellCMDTest < Minitest::Test
     assert_output("") {FileWatcher::AdvCmds::filewatch("-mcreate-f'newFile.txt'-t0-a{strprint -m 'msg'}")}
 
     assert_output(/No arguments provided\nsubcommand sysmgr Arguments:  are not valid\n/) {FileWatcher::AdvCmds::filewatch("-mcreate-f'newFile.txt'-t0-a{sysmgr}")}
+    assert_output("sub-argument -m for sysmgr must be terminating (e.g. -t # -m 'msg txt')\n") {FileWatcher::AdvCmds::filewatch("-mcreate-f'newFile.txt'-t0-a{sysmgr -m 'lol' -t 0}")}
+    assert_output("") {FileWatcher::AdvCmds::filewatch("-mcreate-f'newFile.txt'-t0-a{sysmgr -t 0 -m 'lol'}")}
 
     assert_output(/Sub command: histfn2 is not allowed.\n/) {FileWatcher::AdvCmds::filewatch("-mcreate-f'newFile.txt'-t0-a{histfn 2}")}    
     assert_output("") {FileWatcher::AdvCmds::filewatch("-mcreate-f'newFile.txt'-t0-a'histfn 2'")}    
