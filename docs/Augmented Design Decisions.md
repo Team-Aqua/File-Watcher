@@ -11,7 +11,7 @@ Despite previously stating that function history was 'window dressing', we have 
 ### Module 2 
 **Error Handling**:
 
-Because of the disjointed nature of our system messager (as a result of the implementation of the fork process), there is cause for concern that failures found in the parent process would not affect the child process - when, in reality, this is the preferred approach. We have since designed our systems to ensure that we can properly handle all errors that arise.
+Because of the disjointed nature of our system messager (as a result of the implementation of the fork process), there is cause for concern that failures found in the parent process would not affect the child process - when, in reality, this is the preferred approach. We want child processes to be preserved in the face of errors - this is to ensure the robustness of the product.
 
 We also ensure that user inputs to the program are properly sanitised - as a result, we properly handle all errors that arise from bad input data. I
 
@@ -29,6 +29,17 @@ We have decided to use contracts in lieu of exceptions in order to properly illu
 
 ### Module 3
 **Sleep**
+
 In part three, we have swapped sleep(x) for nanosleep(x) - this is because of several reasons. First, we can ensure that the timing is more accurate by handling it by nanosecond count. This gives us a lot more leeway to ensure that our timing gives us the omst accurate response possible - without crashing on us. By doing so, we can increase precision 4+x that of sleep(x) (as we're using breaks of 250ms). 
 
 However, because of the nature of the second module (wherein a child process can simply sleep for an alloted period of time), the sleep(x) function will suffice. After looking at nanosleep, we decided that it would be easier for users to specify time delays in seconds - rather than milliseconds (i.e. the number of users that would benefit from 12000ms instead of 12 seconds outweigh the number of people that would use a shorter function with seconds). As a result, the second module retains its 'seconds' modifier.
+
+### Limitations
+**Filewatcher**
+
+Our filewatcher is built off of the premise that it can scan the whole directory and find the file. This limitation affects large file systems, as it may be significantly slower to process these than to process smaller file systems.
+
+**Timing**
+We have overhead on our processes and its count - when the system states it's checking immediately, there is a delay of 0.15s per item in the list. This is to ensure the cohesiveness of the product, but may not lend to accurate timing. While the 0.15s issue is relieved once the iterator is running, the overhead of reading through the file system is not accounted for, and may lead to minor timing problems.
+
+We have used an iterator of 250ms per iteration for filewatcher. This is to ensure that the system doesn't take too many resources reading the files over and over, but also maximises the precision of the product.
