@@ -8,20 +8,6 @@ module FileWatcher
     include Contracts::Core
     C = Contracts
 
-    @commands_pre_checks = { 
-      :help => lambda { |args| Mylib::help },
-      :ls => lambda { |args| BasicCmds::ls(args) }, 
-      :cd => lambda { |args| BasicCmds::cd(args) }, 
-      :quit =>  lambda { |args| BasicCmds::quit(args) },
-      :filewatch => lambda { |args| AdvCmds::filewatch(args) }, 
-      :histfn => lambda { |args| self.histfn(args) },
-      :getdir => lambda { |args| AdvCmds::getdir(args) },
-      :sysmgr => lambda { |args| AdvCmds::sysmgr(args) },
-      :newfile => lambda { |args| BasicCmds::newfile(args) },
-      :delfile => lambda { |args| BasicCmds::delfile(args) }
-    }
-
-
     Contract.override_failure_callback do |data|
       # Stop Exception Failures
       # puts Contract.failure_msg(data)
@@ -43,6 +29,7 @@ module FileWatcher
 
     Contract C::And[MContracts::NilArgs, MContracts::Arg_watch_mode, MContracts::Arg_file, MContracts::Arg_t] => C::Any
     def self.filewatch(args)
+      command, sub_args = ""
       # extract fn, name, dur from command
       args = args.gsub(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, "") 
       watch_mode = StaticRegex::WATCH_MODE_ARG.match(args)[1]
@@ -51,9 +38,10 @@ module FileWatcher
       file_name = StaticRegex::CONTENT_BETWEEN_QUOTES.match(file_names)[2]
 
       time = StaticRegex::TIME_ARG_INTEGER.match(args)[1]
-
-      action = StaticRegex::ACTION_ARG_ANY.match(args)[1]
-      command, sub_args = action.split(" ", 2)
+      if StaticRegex::ACTION_ARG_ANY.match(args)
+        action = StaticRegex::ACTION_ARG_ANY.match(args)[1]
+        command, sub_args = action.split(" ", 2)
+      end
 
       # extract each filename
       # right now we split by space - rework later

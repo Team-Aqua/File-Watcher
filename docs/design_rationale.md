@@ -8,7 +8,6 @@
 Our problem is a module. Modules do not need to be instantiated while classes need to be. We are also choosing modules because Modules are about giving us functions, which can be used for the shell and file watcher, while classes are about producing objects, which is something that is not required of us for this project.
   
 ##### What shell(s) are you using to provide a specification? What features do they support?
-<<<<<<< HEAD
   
 We are using the C Shell to provide a specification. Some features include history and editing, aliases, directory stacks, tilde notation, cdpath, job control and path hashing. This shell is chosen because of its primary features with history, cdpath and path hashing. The rest of the functions might be concidered but are not required.
   
@@ -17,17 +16,7 @@ We are using the C Shell to provide a specification. Some features include histo
 We believe that directory functions like ls and cd will be required functions for navigating and selecting files to monitor using the File Watcher. Tilde notation, aliases , history and editing are not needed for the completion of file watcher and will be considered as extra dressing that we might add if time permits.
   
 ##### Economics: Which, if any, essential features will be omitted from your design due to unmanageable effort requirements?
-
 The directory stack, job control and path hashing will be omitted from the shell. Despite how useful they will be for a file watcher, they are not essential for its completion as functions like job control can be taken care of by the parent process in c.
-=======
-We are using the C Shell to provide a specification. Some features include history and editing, aliases, directory stacks, tilde notation, cdpath, job control and path hashing.
-  
-##### In your opinion, which features are essential (should include in your design) and which are “window dressing” (should not include in your design)?
-We believe that directory functions like ls and cd will be required functions for navigating and selecting files to monitor using the File Watcher. Tilde notation, aliases , history and editing are not needed for the completion of the shell.
-  
-##### Economics: Which, if any, essential features will be omitted from your design due to unmanageable effort requirements?
-Most likely the directory stack, job control and path hashing wil be omitted from the shell. Despite how useful they will be for a file watcher, they are not essential for its completion.
->>>>>>> 8b5518c2029dd7a12b619ba267e6c29c4f5e8be8
   
 ##### Error handling? What percentage of code handles functional against potential pitfalls:
 
@@ -78,7 +67,7 @@ Use Regexp since some of the command line options will be custom made.
 
 ##### What environment does a shell run within? Current Directory? Or ...
 
-The shell will run within the current directory so the user can use cd or ls to start navigation from the current directory.
+The shell will run within the current directory so the user can use cd to start navigation from the current directory.
   
 ##### What features should be user controllable? Prompts? Input and Output channels? Or ...
 
@@ -136,21 +125,20 @@ Reference:
 Used to identify exception handling, as well as custom exceptions. More specifically, the article focuses on antipatterns, which discuss 'bad' patterns for exceptions to have.
 
 ##### Convince the marker that these Anti-patterns don’t exist in your solution. 
->> to be completed in finalised copy.
+We do not have any antipatterns in our solution. This is because of three reasons:
+
+  1. We do not plan on throwing exceptions in our C++ code. Instead, we plan on handling all of our interactions on the Ruby level, then passing only safe operations inside of the C code.
+  2. We have sleep operations, but they are so small that they would not ignore interrupts.
+  3. We do not return null on our functions.
 
 ##### Do they exist in your Shell solution?
->> to be completed in finalised copy
+No, our contracts control all of our sanitation - allowing us to be free of antipatterns. Additionally, the previous answer has been integrated into our design philosophy, which would ensure that no antipatterns exists.
 
 ##### How can I make the timing accurate? What time resolution should I be looking at, remember real-time systems? Time formats?
 Generally, system time is considered accurate enough. For example, sleep(x) is considered accurate.
 
 ##### Does ‘C’ have better facilities for this problem than Ruby? (Big hint!)
 Yes, C has better facilities for this problem. We plan on using one of those key facilities (sleep) to accurately time our processes. 
-
-###### AUGMENTED DESIGN DECISIONS
-In part three, we have swapped sleep(x) for nanosleep(x) - this is because of several reasons. First, we can ensure that the timing is more accurate by handling it by nanosecond count. This gives us a lot more leeway to ensure that our timing gives us the omst accurate response possible - without crashing on us. By doing so, we can increase precision 4+x that of sleep(x) (as we're using breaks of 250ms). 
-
-However, because of the nature of the second module (wherein a child process can simply sleep for an alloted period of time), the sleep(x) function will suffice. After looking at nanosleep, we decided that it would be easier for users to specify time delays in seconds - rather than milliseconds (i.e. the number of users that would benefit from 12000ms instead of 12 seconds outweigh the number of people that would use a shorter function with seconds). As a result, the second module retains its 'seconds' modifier.
 
 ##### What should be user controllable? Can we trust the user?
 The values that should be user controllable are: evoking the function, setting the message, and setting the time duration. Because we properly sanitize the input, we can trust the user with manipulating the message, as well as setting the time duration. Of course, various gates are used in order to ensure that the user cannot 'break' the system - this includes adding a limit to both message size and duration, as well as preventing any 'bad' input from going through. However, because this module is naturally unintrusive, most functionality can be trusted to the user.
@@ -173,6 +161,8 @@ The inputs would be sanitised beforehand by the Ruby script before being process
 
 These aspects are required, especially for a command line interface application. As users expect a level of quality with the innermost processes (aspects obtained by having a secure, robust system), developers need to build applications with respect to these key qualities at all times.
 #####What components of the Ruby exception hierarchy are applicable to this problem? Illustrate your answer.
+The ruby exception heirarchy can be explained here:
+
 ```ruby
 Exception
   IRB::Abort
@@ -261,7 +251,7 @@ Exception
 ```
 
 #####Does this problem require an iterator?
-Possibly. Still unsure.
+Yes, this problem requires an iterator. We have to use one to continually cycle through our operations, in order to ensure that the system is constantly 'examined' for FileWatcher.
 
 #####Describe Java’s anonymous inner classes.
 Single succinct expression with no name often used if only requiring one instance of the class. Can be included in method calls.
@@ -318,7 +308,7 @@ Errno.constants
 ```
 
 #####Do any of the Anti-patterns described at: [http://today.java.net/pub/a/today/2006/04/06/exception-handlingantipatterns.html](http://today.java.net/pub/a/today/2006/04/06/exception-handlingantipatterns.html) exist in your solution?
-Lets hope not? but probably
+See Module 2 for response.
 
 Reference:
   * [Effective Java Exceptions](http://www.oracle.com/au/products/database/effective-exceptions-092345.html)
@@ -335,16 +325,19 @@ Reference:
       * Unsupported Operation Returning Null
       * IgnoringInterruptedException
       * Relying on getCause()
-!!To be answered. Link does not work currently.
+
+See Module 2 for response.
 
 ##### Describe the content of the library at: [http://c2.com/cgi/wiki?ExceptionPatterns](http://c2.com/cgi/wiki?ExceptionPatterns). 
     * Which are applicable to this problem? Illustrate your answer. 
     * Which are applicable to the previous two problems? Illustrate your answer.
+
 ##### Is a directory, a file? Is a pipe, a file? Is a ….., a file? Tell us your thoughts on the definition of a file in a LINUX context.
 Formally a file consists of an inode (file properties, incl pointer to data) and its data storage. In special storage is located the file names and directories. 
 
 Directory is a file. 
-Pipe is not a file? Its a process.
+Pipe is not a file - it is a process.
+
 ##### Define what is meant (in a LINUX environment) by file change? Does it mean only contents? Or does it include meta-information? What is meta-information for a file?
 
 [Linux fschange](http://stefan.buettcher.org/cs/fschange/)
