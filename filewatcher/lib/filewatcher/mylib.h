@@ -31,3 +31,4 @@ int fwalter(char * name, int dur);
 int fwdestroy(char * name, int dur);
 void newfile (char * filename);
 void delfile (char * filename);
+void strprint(char * statement);

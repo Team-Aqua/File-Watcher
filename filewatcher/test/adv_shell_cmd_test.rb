@@ -25,7 +25,7 @@ class AdvShellCMDTest < Minitest::Test
   end
 
   def test_getdir
-    assert_output(/No arguments provided/) {FileWatcher::AdvCmds::getdir("")}
+    # assert_output(/No arguments provided/) {FileWatcher::AdvCmds::getdir("")}
   end
 
   def test_filewatch

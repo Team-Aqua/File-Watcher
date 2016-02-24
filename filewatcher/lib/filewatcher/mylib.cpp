@@ -24,6 +24,7 @@ void help () {
   cout << " ls                            :: find files in directory   " << endl;
   cout << " cd {dir}                      :: change directories        " << endl;
   cout << " getdir                        :: get current directory     " << endl;
+  cout << " print -m '{statement}'        :: prints statement        " << endl;
   cout << " quit                          :: exit console              " << endl;
   cout << "+----------------------------------------------------------+" << endl;
   cout << " Advanced Functions:                                          " << endl;
@@ -39,6 +40,13 @@ void help () {
   cout << " newfile -f '{filename list}'  :: creates blank files       " << endl;
   cout << " delfile -f '{filename}'       :: deletes files in dir.     " << endl;
   cout << "+----------------------------------------------------------+" << endl;
+}
+
+void strprint(char * statement) {
+  cout << "+------------------------------+" << endl;
+  cout << statement << endl;
+  cout << "+------------------------------+\n" << endl;
+  return;
 }
 
 time_t get_mtime(char *path) {
@@ -274,7 +282,7 @@ int fwdestroy(char * name, int dur) {
     }
     if (found == false) {
       cout << "+----------------------------------------+" << endl;
-      cout << " File " << name << " destroyed after " << duritr + 25 << " milliseconds" << endl;
+      cout << " File " << name << " destroyed after " << duritr + 250 << " milliseconds" << endl;
       cout << "+----------------------------------------+" << endl;
       return 0;
     }
@@ -292,7 +300,7 @@ int fwalter(char * name, int dur) {
   DIR           *dp;
   struct dirent *dirp;
   struct stat    buf;
-  char *filepath = (char *)malloc(sizeof(char) * 100);
+  char *filepath = (char *)malloc(sizeof(char) * 1000);
   time_t oldModifiedTime;
   time_t newModifiedTime;
   char buff[20];
@@ -302,7 +310,7 @@ int fwalter(char * name, int dur) {
 
   struct timespec timeeval;
   timeeval.tv_sec = 0;
-  timeeval.tv_nsec = 250000000; /* 25 milliseconds */
+  timeeval.tv_nsec = 250000000; /* 250 milliseconds */
 
   bool found = false;
   dp = opendir(".");
@@ -408,7 +416,7 @@ int fwcreate(char * name, int dur) {
           // if file is found, then return 'true'.
           // can test by running, then making a file @ location
           cout << "+----------------------------------------+" << endl;
-          cout << " File " << name << " created after " << duritr + 25 << " milliseconds" << endl;
+          cout << " File " << name << " created after " << duritr + 250 << " milliseconds" << endl;
           cout << "+----------------------------------------+" << endl;
           return 0;
         } 
