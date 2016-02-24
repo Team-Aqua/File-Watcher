@@ -360,4 +360,6 @@ Pipe is not a file - it is a process.
 
 ##### Define what is meant (in a LINUX environment) by file change? Does it mean only contents? Or does it include meta-information? What is meta-information for a file?
 
-[Linux fschange](http://stefan.buettcher.org/cs/fschange/)
+[Linux Metadata](https://www.cs.columbia.edu/~smb/classes/s06-4118/l21.pdf)
+
+A file change occurs whenever any file metadata changes. It does not only mean contents, it also means the metadata, since a person can access the file which will change some information in the metadata and alter the file. For us, we are only conserned with the last modified time, since this will tell us when the file's contents have been altered.
