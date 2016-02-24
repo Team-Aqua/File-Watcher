@@ -39,7 +39,7 @@ module FileWatcher
 
       time = StaticRegex::TIME_ARG_INTEGER.match(args)[1]
 
-      if StaticRegex::ACTION_ARG_ANY.match(args)[1]
+      if StaticRegex::ACTION_ARG_ANY.match(args)
         action = StaticRegex::ACTION_ARG_ANY.match(args)[1]
         command, sub_args = action.split(" ", 2)
         puts "#{command}"
