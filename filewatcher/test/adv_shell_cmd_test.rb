@@ -34,7 +34,7 @@ class AdvShellCMDTest < Minitest::Test
 
   def test_filewatch
     # assert_output(/#{FileWatcher::MContracts::ERROR_STRING_FILEWATCH_MODE_ARGS}/) {FileWatcher::AdvCmds::filewatch("-m")}
-    assert_output(/#{FileWatcher::MContracts::ERROR_STRING_T_IS_INT}/) {FileWatcher::AdvCmds::filewatch("-mcreate-f\"lal.txt\"-ta")}
+    assert_output(/#{FileWatcher::MContracts::ERROR_STRING_T_IS_INT}/) {FileWatcher::AdvCmds::filewatch("-mcreate-f'lal.txt'-ta")}
     # assert_output("") {FileWatcher::AdvCmds::filewatch("-mcreate-f\"newFile.txt\"-t20-a' delfile'")}
     # assert_output("") {FileWatcher::AdvCmds::filewatch("-mcreate-f\"newFile.txt\"-t20")}
 
@@ -45,15 +45,8 @@ class AdvShellCMDTest < Minitest::Test
     assert_output("") {FileWatcher::AdvCmds::filewatch("-mcreate-f'newFile.txt'-t0-a' newfile'")}
     assert_output("") {FileWatcher::AdvCmds::filewatch("-mcreate-f'newFile.txt'-t0-a' delfile'")}
     assert_output("") {FileWatcher::AdvCmds::filewatch("-mcreate-f'newFile.txt'-t0-a' strprint'")}
-    assert_output(/Sub command: histfn is not allowed./) {FileWatcher::AdvCmds::filewatch("-mcreate-f\"newFile.txt\"-t0-a'histfn 2'")}    
+    assert_output(/Sub command: histfn is not allowed./) {FileWatcher::AdvCmds::filewatch("-mcreate-f'newFile.txt'-t0-a'histfn 2'")}    
 
-  end
-
-  def test_filewatch_single
-    # assert_output(/#{FileWatcher::MContracts::ERROR_STRING_FILEWATCH_MODE_ARGS}/) {FileWatcher::AdvCmds::filewatch("-m")}
-    assert_output(/#{FileWatcher::MContracts::ERROR_STRING_T_IS_INT}/) {FileWatcher::AdvCmds::filewatch("-mcreate-f'lal.txt'-ta")}
-    # assert_output("") {FileWatcher::AdvCmds::filewatch("-mcreate-f'newFile.txt'-t20-a' delfile -f 'newFile.txt' '")}
-    # assert_output("") {FileWatcher::AdvCmds::filewatch("-mcreate-f'newFile.txt'-t20")}
   end
 
   def test_getdir

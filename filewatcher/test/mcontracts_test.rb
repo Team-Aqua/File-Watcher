@@ -8,9 +8,9 @@ class MContractsTest < Minitest::Test
   end
 
   def test_argument_validation
-    assert FileWatcher::MContracts::argument_validation("-m\"lala\"",[FileWatcher::MContracts::Arg_m])
-    assert FileWatcher::MContracts::argument_validation("-m\"lala\"-t2",[FileWatcher::MContracts::Arg_m, FileWatcher::MContracts::Arg_t])
-    assert !FileWatcher::MContracts::argument_validation("-m\"lala\"-ta",[FileWatcher::MContracts::Arg_m, FileWatcher::MContracts::Arg_t])
+    assert FileWatcher::MContracts::argument_validation("-m'lala\'",[FileWatcher::MContracts::Arg_m])
+    assert FileWatcher::MContracts::argument_validation("-m'lala'-t2",[FileWatcher::MContracts::Arg_m, FileWatcher::MContracts::Arg_t])
+    assert !FileWatcher::MContracts::argument_validation("-m'lala'-ta",[FileWatcher::MContracts::Arg_m, FileWatcher::MContracts::Arg_t])
   end
 
   def test_argument_validation_single

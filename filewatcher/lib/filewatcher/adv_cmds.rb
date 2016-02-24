@@ -57,7 +57,7 @@ module FileWatcher
       watch_mode = StaticRegex::WATCH_MODE_ARG.match(args)[1]
 
       file_names = StaticRegex::FILENAME_ARG_ANY.match(args)[1]
-      file_name = StaticRegex::CONTENT_BETWEEN_QUOTES.match(file_names)[2]
+      # file_name = StaticRegex::CONTENT_BETWEEN_QUOTES.match(file_names)[2]
 
       time = StaticRegex::TIME_ARG_INTEGER.match(args)[1]
       if StaticRegex::ACTION_ARG_ANY.match(args)
@@ -72,7 +72,7 @@ module FileWatcher
       # extract each filename
       # right now we split by space - rework later
       # broken because of regex
-      filenames = file_name.split(" ");
+      filenames = file_names.split(" ");
       for name in filenames
         Mylib::filewatch(watch_mode, name, time.to_i, command, sub_args)
         sleep 0.15
