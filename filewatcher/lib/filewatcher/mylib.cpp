@@ -176,9 +176,9 @@ void filewatch(char * fn, char * name, int dur, char * commandName, char * actio
   int pid = fork();
   if ( pid == 0 ){
     int *err = (int *)malloc(sizeof(int));
-    char *tempAction = (char *)calloc(strlen(action)+1, sizeof(char));
-    strcpy(tempAction, action);
-      
+    char *tempAction = (char *)malloc((sizeof(action)+15) * sizeof(char));
+    tempAction = action;
+
     /* child */
     if (strncmp (fn, "create", strlen(fn)) == 0 ) {
       *err = fwcreate(name, dur);
@@ -190,7 +190,7 @@ void filewatch(char * fn, char * name, int dur, char * commandName, char * actio
       cout << "No recognised function call presented." << endl;
       *err = 1;
     }
-      
+
     if (*err == 0) {
         if (strncmp (commandName, "help", strlen(fn)) == 0) {
             cout << "+---------------------------------------------+" << endl;
