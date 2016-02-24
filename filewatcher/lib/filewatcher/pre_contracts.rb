@@ -3,14 +3,15 @@ module FileWatcher
     @commands_pre_contracts = { 
       :help =>  [],
       :ls => [], 
-      :cd => [], 
+      :cd => [MContracts::NilArgs], 
       :quit => [],
-      :filewatch => [], 
+      :filewatch => [MContracts::NilArgs, MContracts::Arg_watch_mode, MContracts::Arg_file, MContracts::Arg_t], 
       :histfn =>  [],
       :getdir =>  [],
       :sysmgr =>  [FileWatcher::MContracts::NilArgs, FileWatcher::MContracts::Arg_m, FileWatcher::MContracts::Arg_t],
-      :newfile =>  [],
-      :delfile =>  []
+      :newfile =>  [MContracts::NilArgs, MContracts::Arg_file],
+      :delfile =>  [MContracts::NilArgs, MContracts::Arg_file],
+      :strprint => [MContracts::NilArgs, MContracts::Arg_m]
     }
 
     def self.getContract(symbol)

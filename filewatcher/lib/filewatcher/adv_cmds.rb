@@ -67,6 +67,10 @@ module FileWatcher
           puts "Sub command: #{command} is not allowed."
           return
         end
+        if !MContracts::argument_validation(sub_args,PreContracts::getContract(command.to_sym))
+          puts "subcommand #{command} Arguments: #{sub_args} are not valid"
+          return
+        end
       end
 
       # extract each filename
