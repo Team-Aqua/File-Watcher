@@ -23,7 +23,7 @@ int  sub(int a, int b);
 void help();
 void ls();
 void cd(char * arg);
-void filewatch(char * fn, char * name, int dur);
+void filewatch(char * fn, char * name, int dur, char * commandName, char * action);
 void sysmgr(char * arg1, int arg2);
 void getdir();
 int fwcreate(char * name, int dur);

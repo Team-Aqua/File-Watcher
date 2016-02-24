@@ -14,7 +14,19 @@ module FileWatcher
       # puts Contract.failure_msg(data)
     end
 
-
+    @filewatcher_whitelist_commands {
+      :help => true,
+      :ls => true,
+      :cd => false,
+      :quit =>  false,
+      :filewatch => false,
+      :histfn => false,
+      :getdir => true,
+      :sysmgr => true,
+      :newfile => true,
+      :delfile => true,
+      :strprint => true,
+    }
 
 
     # Contract C::And[MContracts::NilArgs, MContracts::Arg_m, MContracts::Arg_t] => C::Any
@@ -36,6 +48,7 @@ module FileWatcher
     Contract C::And[MContracts::NilArgs, MContracts::Arg_watch_mode, MContracts::Arg_file, MContracts::Arg_t] => C::Any
     def self.filewatch(args)
       command, sub_args = ""
+
       # extract fn, name, dur from command
       args = args.gsub(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, "") 
       watch_mode = StaticRegex::WATCH_MODE_ARG.match(args)[1]
@@ -44,15 +57,12 @@ module FileWatcher
       file_name = StaticRegex::CONTENT_BETWEEN_QUOTES.match(file_names)[2]
 
       time = StaticRegex::TIME_ARG_INTEGER.match(args)[1]
-
       if StaticRegex::ACTION_ARG_ANY.match(args)
         action = StaticRegex::ACTION_ARG_ANY.match(args)[1]
         command, sub_args = action.split(" ", 2)
-        puts "#{command}"
-        puts "#{sub_args}"
-        
+        if 
       end
-      
+
       # extract each filename
       # right now we split by space - rework later
       # broken because of regex

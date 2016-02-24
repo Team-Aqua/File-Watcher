@@ -169,6 +169,7 @@ void filewatch(char * fn, char * name, int dur, char * commandName, char * actio
   if ( pid == 0 ){
     int *err = (int *)malloc(sizeof(int));
     char *tempAction = (char *)malloc(sizeof(char) * sizeof(action));
+    tempAction = action;
       
     /* child */
     if (strncmp (fn, "create", strlen(fn)) == 0 ) {
@@ -184,45 +185,62 @@ void filewatch(char * fn, char * name, int dur, char * commandName, char * actio
       
     if (*err == 0) {
         if (strncmp (commandName, "help", strlen(fn)) == 0) {
+            cout << "+---------------------------------------------+" << endl;
             cout << "The addition action 'help' is being processed." << endl;
+            cout << "+---------------------------------------------+" << endl;
             help();
             
         } else if (strncmp (commandName, "ls", strlen(fn)) == 0) {
+            cout << "+---------------------------------------------" << endl;
             cout << "The addition action 'ls' is being processed." << endl;
+            cout << "+--------------------------------------------+" << endl;
             ls();
             
         } else if (strncmp (commandName, "getdir", strlen(fn)) == 0) {
+            cout << "+-----------------------------------------------+" << endl;
             cout << "The addition action 'getdir' is being processed." << endl;
+            cout << "+-----------------------------------------------+" << endl;
             getdir();
-            
+
         } else if (strncmp (commandName, "newfile", strlen(fn)) == 0) {
+            cout << "+------------------------------------------------+" << endl;
             cout << "The addition action 'newfile' is being processed." << endl;
+            cout << "+------------------------------------------------+" << endl;
             newfile(strtok(tempAction, " "));
             
         } else if (strncmp (commandName, "delfile", strlen(fn)) == 0) {
+            cout << "+------------------------------------------------+" << endl;
             cout << "The addition action 'delfile' is being processed." << endl;
+            cout << "+------------------------------------------------+" << endl;
             delfile(strtok(tempAction, " "));
             
         } else if (strncmp (commandName, "cd", strlen(fn)) == 0) {
+            cout << "+-------------------------------------------+" << endl;
             cout << "The addition action 'cd' is being processed." << endl;
+            cout << "+-------------------------------------------+" << endl;
             cd(strtok(tempAction, " "));
             
         } else if (strncmp (commandName, "strprint", strlen(fn)) == 0) {
+            cout << "+-------------------------------------------------+" << endl;
             cout << "The addition action 'strprint' is being processed." << endl;
+            cout << "+-------------------------------------------------+" << endl;
             strprint(strtok(tempAction, " "));
             
         } else if (strncmp (commandName, "sysmgr", strlen(fn)) == 0) {
+            cout << "+-----------------------------------------------+" << endl;
             cout << "The addition action 'sysmgr' is being processed." << endl;
+            cout << "+-----------------------------------------------+" << endl;
             sysmgr(strtok(tempAction, " "), atoi(strtok(tempAction, " ")));
             
         } else {
+            cout << "+--------------------------+" << endl;
             cout << "No additional action taken." << endl;
+            cout << "+--------------------------+" << endl;
         }
     }
     
-    free(err);
-    free(tempAction);
-    free(actionName);
+    free(err)
+    free(tempAction)
       
     exit(0);
   } else {
@@ -333,6 +351,8 @@ int fwalter(char * name, int dur) {
     cout << "+---------------------------------------+" << endl;
     cout << " " << name << " isn't found ;; filewatch has ended" << endl;
     cout << "+---------------------------------------+" << endl;
+      
+    free(filepath);
     return 1;
   }
 
@@ -349,6 +369,8 @@ int fwalter(char * name, int dur) {
             cout << "+-----------------------------------+" << endl;
             cout << " File " << name << " has been changed after " << duritr + 250 << " milliseconds - altered" << endl;
             cout << "+-----------------------------------+" << endl;
+              
+            free(filepath);
             return 0;
           }
         } 
@@ -358,6 +380,8 @@ int fwalter(char * name, int dur) {
       cout << "+-----------------------------------+" << endl;
       cout << " File " << name << " not found after " << duritr + 250 << " milliseconds - destroyed" << endl;
       cout << "+-----------------------------------+" << endl;
+        
+      free(filepath);
       return 1;
     }
     duritr = duritr + 250;
@@ -368,6 +392,8 @@ int fwalter(char * name, int dur) {
   cout << "+-----------------------------------+" << endl;
   cout << "File monitoring for "<< name << " complete after " << dur << " seconds." << endl;
   cout << "+-----------------------------------+" << endl;
+    
+  free(filepath);
   return 1;
 }
 
@@ -449,5 +475,9 @@ void sysmgr(char * arg1, int arg2) {
 }
 
 int main() {
-  ls();
+  char* fn = "alter";
+  char* name = "TEST.md";
+  char* cmd = "newfile";
+  char* action = "TEST2.md";
+  filewatch(fn, name, 100, cmd, action);
 }
