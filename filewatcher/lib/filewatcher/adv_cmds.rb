@@ -2,6 +2,7 @@ require "filewatcher/exceptions"
 require "contracts"
 require "filewatcher/mcontracts"
 require "filewatcher/static_regex"
+require "filewatcher/pre_contracts"
 
 module FileWatcher
   module AdvCmds
@@ -13,8 +14,13 @@ module FileWatcher
       # puts Contract.failure_msg(data)
     end
 
-    Contract C::And[MContracts::NilArgs, MContracts::Arg_m, MContracts::Arg_t] => C::Any
+
+
+
+    # Contract C::And[MContracts::NilArgs, MContracts::Arg_m, MContracts::Arg_t] => C::Any
     def self.sysmgr(args)
+      if !MContracts::argument_validation(args, PreContracts::getContract(:sysmgr)) then return end
+
       args = args.gsub(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, "")
       message = StaticRegex::MESSAGE_ARG_QUOTES_CONTAIN_ANY.match(args)[1].gsub(StaticRegex::FIND_QUOTES, "")
       time = StaticRegex::TIME_ARG_INTEGER.match(args)[1]
@@ -44,6 +50,7 @@ module FileWatcher
         command, sub_args = action.split(" ", 2)
         puts "#{command}"
         puts "#{sub_args}"
+        
       end
       
       # extract each filename
