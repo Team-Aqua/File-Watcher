@@ -8,8 +8,6 @@ module FileWatcher
     C = Contracts
 
     Contract.override_failure_callback do |data|
-      # Stop Exception Failures
-      # puts Contract.failure_msg(data)
     end
 
     def self.ls(args)
@@ -32,7 +30,6 @@ module FileWatcher
     def self.newfile(args)
       args = args.gsub(StaticRegex::WHITESPACE_OMIT_CONTENT, "") 
       file_name = StaticRegex::FILENAME_ARG_ANY.match(args)[1]
-      # file_name = StaticRegex::CONTENT_BETWEEN_QUOTES.match(file_name)[2]
       filenames = file_name.split(" ");
       for name in filenames
         Mylib::newfile(name)
@@ -44,7 +41,6 @@ module FileWatcher
     def self.delfile(args)
       args = args.gsub(StaticRegex::WHITESPACE_OMIT_CONTENT, "") 
       file_name = StaticRegex::FILENAME_ARG_ANY.match(args)[1]
-      # file_name = StaticRegex::CONTENT_BETWEEN_QUOTES.match(file_name)[1]
       filenames = file_name.split(" ");
       for name in filenames
         Mylib::delfile(name)
