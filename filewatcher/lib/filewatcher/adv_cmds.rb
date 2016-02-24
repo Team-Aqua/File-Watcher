@@ -2,6 +2,7 @@ require "filewatcher/exceptions"
 require "contracts"
 require "filewatcher/mcontracts"
 require "filewatcher/static_regex"
+require "filewatcher/pre_contracts"
 
 module FileWatcher
   module AdvCmds
@@ -13,8 +14,28 @@ module FileWatcher
       # puts Contract.failure_msg(data)
     end
 
-    Contract C::And[MContracts::NilArgs, MContracts::Arg_m, MContracts::Arg_t] => C::Any
+      def self.filewatcher_whitelist_commands(cmd)
+        whitelist_commands = {
+          :help => true,
+          :ls => true,
+          :cd => false,
+          :quit =>  false,
+          :filewatch => false,
+          :histfn => false,
+          :getdir => true,
+          :sysmgr => true,
+          :newfile => true,
+          :delfile => true,
+          :strprint => true
+        }
+        return whitelist_commands[cmd.to_sym]
+      end
+
+
+    # Contract C::And[MContracts::NilArgs, MContracts::Arg_m, MContracts::Arg_t] => C::Any
     def self.sysmgr(args)
+      if !MContracts::argument_validation(args, PreContracts::getContract(:sysmgr)) then return end
+
       args = args.gsub(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, "")
       message = StaticRegex::MESSAGE_ARG_QUOTES_CONTAIN_ANY.match(args)[1].gsub(StaticRegex::FIND_QUOTES, "")
       time = StaticRegex::TIME_ARG_INTEGER.match(args)[1]
@@ -30,6 +51,7 @@ module FileWatcher
     Contract C::And[MContracts::NilArgs, MContracts::Arg_watch_mode, MContracts::Arg_file, MContracts::Arg_t] => C::Any
     def self.filewatch(args)
       command, sub_args = ""
+
       # extract fn, name, dur from command
       args = args.gsub(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, "") 
       watch_mode = StaticRegex::WATCH_MODE_ARG.match(args)[1]
@@ -41,6 +63,10 @@ module FileWatcher
       if StaticRegex::ACTION_ARG_ANY.match(args)
         action = StaticRegex::ACTION_ARG_ANY.match(args)[1]
         command, sub_args = action.split(" ", 2)
+        if !filewatcher_whitelist_commands(command)
+          puts "Sub command: #{command} is not allowed."
+          return
+        end
       end
 
       # extract each filename
