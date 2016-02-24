@@ -54,8 +54,7 @@ module FileWatcher
 
       action = StaticRegex::ACTION_ARG_ANY.match(args)[1]
       command, sub_args = action.split(" ", 2)
-      puts "#{command}"
-      puts "#{sub_args}"
+
       # extract each filename
       # right now we split by space - rework later
       # broken because of regex
