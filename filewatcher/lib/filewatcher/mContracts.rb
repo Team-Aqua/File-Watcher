@@ -83,7 +83,7 @@ module FileWatcher
           return false
         end
         f_arg = StaticRegex::FILENAME_ARG_ANY.match(args)[1]
-        f_arg = StaticRegex::CONTENT_BETWEEN_QUOTES.match(f_arg)[2]
+        # f_arg = StaticRegex::CONTENT_BETWEEN_QUOTES.match(f_arg)[1]
         
         f_args = f_arg.split(" ")
         f_args.each do | filename | 

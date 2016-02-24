@@ -29,32 +29,13 @@ class RegexTest < Minitest::Test
 
   # FILENAME_ARG_ANY = /-f('(.*?)'|"(.*?)")/
   def test_regex_filename_arg_any
-    assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_ANY, "-f\"file1.txt\"") )
     assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_ANY, "-f'file1.txt'") )
-    assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_ANY, "-f\"file1.txt file2.txt file3.txt\"") )
     assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_ANY, "-f'file1.txt file2.txt file3.txt'") )
     assert(!StaticRegex::matcher(StaticRegex::FILENAME_ARG_ANY, "-ffile1.txt") )
   end
 
   # FILENAME_ARG_VALID = /-f('|")([a-zA-Z0-9_-]+\.[a-z0-9]+)('|")/
   def test_regex_filename_arg_valid
-    assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f\"file1.txt\"") )
-    assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f\"filename.txt\"") )
-    assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f\"filename.a\"") )
-    assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f\"filename.ah\"") )
-    assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f\"filename.a\"") )
-    assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f\"filename.7a\"") )
-    assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f\"filename.a7\"") )
-    assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f\"file_name.txt\"") )
-    assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f\"file-name.txt\"") )
-    assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f\"File-nAme.txt\"") )
-    assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f\"f23ile-02name01.txt\"") )
-    assert(!StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f\"filen$ame.a7\"") )
-    assert(!StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f\"f23ile-02nam'e01.txt\"") )
-    assert(!StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f\"filename\"") )
-    assert(!StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f\"filename.\"") )
-    assert(!StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f\"file#2.txt\"") )
-
     assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f'file1.txt'") )
     assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f'filename.txt'") )
     assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f'filename.a'") )
@@ -74,23 +55,6 @@ class RegexTest < Minitest::Test
   end
 
   def test_regex_filename_arg_valid_single
-    assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f'file1.txt'") )
-    assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f'filename.txt'") )
-    assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f'filename.a'") )
-    assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f'filename.ah'") )
-    assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f'filename.a'") )
-    assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f'filename.7a'") )
-    assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f'filename.a7'") )
-    assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f'file_name.txt'") )
-    assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f'file-name.txt'") )
-    assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f'File-nAme.txt'") )
-    assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f'f23ile-02name01.txt'") )
-    assert(!StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f'filen$ame.a7'") )
-    assert(!StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f'f23ile-02nam'e01.txt'") )
-    assert(!StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f'filename'") )
-    assert(!StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f'filename.'") )
-    assert(!StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f'file#2.txt'") )
-
     assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f'file1.txt'") )
     assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f'filename.txt'") )
     assert(StaticRegex::matcher(StaticRegex::FILENAME_ARG_VALID, "-f'filename.a'") )
@@ -132,17 +96,6 @@ class RegexTest < Minitest::Test
 
   # MESSAGE_ARG_QUOTES_CONTAIN_ANY = /-m('(.*?)'|"(.*?)")/
   def test_regex_message_arg_quotes_contain_any
-    assert(StaticRegex::matcher(StaticRegex::MESSAGE_ARG_QUOTES_CONTAIN_ANY, "-m\"file1.txt\"") )
-    assert(StaticRegex::matcher(StaticRegex::MESSAGE_ARG_QUOTES_CONTAIN_ANY, "-m\"filename.txt\"") )
-    assert(StaticRegex::matcher(StaticRegex::MESSAGE_ARG_QUOTES_CONTAIN_ANY, "-m\"filename.a\"") )
-    assert(StaticRegex::matcher(StaticRegex::MESSAGE_ARG_QUOTES_CONTAIN_ANY, "-m\"filename.ah\"") )
-    assert(StaticRegex::matcher(StaticRegex::MESSAGE_ARG_QUOTES_CONTAIN_ANY, "-m\"filename.a\"") )
-    assert(StaticRegex::matcher(StaticRegex::MESSAGE_ARG_QUOTES_CONTAIN_ANY, "-m\"filename.7a\"") )
-    assert(StaticRegex::matcher(StaticRegex::MESSAGE_ARG_QUOTES_CONTAIN_ANY, "-m\"filename.a7\"") )
-    assert(StaticRegex::matcher(StaticRegex::MESSAGE_ARG_QUOTES_CONTAIN_ANY, "-m\"file_name.txt\"") )
-    assert(StaticRegex::matcher(StaticRegex::MESSAGE_ARG_QUOTES_CONTAIN_ANY, "-m\"file-name.txt\"") )
-    assert(StaticRegex::matcher(StaticRegex::MESSAGE_ARG_QUOTES_CONTAIN_ANY, "-m\"File-nAme.txt\"") )
-    assert(StaticRegex::matcher(StaticRegex::MESSAGE_ARG_QUOTES_CONTAIN_ANY, "-m\"f23ile-02name01.txt\"") )
 
     assert(StaticRegex::matcher(StaticRegex::MESSAGE_ARG_QUOTES_CONTAIN_ANY, "-m'file1.txt'") )
     assert(StaticRegex::matcher(StaticRegex::MESSAGE_ARG_QUOTES_CONTAIN_ANY, "-m'filename.txt'") )
@@ -162,13 +115,13 @@ class RegexTest < Minitest::Test
   # FIND_QUOTES = /(')|(")/
   def test_regex_find_quotes
     assert(StaticRegex::matcher(StaticRegex::FIND_QUOTES, "'") )
-    assert(StaticRegex::matcher(StaticRegex::FIND_QUOTES, "\"") )
+    assert(!StaticRegex::matcher(StaticRegex::FIND_QUOTES, "\"") )
     assert(!StaticRegex::matcher(StaticRegex::FIND_QUOTES, "-") )
   end
 
   # CONTENT_BETWEEN_QUOTES = /('|")(.*?)('|")/
   def test_regex_content_between_quotes
-    assert(StaticRegex::matcher(StaticRegex::CONTENT_BETWEEN_QUOTES, "\"-\"") )
+    assert(!StaticRegex::matcher(StaticRegex::CONTENT_BETWEEN_QUOTES, "\"-\"") )
     assert(StaticRegex::matcher(StaticRegex::CONTENT_BETWEEN_QUOTES, "'-'") )
     assert(!StaticRegex::matcher(StaticRegex::CONTENT_BETWEEN_QUOTES, "a\"") )
     assert(!StaticRegex::matcher(StaticRegex::CONTENT_BETWEEN_QUOTES, "'a") )
@@ -206,5 +159,9 @@ class RegexTest < Minitest::Test
     assert(StaticRegex::matcher(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, "-f \"test.txt\"") )
     assert(StaticRegex::matcher(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, " ") )
     assert(!StaticRegex::matcher(StaticRegex::WHITESPACE_OMIT_BRACKET_WHITESPACE_CONTENT, "-f\"test.txt\"") )
+  end
+
+  def test_find_white_space_omit_content
+
   end
 end
