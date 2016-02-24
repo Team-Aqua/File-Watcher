@@ -332,6 +332,26 @@ See Module 2 for response.
     * Which are applicable to this problem? Illustrate your answer. 
     * Which are applicable to the previous two problems? Illustrate your answer.
 
+**Current Problem** 
+
+We are attempting to insert as few exceptions as possible in our code. Instead, we woul rather prefer to direct our users to correct paths, rather than breaking the system whenever a wrong path is accessed. This means that the following exception patterns are useful for us:
+
+* http://c2.com/cgi/wiki?AvoidExceptionsWheneverPossible
+
+We use this methodology to avoid exceptions, instead to provide references to issues and return false. This system is implemented both in our contracts and in our C structure.
+
+* http://c2.com/cgi/wiki?LookBeforeYouLeap
+
+We handle potential exceptions before they occur. This allows you to handle errors before they occur, which ensures user interaction for the user.
+
+* http://c2.com/cgi/wiki?UseAssertions
+
+We're using contracts in lieu of assertions, but the overall structure is the same. By doing so, we can ensure the safety of both pre- and post- conditions for our shell.
+
+**Previous Two Problems**
+The same exception patterns are applicable for the previous two problems as well.
+
+
 ##### Is a directory, a file? Is a pipe, a file? Is a ….., a file? Tell us your thoughts on the definition of a file in a LINUX context.
 Formally a file consists of an inode (file properties, incl pointer to data) and its data storage. In special storage is located the file names and directories. 
 
@@ -340,4 +360,6 @@ Pipe is not a file - it is a process.
 
 ##### Define what is meant (in a LINUX environment) by file change? Does it mean only contents? Or does it include meta-information? What is meta-information for a file?
 
-[Linux fschange](http://stefan.buettcher.org/cs/fschange/)
+[Linux Metadata](https://www.cs.columbia.edu/~smb/classes/s06-4118/l21.pdf)
+
+A file change occurs whenever any file metadata changes. It does not only mean contents, it also means the metadata, since a person can access the file which will change some information in the metadata and alter the file. For us, we are only conserned with the last modified time, since this will tell us when the file's contents have been altered.

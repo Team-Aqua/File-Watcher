@@ -39,9 +39,14 @@ However, because of the nature of the second module (wherein a child process can
 
 Our filewatcher is built off of the premise that it can scan the whole directory and find the file. This limitation affects large file systems, as it may be significantly slower to process these than to process smaller file systems.
 
-For filewatcher, only one action can be parsed at a time. For example, there can't be an LS and CD in one structure. Another issue is the sysmgr in the action subcondition of filewatcher. In this, only one word can be input in the sysmgr. For other functions, they work as designed.
+For filewatcher, only one action can be parsed at a time. For example, there can't be an LS and CD in one structure. For other functions, they work as designed.
 
 **Timing**
 We have overhead on our processes and its count - when the system states it's checking immediately, there is a delay of 0.15s per item in the list. This is to ensure the cohesiveness of the product, but may not lend to accurate timing. While the 0.15s issue is relieved once the iterator is running, the overhead of reading through the file system is not accounted for, and may lead to minor timing problems.
 
 We have used an iterator of 250ms per iteration for filewatcher. This is to ensure that the system doesn't take too many resources reading the files over and over, but also maximises the precision of the product.
+
+### Additional Testing
+**Unit Tests**
+
+Several unit tests were created to test he regex and the contracts. This helped us insure that our contract implementation was correct and had no gaps in in whatsoever.

@@ -11,12 +11,21 @@ ECHO = $(ECHO1:0=@echo)
 #### Start of system configuration section. ####
 
 srcdir = .
+<<<<<<< HEAD
 topdir = /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/include/ruby-2.0.0
 hdrdir = $(topdir)
 arch_hdrdir = /System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/include/ruby-2.0.0/universal-darwin15
 PATH_SEPARATOR = :
 VPATH = $(srcdir):$(arch_hdrdir)/ruby:$(hdrdir)/ruby
 prefix = $(DESTDIR)/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr
+=======
+topdir = /Users/aaronplamondon/.rvm/rubies/ruby-2.2.1/include/ruby-2.2.0
+hdrdir = $(topdir)
+arch_hdrdir = /Users/aaronplamondon/.rvm/rubies/ruby-2.2.1/include/ruby-2.2.0/x86_64-darwin14
+PATH_SEPARATOR = :
+VPATH = $(srcdir):$(arch_hdrdir)/ruby:$(hdrdir)/ruby
+prefix = $(DESTDIR)/Users/aaronplamondon/.rvm/rubies/ruby-2.2.1
+>>>>>>> a28fb1beef88f19ed3c24a2b8e032cf911dc235b
 rubysitearchprefix = $(rubylibprefix)/$(sitearch)
 rubyarchprefix = $(rubylibprefix)/$(arch)
 rubylibprefix = $(libdir)/$(RUBY_BASE_NAME)
