@@ -36,10 +36,10 @@ void help () {
   cout << "                  ls |         :: NOTE: system subquery     " << endl;
   cout << "            cd {cmd} |                 must be separated    " << endl;
   cout << "              getdir |                 by one space only    " << endl;
-  cout << "  newfile {filename} |          :: eg. newfile test.txt     " << endl;
-  cout << "  delfile {filename} |                 sysmgr Warning! 3    " << endl;
-  cout << "   strprint {string} |                 strprint Help!       " << endl;
-  cout << "       sysmgr {string time}}'                               " << endl;  
+  cout << "  newfile {filename} |          :: eg. 'newfile test.txt'   " << endl;
+  cout << "  delfile {filename} |                 'sysmgr 3 Stop that!'" << endl;
+  cout << "   strprint {string} |                 'strprint Help me!'  " << endl;
+  cout << "       sysmgr {time string}}'                               " << endl;  
   cout << " sysmgr -m '{msg}' -t {time}   :: repeat system message     " << endl; // shifter by \" movement
   cout << "+----------------------------------------------------------+" << endl;
   cout << " Other Functions:                                           " << endl;
@@ -238,7 +238,8 @@ void filewatch(char * fn, char * name, int dur, char * commandName, char * actio
             cout << "+-----------------------------------------------+" << endl;
             cout << "The addition action 'sysmgr' is being processed." << endl;
             cout << "+-----------------------------------------------+" << endl;
-            sysmgr(strtok(tempAction, " "), atoi(strtok(NULL, " ")));
+            int number = atoi(strtok(tempAction, " "));
+            sysmgr(strtok(NULL, ""), number);
             
         } else {
             cout << "+--------------------------+" << endl;
